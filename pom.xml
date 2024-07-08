@@ -12,7 +12,7 @@
 	<artifactId>dev-pro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>dev-pro</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Command work on project</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -39,6 +39,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pengrad</groupId>
+			<artifactId>java-telegram-bot-api</artifactId>
+			<version>7.7.0</version>
 		</dependency>
 	</dependencies>
 
