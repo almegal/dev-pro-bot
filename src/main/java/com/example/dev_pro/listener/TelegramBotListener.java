@@ -26,6 +26,7 @@ public class TelegramBotListener implements UpdatesListener {
             Long chatId = update.message().chat().id();
             // вызвать метод слоя для обработки комманд
 
+
             //убрать  заглушку
             SendMessage msg = new SendMessage(chatId, ":)");
             bot.execute(msg);
