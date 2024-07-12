@@ -30,7 +30,7 @@ public class TelegramBotConfiguration {
         SetMyCommands setMyCommands = new SetMyCommands(
                   new BotCommand("/start", startMsg)
                 , new BotCommand("/info", infoMsg)
-                , new BotCommand("take", takeMsg)
+                , new BotCommand("/take", takeMsg)
         );
         bot.execute(new DeleteMyCommands());
         return bot;
