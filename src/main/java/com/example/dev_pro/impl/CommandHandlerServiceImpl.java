@@ -29,7 +29,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private static final String INFO_COM = "/info";
     private static final String TAKE_COM = "/take";
     private static final String REPORT_COM = "/report";
-    private static final String CALL_VOLLONTER = "Your request cannot be processed, I call vollonter.";
+    private static final String CALL_VOLUNTEER = "Your request cannot be processed, I call volunteer.";
 
     public String handleCommand(Long chatId, String text) {
         switch (text) {
@@ -42,7 +42,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             case REPORT_COM:
                 return null; // Добавим  процессе создание база данных!
             default:
-                return CALL_VOLLONTER;
+                return CALL_VOLUNTEER;
         }
     }
 
