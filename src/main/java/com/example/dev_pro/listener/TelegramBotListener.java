@@ -1,36 +1,40 @@
 package com.example.dev_pro.listener;
 
+import com.example.dev_pro.service.CommandHandlerService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TelegramBotListener implements UpdatesListener {
-    @Autowired
-    TelegramBot bot;
+
+    private final TelegramBot telegramBot;
+    private final CommandHandlerService commandHandlerService;
 
     @PostConstruct
     public void init() {
-        bot.setUpdatesListener(this);
+        telegramBot.setUpdatesListener(this);
     }
 
     @Override
-    public int process(List<Update> list) {
-        list.forEach(update -> {
-            Long chatId = update.message().chat().id();
-            // вызвать метод слоя для обработки комманд
+    public int process(List<Update> updates) {
+        updates.stream()
+                .filter(update -> update != null)
+                .forEach(update -> {
+                    try {
+                        commandHandlerService.commandProcessing(update);
+                    } catch (Exception e) {
 
-
-            //убрать  заглушку
-            SendMessage msg = new SendMessage(chatId, ":)");
-            bot.execute(msg);
-        });
+                    }
+                });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
+
+
 }
