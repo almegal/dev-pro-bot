@@ -21,6 +21,7 @@ public class TelegramBotConfiguration {
                   new BotCommand("/start", "Начать использование бота")
                 , new BotCommand("/info", "Получение информации о приюте")
                 , new BotCommand("/take", "Получение инструкции по опеке над животным")
+                , new BotCommand("/call", "Вызов волонтера")
         );
         bot.execute(new DeleteMyCommands());
         return bot;
