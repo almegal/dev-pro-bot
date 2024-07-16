@@ -31,6 +31,12 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private static final String REPORT_COM = "/report";
     private static final String CALL_VOLUNTEER = "Your request cannot be processed, I call volunteer.";
 
+    /**
+     * Метод обработка команды и возврат результата.
+     * @param chatId идентификатор чата.
+     * @param text текст команды.
+     * @return сообщение для отправки.
+     */
     public String handleCommand(Long chatId, String text) {
         switch (text) {
             case START_COM:
@@ -54,6 +60,11 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
         sendMsg(chatId, resultMsg);
     }
 
+    /**
+     * Метод отправки сообщения.
+     * @param chatId идентификатор чата.
+     * @param msg сообщение для отправки.
+     */
     @Override
     public void sendMsg(Long chatId, String msg) {
         SendMessage sendMessage = new SendMessage(chatId, msg);
