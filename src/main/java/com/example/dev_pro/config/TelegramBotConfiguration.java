@@ -24,6 +24,16 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.takeMsg}")
     private String takeMsg;
+
+    @Value("${telegram.bot.callVolunteerMsg}")
+    private String callVolunteerMsg;
+
+    @Value("${telegram.bot.errorMsg}")
+    private String errorMsg;
+
+    @Value("${telegram.bot.messageToVolunteerMsg}")
+    private String messageToVolunteerMsg;
+
     /**
      * Создание и настройка Telegram-бота.
      * @return новый экземпрляр TelegramBot.
