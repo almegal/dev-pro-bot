@@ -80,7 +80,7 @@ public class VolunteerController {
     }
 
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     @Operation(
             summary = "Удаление волонтера по id",
             responses = {
@@ -146,23 +146,5 @@ public class VolunteerController {
         return ResponseEntity.ok(nickNames);
     }
 
-    @GetMapping("/chat-id-volunteer")
-    @Operation(
-            summary = "Получение идентификатора чата волонтера по никнейму",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Идентификатор чата волонтера",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(schema = @Schema(implementation = Volunteer.class))
-                            )
-                    )
-            }
-    )
-    public ResponseEntity<Long> getChatIdOfVolunteer(@RequestParam (name = "Никнейм волонтера") String nickName) {
-        Long chatIdVolunteer = volunteerService.getChatIdOfVolunteer(nickName);
-        return ResponseEntity.ok(chatIdVolunteer);
-    }
 
 }
