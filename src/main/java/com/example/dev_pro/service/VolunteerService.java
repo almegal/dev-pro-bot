@@ -68,22 +68,4 @@ public interface VolunteerService {
 
     List<String> getListNickNamesOfVolunteers();
 
-    /**
-     * Метод возвращает true, если пользователь укажет команду - никнейм волонтера, или false, если пользователь
-     * не укажет эту команду.
-     * @param text команда пользователя / никнейм волонтера, не может быть null
-     * @return true или false
-     */
-
-    boolean isSelectVolunteer(String text);
-
-    /**
-     * Метод по получению идентификатора чата волонтера.
-     * Используется метод репозитория {@link JpaRepository#findAll()}
-     * @param text команда пользователя / никнейм волонтера, не может быть null
-     * @return идентификатор чата волонтера
-     */
-
-    Long getChatIdOfVolunteer(String text);
-
 }
