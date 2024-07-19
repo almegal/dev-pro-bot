@@ -24,6 +24,16 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.takeMsg}")
     private String takeMsg;
+
+    @Value("${telegram.bot.callVolunteerMsg}")
+    private String callVolunteerMsg;
+
+    @Value("${telegram.bot.errorMsg}")
+    private String errorMsg;
+
+    @Value("${telegram.bot.messageToVolunteerMsg}")
+    private String messageToVolunteerMsg;
+
     /**
      * Создание и настройка Telegram-бота.
      * @return новый экземпрляр TelegramBot.
@@ -35,6 +45,7 @@ public class TelegramBotConfiguration {
                   new BotCommand("/start", "Начать использование бота")
                 , new BotCommand("/info", "Получение информации о приюте")
                 , new BotCommand("/take", "Получение инструкции по опеке над животным")
+                , new BotCommand("/call", "Вызов волонтера")
         );
         bot.execute(new DeleteMyCommands());
         return bot;
