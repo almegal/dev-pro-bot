@@ -36,18 +36,20 @@ public class TelegramBotConfiguration {
 
     /**
      * Создание и настройка Telegram-бота.
+     *
      * @return новый экземпрляр TelegramBot.
      */
     @Bean
     public TelegramBot telegramBot() {
         TelegramBot bot = new TelegramBot(TELEGRAM_BOT_TOKEN);
         SetMyCommands setMyCommands = new SetMyCommands(
-                  new BotCommand("/start", "Начать использование бота")
+                new BotCommand("/start", "Начать использование бота")
                 , new BotCommand("/info", "Получение информации о приюте")
                 , new BotCommand("/take", "Получение инструкции по опеке над животным")
                 , new BotCommand("/call", "Вызов волонтера")
         );
         bot.execute(new DeleteMyCommands());
+        bot.execute(setMyCommands);
         return bot;
     }
 }
