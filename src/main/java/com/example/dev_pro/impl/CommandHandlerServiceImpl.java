@@ -6,7 +6,6 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,16 +13,7 @@ import org.springframework.stereotype.Service;
 public class CommandHandlerServiceImpl implements CommandHandlerService {
 
     private final TelegramBot telegramBot;
-    private final TelegramBotConfiguration telegramBotConfiguration;
-
-    @Value("${telegram.bot.startMsg}")
-    private String startMsg;
-
-    @Value("${telegram.bot.infoMsg}")
-    private String infoMsg;
-
-    @Value("${telegram.bot.takeMsg}")
-    private String takeMsg;
+    private final TelegramBotConfiguration tBotConfig;
 
     private static final String START_COM = "/start";
     private static final String INFO_COM = "/info";
@@ -40,11 +30,11 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     public String handleCommand(Long chatId, String text) {
         switch (text) {
             case START_COM:
-                return startMsg;
+                return tBotConfig.getStartMsg();
             case INFO_COM:
-                return infoMsg;
+                return tBotConfig.getInfoMsg();
             case TAKE_COM:
-                return takeMsg;
+                return tBotConfig.getTakeMsg();
             case REPORT_COM:
                 return null; // Добавим  процессе создание база данных!
             default:
