@@ -9,10 +9,11 @@ import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeDefault;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-@Service("CatShelterService")
+@RequiredArgsConstructor
+@Service
 public class CatShelterServiceImpl implements CatShelterService {
     private static final String INFO_COM = "/info";
     private static final String TAKE_COM = "/take";

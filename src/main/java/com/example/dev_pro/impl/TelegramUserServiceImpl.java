@@ -4,12 +4,13 @@ import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.repository.TelegramUserRepository;
 import com.example.dev_pro.service.TelegramUserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TelegramUserServiceImpl implements TelegramUserService {
     private final TelegramUserRepository repository;
 

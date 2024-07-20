@@ -10,10 +10,11 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.EditMessageReplyMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CallbackServiceImpl implements CallbackService {
 
     private final TelegramBot telegramBot;
