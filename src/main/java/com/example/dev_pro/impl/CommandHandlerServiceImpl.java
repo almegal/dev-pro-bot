@@ -1,5 +1,7 @@
 package com.example.dev_pro.impl;
 
+import com.example.dev_pro.component.Buttons;
+import com.example.dev_pro.component.impl.ChoosingKeyboardButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.model.Volunteer;
@@ -10,10 +12,8 @@ import com.example.dev_pro.service.shelter.CatShelterService;
 import com.example.dev_pro.service.shelter.DogShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +35,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private final TelegramUserService telegramUserService;
     private final CatShelterService catShelterService;
     private final DogShelterService dogShelterService;
+    private final ChoosingKeyboardButtons choosingKeyboardButtons;
 
     /**
      * Метод обработка команды и возврат результата.
@@ -84,10 +85,10 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
         // Получаем приют который выбрал пользователь
         String shelter = telegramUser.getShelter();
         // в зависимости от приюта уже вызываем соответствующий сервис для обработки команд
-        if (shelter.equalsIgnoreCase("cat")) {
+        if (shelter.equalsIgnoreCase(Buttons.CAT_BUTTON)) {
             catShelterService.handleUpdate(update);
             return;
-        } else if (shelter.equalsIgnoreCase("dog")) {
+        } else if (shelter.equalsIgnoreCase(Buttons.DOG_BUTTON)) {
             dogShelterService.handleUpdate(update);
             return;
         }
@@ -98,8 +99,6 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             List<Volunteer> volunteers = (List<Volunteer>) volunteerService.findAllVolunteers();
             volunteers.forEach(volunteer -> sendMsg(volunteer.getChatId(),
                     String.format(tBotConfig.getMessageToVolunteerMsg(), userName, chatId)));
-        } else {
-            sendMsg(chatId, resultMsg);
         }
     }
 
@@ -119,12 +118,9 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private void sendStartMessage(Long chatId) {
         SendMessage sendMessage = new SendMessage(chatId, tBotConfig.getStartMsg());
         // Установим кнопки для пользователя чтобы мог выбрать приют
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(
-                new InlineKeyboardButton("Cat").callbackData("cat"),
-                new InlineKeyboardButton("Dog").callbackData("dog")
-        );
+        Keyboard buttons = choosingKeyboardButtons.getButtons();
         // записываем это в наше сообщение и отправляем
-        sendMessage.replyMarkup(inlineKeyboardMarkup);
+        sendMessage.replyMarkup(buttons);
         telegramBot.execute(sendMessage);
     }
 

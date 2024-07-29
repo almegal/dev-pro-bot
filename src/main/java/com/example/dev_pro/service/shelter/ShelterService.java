@@ -1,6 +1,7 @@
 package com.example.dev_pro.service.shelter;
 
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.request.Keyboard;
 
 /**
  * Интерфейс ShelterService определяет методы для работы с командами и обновлениями,
@@ -12,7 +13,7 @@ public interface ShelterService {
      * Устанавливает команды для взаимодействия с ботом.
      * Этот метод должен быть вызван для инициализации всех доступных команд бота.
      */
-    void setCommands();
+    Keyboard getKeyboardCommands();
 
     /**
      * Обрабатывает команду, полученную от пользователя.
