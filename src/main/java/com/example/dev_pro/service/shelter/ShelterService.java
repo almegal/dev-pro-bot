@@ -8,13 +8,6 @@ import com.pengrad.telegrambot.model.request.Keyboard;
  * связанными с приютом в Telegram боте.
  */
 public interface ShelterService {
-
-    /**
-     * Устанавливает команды для взаимодействия с ботом.
-     * Этот метод должен быть вызван для инициализации всех доступных команд бота.
-     */
-    Keyboard getKeyboardCommands();
-
     /**
      * Обрабатывает команду, полученную от пользователя.
      *

@@ -1,4 +1,6 @@
 package com.example.dev_pro.service.shelter;
 
-public interface CatShelterService extends ShelterService {
+import com.example.dev_pro.component.Buttons;
+
+public interface CatShelterService extends ShelterService, Buttons {
 }

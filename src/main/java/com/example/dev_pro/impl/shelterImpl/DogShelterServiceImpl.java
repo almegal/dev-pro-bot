@@ -1,34 +1,28 @@
 package com.example.dev_pro.impl.shelterImpl;
 
+import com.example.dev_pro.component.impl.ShelterKeyBoardsButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.service.shelter.DogShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
-import com.pengrad.telegrambot.model.request.KeyboardButton;
-import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.example.dev_pro.component.impl.ShelterKeyBoardsButtons.*;
+
 @RequiredArgsConstructor
 @Service
 public class DogShelterServiceImpl implements DogShelterService {
-    private static final String INFO_COM = "/info";
-    private static final String TAKE_COM = "/take";
-    private static final String REPORT_COM = "/report";
-    private final TelegramBotConfiguration tBotConfig;
 
+    private final TelegramBotConfiguration tBotConfig;
+    private final ShelterKeyBoardsButtons buttons;
     private final TelegramBot telegramBot;
 
     @Override
-    public Keyboard getKeyboardCommands() {
-        return new ReplyKeyboardMarkup(
-                new KeyboardButton[]{
-                        new KeyboardButton("/info"),
-                        new KeyboardButton("/report"),
-                        new KeyboardButton("/take")
-                }).resizeKeyboard(true);
+    public Keyboard getKeyboardButtons() {
+        return buttons.getKeyboardButtons();
     }
 
     @Override
