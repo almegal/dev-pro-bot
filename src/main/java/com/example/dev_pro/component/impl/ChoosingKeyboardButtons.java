@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ChoosingKeyboardButtons implements Buttons {
+    public static String CAT_BUTTON = "Cat";
+    public static String DOG_BUTTON = "Dog";
+
     @Override
-    public Keyboard getButtons() {
+    public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[]{
                         new KeyboardButton("Cat"),
