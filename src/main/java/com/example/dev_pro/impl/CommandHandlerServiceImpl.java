@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-import com.example.dev_pro.component.Buttons;
 import com.example.dev_pro.component.impl.ChoosingKeyboardButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.model.TelegramUser;
@@ -23,10 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommandHandlerServiceImpl implements CommandHandlerService {
 
-    private static final String START_COM = "/start";
-    private static final String INFO_COM = "/info";
-    private static final String TAKE_COM = "/take";
-    private static final String REPORT_COM = "/report";
     private static final String CALL_VOLUNTEER = "/call";
 
     private final TelegramBot telegramBot;
@@ -44,14 +39,11 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
      * @return сообщение для отправки.
      */
     public String handleCommand(String text) {
-        return switch (text) {
-            case START_COM -> tBotConfig.getStartMsg();
-            case INFO_COM -> tBotConfig.getInfoMsg();
-            case TAKE_COM -> tBotConfig.getTakeMsg();
-            case REPORT_COM -> null; // Добавим процессе создание база данных!
-            case CALL_VOLUNTEER -> tBotConfig.getCallVolunteerMsg();
-            default -> tBotConfig.getErrorMsg();
-        };
+        if (text.equalsIgnoreCase(CALL_VOLUNTEER)) {
+            return tBotConfig.getCallVolunteerMsg();
+
+        }
+        return tBotConfig.getErrorMsg();
     }
 
     /**
@@ -81,24 +73,24 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             sendStartMessage(chatId);
             return;
         }
-        // Если дошли до сюда значит пользователь уже обращался
-        // Получаем приют который выбрал пользователь
-        String shelter = telegramUser.getShelter();
-        // в зависимости от приюта уже вызываем соответствующий сервис для обработки команд
-        if (shelter.equalsIgnoreCase(Buttons.CAT_BUTTON)) {
-            catShelterService.handleUpdate(update);
-            return;
-        } else if (shelter.equalsIgnoreCase(Buttons.DOG_BUTTON)) {
-            dogShelterService.handleUpdate(update);
-            return;
-        }
-
+        // Если отправлена команда вызава волонтера
         if (text.equals(CALL_VOLUNTEER)) {
             List<String> listNickNamesVolunteers = volunteerService.getListNickNamesOfVolunteers();
             sendMsg(chatId, resultMsg + " " + listNickNamesVolunteers);
             List<Volunteer> volunteers = (List<Volunteer>) volunteerService.findAllVolunteers();
             volunteers.forEach(volunteer -> sendMsg(volunteer.getChatId(),
                     String.format(tBotConfig.getMessageToVolunteerMsg(), userName, chatId)));
+            return;
+        }
+
+        // Если дошли до сюда значит пользователь уже обращался
+        // Получаем приют который выбрал пользователь
+        String shelter = telegramUser.getShelter();
+        // в зависимости от приюта уже вызываем соответствующий сервис для обработки команд
+        if (shelter.equalsIgnoreCase(ChoosingKeyboardButtons.CAT_BUTTON)) {
+            catShelterService.handleUpdate(update);
+        } else if (shelter.equalsIgnoreCase(ChoosingKeyboardButtons.DOG_BUTTON)) {
+            dogShelterService.handleUpdate(update);
         }
     }
 
@@ -118,7 +110,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private void sendStartMessage(Long chatId) {
         SendMessage sendMessage = new SendMessage(chatId, tBotConfig.getStartMsg());
         // Установим кнопки для пользователя чтобы мог выбрать приют
-        Keyboard buttons = choosingKeyboardButtons.getButtons();
+        Keyboard buttons = choosingKeyboardButtons.getKeyboardButtons();
         // записываем это в наше сообщение и отправляем
         sendMessage.replyMarkup(buttons);
         telegramBot.execute(sendMessage);

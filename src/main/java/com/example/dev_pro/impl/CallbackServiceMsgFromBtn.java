@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-import com.example.dev_pro.component.Buttons;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.CallbackService;
 import com.example.dev_pro.service.TelegramUserService;
@@ -12,6 +11,9 @@ import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.example.dev_pro.component.impl.ChoosingKeyboardButtons.CAT_BUTTON;
+import static com.example.dev_pro.component.impl.ChoosingKeyboardButtons.DOG_BUTTON;
 
 @RequiredArgsConstructor
 @Service
@@ -36,16 +38,18 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
 
         Keyboard keyboardToUser = null;
         // если выбрали приют
-        if (shelter.equalsIgnoreCase(Buttons.CAT_BUTTON)) {
+        if (shelter.equalsIgnoreCase(CAT_BUTTON)) {
             // устанавливаем команды для приюта кошек
-            keyboardToUser = catShelterService.getKeyboardCommands();
-        } else if (shelter.equalsIgnoreCase(Buttons.DOG_BUTTON)) {
+            keyboardToUser = catShelterService.getKeyboardButtons();
+        } else if (shelter.equalsIgnoreCase(DOG_BUTTON)) {
             // или для приюта собак
-            keyboardToUser = dogShelterService.getKeyboardCommands();
+            keyboardToUser = dogShelterService.getKeyboardButtons();
         }
+        //
         SendMessage sendMessage = new SendMessage(chatId, "Nice choose, please choose button on keyboard and follow instructions")
                 .replyMarkup(keyboardToUser);
         telegramBot.execute(sendMessage);
+        //
         userService.save(telegramUser);
     }
 }
