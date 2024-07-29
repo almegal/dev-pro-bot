@@ -10,14 +10,13 @@ import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.example.dev_pro.component.impl.ShelterKeyBoardsButtons.*;
+
 @RequiredArgsConstructor
 @Service
 public class CatShelterServiceImpl implements CatShelterService {
-    private static final String INFO_COM = "/info";
-    private static final String TAKE_COM = "/take";
-    private static final String REPORT_COM = "/report";
-    private final TelegramBotConfiguration tBotConfig;
 
+    private final TelegramBotConfiguration tBotConfig;
     private final ShelterKeyBoardsButtons buttons;
     private final TelegramBot telegramBot;
 
