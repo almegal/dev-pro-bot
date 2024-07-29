@@ -3,12 +3,11 @@ package com.example.dev_pro.impl.shelterImpl;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.service.shelter.CatShelterService;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeDefault;
+import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SetMyCommands;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +22,13 @@ public class CatShelterServiceImpl implements CatShelterService {
     private final TelegramBot telegramBot;
 
     @Override
-    public void setCommands() {
-        // Создадим список комманд
-        BotCommand[] commands = {
-                new BotCommand("/info", "Get info about cats shelter")
-                , new BotCommand("/report", "Get report about cats")
-                , new BotCommand("/take", "Get instruction to take cats")
-        };
-        // Установим комманды в чате с пользователем
-        SetMyCommands set = new SetMyCommands(commands).scope(new BotCommandScopeDefault());
-        telegramBot.execute(set);
+    public Keyboard getKeyboardCommands() {
+        return new ReplyKeyboardMarkup(
+                new KeyboardButton[]{
+                        new KeyboardButton("/info"),
+                        new KeyboardButton("/report"),
+                        new KeyboardButton("/take")
+                }).resizeKeyboard(true);
     }
 
     @Override
