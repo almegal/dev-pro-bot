@@ -25,10 +25,7 @@ public class TelegramBotListener implements UpdatesListener {
     private final TelegramBot telegramBot;
     private final CommandHandlerService commandHandlerService;
     private final CallbackService callbackService;
- aleekky-feature
 
-
-   dev
 
     @PostConstruct
     public void init() {
@@ -49,15 +46,9 @@ public class TelegramBotListener implements UpdatesListener {
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
- aleekky-feature
-    // Обрабатываем в зависимости от того, какой update пришел
-    private void handleUpdate(Update update) {
-        // Если сообщение содержит одно из значений
-
     //обрабатываем в зависимости от того какой update пришел
     private void handleUpdate(Update update) {
         // если  сообщение содержит одно из значений
- dev
         if (update.message().text() == null) {
             return;
         }
@@ -72,7 +63,6 @@ public class TelegramBotListener implements UpdatesListener {
                 break;
         }
     }
- aleekky-feature
 
 
     /**
@@ -97,7 +87,4 @@ public class TelegramBotListener implements UpdatesListener {
         telegramBot.execute(sendPhoto);
     }
 
-
-
- dev
 }
