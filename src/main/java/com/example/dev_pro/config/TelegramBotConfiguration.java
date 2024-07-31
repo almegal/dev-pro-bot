@@ -19,8 +19,10 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.infoMsg}")
     private String infoMsg;
+    
     @Value("${telegram.bot.infoMsgAboutCatShelter}")
     private String infoMsgCatShelter;
+    
     @Value("${telegram.bot.infoMsgAboutDogShelter}")
     private String infoMsgDogShelter;
 
