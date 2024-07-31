@@ -37,5 +37,4 @@ public class ChoosingKeyboardButtons implements Buttons {
         ).resizeKeyboard(true);
     }
 
- dev
 }
