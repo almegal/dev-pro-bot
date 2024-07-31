@@ -70,8 +70,6 @@ public class DogShelterServiceImpl implements DogShelterService {
         } else {
             sendMessage = new SendMessage(chatId, resultMsg);
         }
-
-        // Отправим пользователю
         telegramBot.execute(sendMessage);
     }
 
