@@ -1,9 +1,7 @@
 package com.example.dev_pro.config;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.request.DeleteMyCommands;
-import com.pengrad.telegrambot.request.SetMyCommands;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +19,10 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.infoMsg}")
     private String infoMsg;
+    @Value("${telegram.bot.infoMsgAboutCatShelter}")
+    private String infoMsgCatShelter;
+    @Value("${telegram.bot.infoMsgAboutDogShelter}")
+    private String infoMsgDogShelter;
 
     @Value("${telegram.bot.infoMsgAboutCatShelter}")
     private String infoMsgCatShelter;
@@ -84,6 +86,7 @@ public class TelegramBotConfiguration {
 
     /**
      * Создание и настройка Telegram-бота.
+     *
      * @return новый экземпрляр TelegramBot.
      */
     @Bean
