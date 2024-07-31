@@ -2,7 +2,6 @@ package com.example.dev_pro.impl.shelterImpl;
 
 import com.example.dev_pro.component.impl.ShelterKeyBoardsButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
- aleekky-feature
 import com.example.dev_pro.listener.TelegramBotListener;
 import com.example.dev_pro.service.shelter.CatShelterService;
 import com.pengrad.telegrambot.TelegramBot;
@@ -11,27 +10,20 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.context.annotation.Lazy;
-
 import com.example.dev_pro.service.shelter.CatShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
- dev
 import org.springframework.stereotype.Service;
 
 import static com.example.dev_pro.component.impl.ShelterKeyBoardsButtons.*;
 
- aleekky-feature
-
-@RequiredArgsConstructor
-dev
 @Service
 public class CatShelterServiceImpl implements CatShelterService {
 
     private final TelegramBotConfiguration tBotConfig;
- aleekky-feature
     private final TelegramBot telegramBot;
     private final ShelterKeyBoardsButtons buttons;
     private final TelegramBotListener listener;
@@ -44,40 +36,27 @@ public class CatShelterServiceImpl implements CatShelterService {
         this.listener = listener;
     }
 
-
     // устанавливаем главное меню приюта с 4 кнопками
-
-    private final ShelterKeyBoardsButtons buttons;
-    private final TelegramBot telegramBot;
-
- dev
+ 
     @Override
     public Keyboard getKeyboardButtons() {
         return buttons.getKeyboardButtons();
     }
 
- aleekky-feature
     // устанавливаем меню info с 6 кнопками
+ 
     @Override
     public Keyboard getInfoKeyboardButtons() {
         return buttons.getInfoKeyboardButtons();
     }
 
-
-    @Override
-    public void handleUpdate(Update update) {
-        // получим идентификатор чата и команду
-        Message message = update.message();
-
     @Override
     public void handleUpdate(Update update) {
         // получим идентификтор чата и команду
- dev
         Long chatId = update.message().chat().id();
         String text = update.message().text();
         // в зависимости от команды получим результат
         String resultMsg = handleCommand(text);
- aleekky-feature
         SendMessage sendMessage;
         if (resultMsg.equalsIgnoreCase(tBotConfig.getInfoMsgCatShelter())) {
             // Отправим пользователю
@@ -101,21 +80,12 @@ public class CatShelterServiceImpl implements CatShelterService {
     }
 
 
-
-        // Отправим пользователю
-        SendMessage sendMessage = new SendMessage(chatId, resultMsg);
-        telegramBot.execute(sendMessage);
-    }
-
- dev
     /**
      * Метод обработка команды и возврат результата.
      *
      * @param text текст команды.
      * @return сообщение для отправки.
      */
- aleekky-feature
-
     @Override
     public String handleCommand (String text){
         return switch (text) {
@@ -128,14 +98,6 @@ public class CatShelterServiceImpl implements CatShelterService {
             case COME_BACK_COM -> tBotConfig.getComeBackMsgCatShelter();
             case TAKE_COM -> tBotConfig.getTakeMsg();
             case REPORT_COM -> null; // Добавим в процессе создание база данных!
-
-    public String handleCommand(String text) {
-        return switch (text) {
-            case INFO_COM -> tBotConfig.getInfoMsgCatShelter();
-            case TAKE_COM -> tBotConfig.getTakeMsg();
-            case REPORT_COM -> null; // Добавим процессе создание база данных!
- dev
-            default -> tBotConfig.getErrorMsg();
         };
     }
 }
