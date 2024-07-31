@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 
-@Component
-public class ShelterKeyBoardsButtons implements Buttons {
-
 
 @Component
 public class ShelterKeyBoardsButtons implements Buttons {
