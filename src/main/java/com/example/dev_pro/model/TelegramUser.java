@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TelegramUser {
- aleekky-feature
 
-
- dev
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
