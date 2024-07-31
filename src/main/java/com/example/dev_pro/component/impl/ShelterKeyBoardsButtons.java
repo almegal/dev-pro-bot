@@ -6,7 +6,6 @@ import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import org.springframework.stereotype.Component;
 
- aleekky-feature
 import java.awt.*;
 
 @Component
@@ -15,13 +14,12 @@ public class ShelterKeyBoardsButtons implements Buttons {
 
 @Component
 public class ShelterKeyBoardsButtons implements Buttons {
- dev
+ 
     public static final String INFO_COM = "/info";
     public static final String TAKE_COM = "/take";
     public static final String REPORT_COM = "/report";
     public static final String CALL_COM = "/call";
 
- aleekky-feature
     public static final String OVERVIEW_COM = "/overview";
     public static final String ADDRESS_COM = "/address";
     public static final String CAR_PASS_COM = "/car_pass";
@@ -30,7 +28,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String COME_BACK_COM = "/come_back";
 
 
- dev
     @Override
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
@@ -42,7 +39,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
                 }
         ).resizeKeyboard(true);
     }
- aleekky-feature
 
     @Override
     public Keyboard getInfoKeyboardButtons() {
@@ -56,5 +52,4 @@ public class ShelterKeyBoardsButtons implements Buttons {
         ).resizeKeyboard(true);
     }
 
- dev
 }
