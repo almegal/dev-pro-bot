@@ -13,26 +13,11 @@ public class ChoosingKeyboardButtons {
     public static String CAT_BUTTON = "Cat";
     public static String DOG_BUTTON = "Dog";
 
-
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[] {
                         new KeyboardButton("Cat"),
                         new KeyboardButton("Dog"),
-                }
-        ).resizeKeyboard(true);
-    }
-
-public class ChoosingKeyboardButtons implements Buttons {
-    public static String CAT_BUTTON = "Cat";
-    public static String DOG_BUTTON = "Dog";
-
-    @Override
-    public Keyboard getKeyboardButtons() {
-        return new ReplyKeyboardMarkup(
-                new KeyboardButton[]{
-                        new KeyboardButton("Cat"),
-                        new KeyboardButton("Dog")
                 }
         ).resizeKeyboard(true);
     }
