@@ -79,6 +79,7 @@ public class DogShelterServiceImpl implements DogShelterService {
      * @param text текст команды.
      * @return сообщение для отправки.
      */
+    @Override
     public String handleCommand(String text) {
         return switch (text) {
             case INFO_COM -> tBotConfig.getInfoMsgDogShelter();
