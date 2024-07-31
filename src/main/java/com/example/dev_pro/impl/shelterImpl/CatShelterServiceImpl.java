@@ -98,6 +98,7 @@ public class CatShelterServiceImpl implements CatShelterService {
             case COME_BACK_COM -> tBotConfig.getComeBackMsgCatShelter();
             case TAKE_COM -> tBotConfig.getTakeMsg();
             case REPORT_COM -> null; // Добавим в процессе создание база данных!
+            default -> tBotConfig.getErrorMsg();        
         };
     }
 }
