@@ -39,9 +39,9 @@ public class MessageUtil {
                 telegramUser.setLastName(matcher.group(1));
                 telegramUser.setFirstName(matcher.group(3));
                 telegramUser.setMiddleName(matcher.group(5));
-//                telegramUser.setPhoneNumber(matcher.group(7));
-//                telegramUser.setCarNumber(matcher.group(9));
-//                telegramUser.setShelter(matcher.group(11));
+                telegramUser.setPhoneNumber(matcher.group(7));
+                telegramUser.setCarNumber(matcher.group(9));
+                telegramUser.setShelter(matcher.group(11));
                 return new TelegramUser();
             }
         }
