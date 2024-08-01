@@ -9,13 +9,6 @@ import com.pengrad.telegrambot.model.request.Keyboard;
  * связанными с приютом в Telegram боте.
  */
 public interface ShelterService {
-    /**
-     * Обрабатывает команду, полученную от пользователя.
-     *
-     * @param text текст команды, введенной пользователем.
-     * @return результат выполнения команды в виде строки.
-     */
-    String handleCommand(String text);
 
     /**
      * Обрабатывает обновление, полученное от Telegram Bot API.

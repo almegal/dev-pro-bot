@@ -16,5 +16,12 @@ public class TelegramUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long telegramId;
+    private String nickName;
+    private String lastName;
+    private String firstName;
+    private String middleName;
+    private String phoneNumber;
+    private String carNumber;
     private String shelter;
+
 }

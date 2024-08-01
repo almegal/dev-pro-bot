@@ -41,6 +41,9 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.userContactMsgCatShelter}")
     private String userContactMsgCatShelter;
 
+    @Value("${telegram.bot.successUserProfileMsgCatShelter}")
+    private String successUserProfileMsgCatShelter;
+
     @Value("${telegram.bot.comeBackMsgCatShelter}")
     private String comeBackMsgCatShelter;
 
@@ -65,6 +68,9 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.userContactMsgCatShelter}")
     private String userContactMsgDogShelter;
 
+    @Value("${telegram.bot.successUserProfileMsgDogShelter}")
+    private String successUserProfileMsgDogShelter;
+
     @Value("${telegram.bot.comeBackMsgDogShelter}")
     private String comeBackMsgDogShelter;
 
@@ -79,6 +85,9 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.messageToVolunteerMsg}")
     private String messageToVolunteerMsg;
+
+    @Value("${telegram.bot.messageToVolunteerMsg2}")
+    private String messageToVolunteerMsg2;
 
     /**
      * Создание и настройка Telegram-бота.
