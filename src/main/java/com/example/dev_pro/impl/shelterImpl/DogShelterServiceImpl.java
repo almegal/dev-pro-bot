@@ -72,7 +72,7 @@ public class DogShelterServiceImpl implements ShelterService {
                 break;
             case ADDRESS_COM:
                 botState = BotStateDogShelter.ADDRESS_COM;
-                listener.sendPhoto(chatId, tBotConfig.getDirectionsMsgCatShelter(),
+                listener.sendPhoto(chatId, tBotConfig.getDirectionsMsgDogShelter(),
                         "static/images/driving_directions_dog.jpg");
                 break;
             case CAR_PASS_COM:
