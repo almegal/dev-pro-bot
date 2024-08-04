@@ -2,13 +2,14 @@ package com.example.dev_pro.impl;
 
 import com.example.dev_pro.component.impl.ChoosingKeyboardButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
+import com.example.dev_pro.impl.shelterImpl.CatShelterServiceImpl;
+import com.example.dev_pro.impl.shelterImpl.DogShelterServiceImpl;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.service.CommandHandlerService;
 import com.example.dev_pro.service.TelegramUserService;
 import com.example.dev_pro.service.VolunteerService;
-import com.example.dev_pro.service.shelter.CatShelterService;
-import com.example.dev_pro.service.shelter.DogShelterService;
+import com.example.dev_pro.service.shelter.ShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -28,8 +29,8 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
     private final TelegramBotConfiguration tBotConfig;
     private final VolunteerService volunteerService;
     private final TelegramUserService telegramUserService;
-    private final CatShelterService catShelterService;
-    private final DogShelterService dogShelterService;
+    private final CatShelterServiceImpl catShelterService;
+    private final DogShelterServiceImpl dogShelterService;
     private final ChoosingKeyboardButtons choosingKeyboardButtons;
 
     /**

@@ -2,7 +2,7 @@ package com.example.dev_pro.service.shelter;
 
 
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.request.Keyboard;
+
 
 /**
  * Интерфейс ShelterService определяет методы для работы с командами и обновлениями,

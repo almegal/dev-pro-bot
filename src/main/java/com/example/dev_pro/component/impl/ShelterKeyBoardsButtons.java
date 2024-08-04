@@ -6,8 +6,6 @@ import com.pengrad.telegrambot.model.request.KeyboardButton;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-
 
 @Component
 public class ShelterKeyBoardsButtons implements Buttons {
