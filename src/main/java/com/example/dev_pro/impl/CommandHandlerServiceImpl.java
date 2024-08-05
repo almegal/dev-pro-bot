@@ -9,7 +9,6 @@ import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.service.CommandHandlerService;
 import com.example.dev_pro.service.TelegramUserService;
 import com.example.dev_pro.service.VolunteerService;
-import com.example.dev_pro.service.shelter.ShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
