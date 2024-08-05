@@ -34,6 +34,7 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
         // создаем нового пользователя и устанавливаем ему значения полей
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setTelegramId(userId);
+        telegramUser.setId(0L);
         telegramUser.setShelter(shelter);
 
         Keyboard keyboardToUser = null;
