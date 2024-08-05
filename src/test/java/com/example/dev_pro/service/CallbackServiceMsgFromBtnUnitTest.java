@@ -24,6 +24,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.example.dev_pro.service.DefaultProps.MOCK_USER;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

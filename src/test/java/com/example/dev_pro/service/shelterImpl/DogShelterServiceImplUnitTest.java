@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class DogShelterServiceImplUnitTest extends ShelterServiceImplUnitTest {
+public class DogShelterServiceImplUnitTest extends ShelterServiceImplTest {
     @InjectMocks
     private DogShelterServiceImpl service;
 

@@ -83,5 +83,4 @@ public class CatShelterServiceImpl implements ShelterService {
         // Создаем ответное сообщение бота, исходя из состояния бота
     }
 
-
 }
