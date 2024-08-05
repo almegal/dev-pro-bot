@@ -6,4 +6,6 @@ public interface TelegramUserService {
     TelegramUser getById(Long id);
 
     void save(TelegramUser user);
+
+    void update(TelegramUser user);
 }

@@ -1,10 +1,9 @@
 package com.example.dev_pro.impl;
 
+import com.example.dev_pro.component.Buttons;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.CallbackService;
 import com.example.dev_pro.service.TelegramUserService;
-import com.example.dev_pro.service.shelter.CatShelterService;
-import com.example.dev_pro.service.shelter.DogShelterService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
@@ -20,9 +19,9 @@ import static com.example.dev_pro.component.impl.ChoosingKeyboardButtons.DOG_BUT
 public class CallbackServiceMsgFromBtn implements CallbackService {
 
     private final TelegramBot telegramBot;
-    private final CatShelterService catShelterService;
-    private final DogShelterService dogShelterService;
     private final TelegramUserService userService;
+    private final Buttons buttons;
+
 
     @Override
     public void handleCallback(Update update) {
@@ -41,10 +40,10 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
         // если выбрали приют
         if (shelter.equalsIgnoreCase(CAT_BUTTON)) {
             // устанавливаем команды для приюта кошек
-            keyboardToUser = catShelterService.getKeyboardButtons();
+            keyboardToUser = buttons.getKeyboardButtons();
         } else if (shelter.equalsIgnoreCase(DOG_BUTTON)) {
             // или для приюта собак
-            keyboardToUser = dogShelterService.getKeyboardButtons();
+            keyboardToUser = buttons.getKeyboardButtons();
         }
         //
         SendMessage sendMessage = new SendMessage(chatId, "Nice choose, please choose button on keyboard and follow instructions")
