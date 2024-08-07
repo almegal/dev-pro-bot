@@ -1,64 +1,85 @@
 package com.example.dev_pro.impl.shelterImpl;
 
+import com.example.dev_pro.botapi.BotStateContextDogShelter;
+import com.example.dev_pro.botapi.BotStateDogShelter;
+import com.example.dev_pro.cache.impl.UserDataCacheDogShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
-import com.example.dev_pro.service.shelter.DogShelterService;
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.BotCommand;
+import com.example.dev_pro.listener.TelegramBotListener;
+import com.example.dev_pro.service.shelter.ShelterService;
+import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.model.botcommandscope.BotCommandScopeDefault;
 import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.request.SetMyCommands;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
+import static com.example.dev_pro.component.impl.ShelterKeyBoardsButtons.*;
+
 @Service
-public class DogShelterServiceImpl implements DogShelterService {
-    private static final String INFO_COM = "/info";
-    private static final String TAKE_COM = "/take";
-    private static final String REPORT_COM = "/report";
+public class DogShelterServiceImpl implements ShelterService {
+
     private final TelegramBotConfiguration tBotConfig;
+    private final TelegramBotListener listener;
+    private final UserDataCacheDogShelter userDataCache;
+    private final BotStateContextDogShelter botStateContext;
 
-    private final TelegramBot telegramBot;
-
-    @Override
-    public void setCommands() {
-        // Создадим список комманд
-        BotCommand[] commands = {
-                new BotCommand("/info", "Get info about dogs shelter")
-                , new BotCommand("/report", "Get report about dogs")
-                , new BotCommand("/take", "Get instruction to take dogs")
-        };
-        // Установим комманды в чате с пользователем
-        SetMyCommands set = new SetMyCommands(commands).scope(new BotCommandScopeDefault());
-        telegramBot.execute(set);
+    public DogShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
+                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext) {
+        this.tBotConfig = tBotConfig;
+        this.listener = listener;
+        this.userDataCache = userDataCache;
+        this.botStateContext = botStateContext;
     }
-
+    
     @Override
     public void handleUpdate(Update update) {
-        // получим идентификтор чата и команду
+        Message message = update.message();
         Long chatId = update.message().chat().id();
+        Long userId = message.from().id();
         String text = update.message().text();
-        // в зависимости от команды получим результат
-        String resultMsg = handleCommand(text);
-        // Отправим пользователю
-        SendMessage sendMessage = new SendMessage(chatId, resultMsg);
-        telegramBot.execute(sendMessage);
+
+        BotStateDogShelter botState = null;
+        SendMessage replyMessage;
+
+        switch (text) {
+            case INFO_COM:
+                botState = BotStateDogShelter.INFO_COM;
+                break;
+            case OVERVIEW_COM:
+                botState = BotStateDogShelter.OVERVIEW_COM;
+                break;
+            case ADDRESS_COM:
+                botState = BotStateDogShelter.ADDRESS_COM;
+                listener.sendPhoto(chatId, tBotConfig.getDirectionsMsgDogShelter(),
+                        "static/images/driving_directions_dog.jpg");
+                break;
+            case CAR_PASS_COM:
+                botState = BotStateDogShelter.CAR_PASS_COM;
+                break;
+            case SAFETY_RULES_COM:
+                botState = BotStateDogShelter.SAFETY_RULES_COM;
+                break;
+            case USER_CONTACT_COM:
+                botState = BotStateDogShelter.FILLING_PROFILE;
+                break;
+            case COME_BACK_COM:
+                botState = BotStateDogShelter.COME_BACK_COM;
+                break;
+            case TAKE_COM:
+                botState = BotStateDogShelter.TAKE_COM;
+                break;
+            case REPORT_COM:
+                botState = BotStateDogShelter.REPORT_COM;
+                final Object o = null; // Добавим в процессе создание база данных!
+            default:
+                botState = userDataCache.getUsersCurrentBotState(userId);
+                break;
+        }
+
+        userDataCache.setUsersCurrentBotState(userId, botState);
+        // Устанавливаем для пользователя по его id, извлеченного из update, соответствующее состояние бота
+        replyMessage = botStateContext.processInputMessage(botState, message);
+        // Создаем ответное сообщение бота, исходя из состояния бота
     }
 
-    /**
-     * Метод обработка команды и возврат результата.
-     *
-     * @param text текст команды.
-     * @return сообщение для отправки.
-     */
-    public String handleCommand(String text) {
-        return switch (text) {
-            case INFO_COM -> tBotConfig.getInfoMsgDogShelter();
-            case TAKE_COM -> tBotConfig.getTakeMsg();
-            case REPORT_COM -> null; // Добавим процессе создание база данных!
-            default -> tBotConfig.getErrorMsg();
-        };
-    }
+
 }

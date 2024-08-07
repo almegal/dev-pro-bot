@@ -3,7 +3,6 @@ package com.example.dev_pro.impl;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.repository.TelegramUserRepository;
 import com.example.dev_pro.service.TelegramUserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +21,11 @@ public class TelegramUserServiceImpl implements TelegramUserService {
 
     @Override
     public void save(TelegramUser user) {
+        repository.save(user);
+    }
+
+    @Override
+    public void update(TelegramUser user) {
         repository.save(user);
     }
 }
