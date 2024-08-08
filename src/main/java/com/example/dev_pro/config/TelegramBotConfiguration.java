@@ -16,9 +16,6 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.startMsg}")
     private String startMsg;
-
-    @Value("${telegram.bot.infoMsg}")
-    private String infoMsg;
     
     @Value("${telegram.bot.infoMsgAboutCatShelter}")
     private String infoMsgCatShelter;

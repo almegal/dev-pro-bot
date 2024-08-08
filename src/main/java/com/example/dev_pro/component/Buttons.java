@@ -16,4 +16,12 @@ public interface Buttons {
      */
     public Keyboard getInfoKeyboardButtons();
 
+    /**
+     * @return возвращает команды для взаимодействия с ботом.
+     * Этот метод должен быть вызван для инициализации кнопок меню take бота конкретного приюта.
+     */
+    public Keyboard getTakeKeyboardButtons();
+
+
+
 }

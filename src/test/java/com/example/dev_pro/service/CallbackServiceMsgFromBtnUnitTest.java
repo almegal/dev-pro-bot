@@ -52,8 +52,8 @@ public class CallbackServiceMsgFromBtnUnitTest {
 
     public static Stream<Arguments> argsProvider() {
         return Stream.of(
-                Arguments.of("Cat", (Supplier<Buttons>) () -> catShelterService),
-                Arguments.of("Dog", (Supplier<Buttons>) () -> dogShelterService)
+                Arguments.of("Cat", (Supplier<Buttons>) () -> (Buttons) catShelterService),
+                Arguments.of("Dog", (Supplier<Buttons>) () -> (Buttons) dogShelterService)
         );
     }
 
