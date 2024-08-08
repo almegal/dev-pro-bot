@@ -3,7 +3,6 @@ package com.example.dev_pro.cache.impl;
 import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.cache.DataCacheCatShelter;
 import com.example.dev_pro.model.TelegramUser;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import java.util.Map;
  */
 
 @Component
-@Slf4j
 public class UserDataCacheCatShelter implements DataCacheCatShelter {
 
     private Map<Long, BotStateCatShelter> usersBotStates = new HashMap<>();

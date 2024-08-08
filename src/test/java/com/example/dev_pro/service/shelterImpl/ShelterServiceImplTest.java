@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class ShelterServiceImplUnitTest {
+public abstract class ShelterServiceImplTest {
     @Mock
     public static Update UPDATE_MOCK;
     @Mock
