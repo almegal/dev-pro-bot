@@ -27,7 +27,13 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String RECOMMENDATIONS_COM = "/recommendations";
     public static final String REASONS_REFUSAL_COM = "/reasons_refusal";
 
-
+    public static final String RECOMM_FOR_TRANSPORTING_THE_ANIMAL = "/RecommForTransportingTheAnimal";
+    public static final String TO_SET_UP_HOME_FOR_PUPPY = "/ToSetUpHomeForPuppy";
+    public static final String SETTING_UP_HOME_FOR_AN_ADULT_PET = "/SettingUpHomeForAnAdultPet";
+    public static final String PROVIDING_HOME_FOR_ANIMAL_DISABILITY = "/ProvidingHomeForAnimalDisability";
+    public static final String ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL = "/AdviceHandlerInitialCommunAnimal";
+    public static final String CONTACT_DETAILS_HANDLER = "/ContactDetailsHandler";
+    public static final String RECOMM_COME_BACK_COM = "/come_back";
     @Override
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
@@ -64,6 +70,17 @@ public class ShelterKeyBoardsButtons implements Buttons {
                 }
         ).resizeKeyboard(true);
     }
-
+@Override
+    public Keyboard getRecommendationsButtons() {
+        return new ReplyKeyboardMarkup(
+                new KeyboardButton[][]{
+                        {new KeyboardButton(RECOMM_FOR_TRANSPORTING_THE_ANIMAL)},
+                        {new KeyboardButton(TO_SET_UP_HOME_FOR_PUPPY),new KeyboardButton(SETTING_UP_HOME_FOR_AN_ADULT_PET),
+                                new KeyboardButton(PROVIDING_HOME_FOR_ANIMAL_DISABILITY)},
+                        {new KeyboardButton(ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL),new KeyboardButton(CONTACT_DETAILS_HANDLER),
+                                new KeyboardButton(RECOMM_COME_BACK_COM)}
+                }
+        ).resizeKeyboard(true);
+    }
 
 }
