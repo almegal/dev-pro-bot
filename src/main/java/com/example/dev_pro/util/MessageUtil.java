@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class MessageUtil {
 
     public static final Pattern pattern = Pattern.compile("([А-я]+)(\\s)([А-я]+)(\\s)([А-я]+)(\\s)" +
-            "(\\d{10})(\\s)([А-я0-9]+)(\\s)([\\W+]+)");
+            "(\\d{10})(\\s)([А-я0-9]+)");
 
     private final TelegramUserService telegramUserService;
 
@@ -23,7 +23,6 @@ public class MessageUtil {
      * Первая, третья и пятая части паттерна описывают фамилию, имя и отчество: ([А-я]+).
      * Седьмая часть паттерна описывает номер мобильного телефона: (\\d{10}).
      * Девятая часть паттерна описывает номер автомобиля: ([А-я0-9]+).
-     * Одиннадцатая часть паттерна описывает тип приюта: ([\\W+]+).
      * Четные части паттерна описывают пробел: (\\s).
      * Создаем объект типа Matcher для выполнения операций поиска по шаблону.
      * Проверяем, подходит ли строка под паттерн: matcher.find().
@@ -41,7 +40,6 @@ public class MessageUtil {
                 telegramUser.setMiddleName(matcher.group(5));
                 telegramUser.setPhoneNumber(matcher.group(7));
                 telegramUser.setCarNumber(matcher.group(9));
-                telegramUser.setShelter(matcher.group(11));
                 return new TelegramUser();
             }
         }
