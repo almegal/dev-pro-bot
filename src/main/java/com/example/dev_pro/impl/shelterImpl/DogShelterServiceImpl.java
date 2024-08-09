@@ -67,6 +67,13 @@ public class DogShelterServiceImpl implements ShelterService {
             case TAKE_COM:
                 botState = BotStateDogShelter.TAKE_COM;
                 break;
+            case RECOMMENDATIONS_COM:
+                botState = BotStateDogShelter.RECOMMENDATIONS_COM;
+                break;
+            case RECOMM_FOR_TRANSPORTING_THE_ANIMAL:
+                botState = BotStateDogShelter.RECOMM_FOR_TRANSPORTING_THE_ANIMAL;
+                listener.sendPhoto(chatId, null,
+                        "static/images/RECOMM_FOR_TRANSPORTING_THE_ANIMAL.jpg");
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
                 final Object o = null; // Добавим в процессе создание база данных!

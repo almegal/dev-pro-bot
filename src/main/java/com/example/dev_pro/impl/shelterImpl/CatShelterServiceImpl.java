@@ -30,7 +30,6 @@ public class CatShelterServiceImpl implements ShelterService {
         this.botStateContext = botStateContext;
     }
 
-
    @Override
    public void handleUpdate(Update update) {
         Message message = update.message();
@@ -73,7 +72,8 @@ public class CatShelterServiceImpl implements ShelterService {
                 break;
             case RECOMM_FOR_TRANSPORTING_THE_ANIMAL:
                 botState = BotStateCatShelter.RECOMM_FOR_TRANSPORTING_THE_ANIMAL;
-                listener.sendPhoto(chatId, tBotConfig.);
+                listener.sendPhoto(chatId, null,
+                        "static/images/RECOMM_FOR_TRANSPORTING_THE_ANIMAL.jpg");
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
                 final Object o = null; // Добавим в процессе создание база данных!
