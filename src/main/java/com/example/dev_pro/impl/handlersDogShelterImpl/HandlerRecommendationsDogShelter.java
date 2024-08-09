@@ -29,15 +29,12 @@ public class HandlerRecommendationsDogShelter implements InputMessageHandlerDogS
      */
     @Override
     public SendMessage handle(Message message) {
-        long chatId = message.chat().id();
-        SendMessage replyMessage = new SendMessage(chatId, tBotConfig.getSelectRecommMsg());
-        replyMessage.replyMarkup(buttons.getRecommendationsButtons());
-        telegramBot.execute(replyMessage);
-        return replyMessage;
+
+        return null;
     }
 
     @Override
     public BotStateDogShelter getHandlerName() {
-        return BotStateDogShelter.RECOMMENDATIONS_COM;
+        return null;
     }
 }
