@@ -119,7 +119,10 @@ public class DogShelterServiceImpl implements ShelterService {
                 break;
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
-                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case REPORT_COME_BACK_COM:
+                botState = BotStateDogShelter.REPORT_COME_BACK_COM;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;

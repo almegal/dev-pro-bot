@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ShelterKeyBoardsButtons implements Buttons {
- 
+
     public static final String INFO_COM = "/info";
     public static final String TAKE_COM = "/take";
     public static final String REPORT_COM = "/report";
@@ -35,14 +35,20 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL = "/AdviceHandlerInitialCommunAnimal";
     public static final String CONTACT_DETAILS_HANDLER = "/ContactDetailsHandler";
     public static final String RECOMM_COME_BACK_COM = "/recomm_come_back";
+
+    public static final String HOW_TO_REPORT="/how_to_report";
+    public static final String OFFSET_FORMAT="/offset_format";
+    public static final String FILE_A_REPORT = "/file_a_report";
+    public static final String REPORT_COME_BACK_COM = "/report_come_back";
+
     @Override
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[][]{
                         {new KeyboardButton(INFO_COM), new KeyboardButton(TAKE_COM),
-                        new KeyboardButton(REPORT_COM)},
+                                new KeyboardButton(REPORT_COM)},
                         {new KeyboardButton(CALL_COM),
-                        new KeyboardButton(MAIN_COME_BACK_COM)}
+                                new KeyboardButton(MAIN_COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }
@@ -66,20 +72,30 @@ public class ShelterKeyBoardsButtons implements Buttons {
                         {new KeyboardButton(LIST_ANIMALS_COM)},
                         {new KeyboardButton(MEETING_ANIMALS_COM), new KeyboardButton(LIST_DOCUMENTS_COM),
                                 new KeyboardButton(RECOMMENDATIONS_COM)},
-                        {new KeyboardButton(REASONS_REFUSAL_COM ), new KeyboardButton(TAKE_USER_CONTACT_COM),
+                        {new KeyboardButton(REASONS_REFUSAL_COM), new KeyboardButton(TAKE_USER_CONTACT_COM),
                                 new KeyboardButton(COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }
-@Override
+
+    @Override
     public Keyboard getRecommendationsButtons() {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[][]{
                         {new KeyboardButton(RECOMM_FOR_TRANSPORTING_THE_ANIMAL)},
-                        {new KeyboardButton(TO_SET_UP_HOME_FOR_PUPPY),new KeyboardButton(SETTING_UP_HOME_FOR_AN_ADULT_PET),
+                        {new KeyboardButton(TO_SET_UP_HOME_FOR_PUPPY), new KeyboardButton(SETTING_UP_HOME_FOR_AN_ADULT_PET),
                                 new KeyboardButton(PROVIDING_HOME_FOR_ANIMAL_DISABILITY)},
-                        {new KeyboardButton(ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL),new KeyboardButton(CONTACT_DETAILS_HANDLER),
+                        {new KeyboardButton(ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL), new KeyboardButton(CONTACT_DETAILS_HANDLER),
                                 new KeyboardButton(RECOMM_COME_BACK_COM)}
+                }
+        ).resizeKeyboard(true);
+    }
+
+    public Keyboard getReportButtons() {
+        return new ReplyKeyboardMarkup(
+                new KeyboardButton[][]{
+                        {new KeyboardButton(HOW_TO_REPORT), new KeyboardButton(OFFSET_FORMAT)},
+                        {new KeyboardButton(FILE_A_REPORT), new KeyboardButton(REPORT_COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }
