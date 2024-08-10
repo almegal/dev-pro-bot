@@ -31,8 +31,8 @@ public class CatShelterServiceImpl implements ShelterService {
     }
 
 
-   @Override
-   public void handleUpdate(Update update) {
+    @Override
+    public void handleUpdate(Update update) {
         Message message = update.message();
         Long chatId = update.message().chat().id();
         Long userId = message.from().id();
@@ -71,6 +71,16 @@ public class CatShelterServiceImpl implements ShelterService {
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
                 final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case MEETING_ANIMALS_COM:
+                botState = BotStateCatShelter.RULES_FOR_ANIMAL;
+                break;
+            case LIST_DOCUMENTS_COM:
+                botState = BotStateCatShelter.DOCUMENT_FOR_TAKE_ANIMAL_COM;
+                break;
+            case REASONS_REFUSAL_COM:
+                botState = BotStateCatShelter.REASON_REFUSAL_COM;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;

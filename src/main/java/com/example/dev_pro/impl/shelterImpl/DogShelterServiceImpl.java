@@ -29,7 +29,7 @@ public class DogShelterServiceImpl implements ShelterService {
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
     }
-    
+
     @Override
     public void handleUpdate(Update update) {
         Message message = update.message();
@@ -37,7 +37,7 @@ public class DogShelterServiceImpl implements ShelterService {
         Long userId = message.from().id();
         String text = update.message().text();
 
-        BotStateDogShelter botState = null;
+        BotStateDogShelter botState;
         SendMessage replyMessage;
 
         switch (text) {
@@ -70,6 +70,16 @@ public class DogShelterServiceImpl implements ShelterService {
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
                 final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case LIST_DOCUMENTS_COM:
+                botState = BotStateDogShelter.DOCUMENT_FOR_TAKE_ANIMAL_COM;
+                break;
+            case MEETING_ANIMALS_COM:
+                botState = BotStateDogShelter.RULES_FOR_ANIMAL;
+                break;
+            case REASONS_REFUSAL_COM:
+                botState = BotStateDogShelter.REASON_REFUSAL_COM;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;
