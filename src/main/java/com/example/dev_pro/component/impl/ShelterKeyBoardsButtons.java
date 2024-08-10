@@ -1,13 +1,15 @@
 package com.example.dev_pro.component.impl;
 
 import com.example.dev_pro.component.Buttons;
-import com.pengrad.telegrambot.model.request.*;
+import com.pengrad.telegrambot.model.request.Keyboard;
+import com.pengrad.telegrambot.model.request.KeyboardButton;
+import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class ShelterKeyBoardsButtons implements Buttons {
- 
+
     public static final String INFO_COM = "/info";
     public static final String TAKE_COM = "/take";
     public static final String REPORT_COM = "/report";
@@ -25,7 +27,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String LIST_DOCUMENTS_COM = "/list_documents";
     public static final String RECOMMENDATIONS_COM = "/recommendations";
     public static final String REASONS_REFUSAL_COM = "/reasons_refusal";
-    public static final String TAKE_USER_CONTACT_COM = "/user_contact";
     public static final String TAKE_COME_BACK_COM = "/come_back";
 
 
@@ -60,7 +61,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
                         {new KeyboardButton(LIST_ANIMALS_COM)},
                         {new KeyboardButton(MEETING_ANIMALS_COM), new KeyboardButton(LIST_DOCUMENTS_COM),
                                 new KeyboardButton(RECOMMENDATIONS_COM)},
-                        {new KeyboardButton(REASONS_REFUSAL_COM ), new KeyboardButton(TAKE_USER_CONTACT_COM),
+                        {new KeyboardButton(REASONS_REFUSAL_COM), new KeyboardButton(USER_CONTACT_COM),
                                 new KeyboardButton(TAKE_COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
