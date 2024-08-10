@@ -74,6 +74,12 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.takeMsg}")
     private String takeMsg;
 
+    @Value("${telegram.bot.listAnimalsMsgCatShelter}")
+    private String listAnimalsMsgCatShelter;
+
+    @Value("${telegram.bot.listAnimalsMsgDogShelter}")
+    private String listAnimalsMsgDogShelter;
+
     @Value("${telegram.bot.callVolunteerMsg}")
     private String callVolunteerMsg;
 

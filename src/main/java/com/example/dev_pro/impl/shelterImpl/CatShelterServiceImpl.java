@@ -4,7 +4,9 @@ import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextCatShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
+import com.example.dev_pro.impl.handlersCatShelterImpl.HandlerListAnimalsCatShelter;
 import com.example.dev_pro.listener.TelegramBotListener;
+import com.example.dev_pro.service.handlers.InputMessageHandlerCatShelter;
 import com.example.dev_pro.service.shelter.ShelterService;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
@@ -21,13 +23,17 @@ public class CatShelterServiceImpl implements ShelterService {
     private final TelegramBotListener listener;
     private final UserDataCacheCatShelter userDataCache;
     private final BotStateContextCatShelter botStateContext;
+    private final HandlerListAnimalsCatShelter handlerCatShelter;
 
     public CatShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext) {
+                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext,
+                                 HandlerListAnimalsCatShelter handlerCatShelter
+                                 ) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
+        this.handlerCatShelter = handlerCatShelter;
     }
 
 
@@ -67,6 +73,10 @@ public class CatShelterServiceImpl implements ShelterService {
                 break;
             case TAKE_COM:
                 botState = BotStateCatShelter.TAKE_COM;
+                break;
+            case LIST_ANIMALS_COM:
+                botState = BotStateCatShelter.LIST_ANIMALS_COM;
+                handlerCatShelter.sendPhotoByDataBase(chatId);
                 break;
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;

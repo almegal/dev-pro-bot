@@ -18,6 +18,7 @@ public enum BotStateCatShelter {
     // Когда пользователем введены данные, бота можно переключить в состояние PROFILE_FILLED
     COME_BACK_COM,
     TAKE_COM,
+    LIST_ANIMALS_COM,
     REPORT_COM;
 
 }

@@ -1,9 +1,11 @@
 package com.example.dev_pro.impl.shelterImpl;
 
+import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextDogShelter;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheDogShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
+import com.example.dev_pro.impl.handlersDogShelterImpl.HandlerListAnimalsDogShelter;
 import com.example.dev_pro.listener.TelegramBotListener;
 import com.example.dev_pro.service.shelter.ShelterService;
 import com.pengrad.telegrambot.model.Message;
@@ -21,13 +23,16 @@ public class DogShelterServiceImpl implements ShelterService {
     private final TelegramBotListener listener;
     private final UserDataCacheDogShelter userDataCache;
     private final BotStateContextDogShelter botStateContext;
+    private final HandlerListAnimalsDogShelter handlerDogShelter;
 
     public DogShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext) {
+                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext,
+                                 HandlerListAnimalsDogShelter handlerDogShelter) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
+        this.handlerDogShelter = handlerDogShelter;
     }
 
     @Override
@@ -66,6 +71,10 @@ public class DogShelterServiceImpl implements ShelterService {
                 break;
             case TAKE_COM:
                 botState = BotStateDogShelter.TAKE_COM;
+                break;
+            case LIST_ANIMALS_COM:
+                botState = BotStateDogShelter.LIST_ANIMALS_COM;
+                handlerDogShelter.sendPhotoByDataBase(chatId);
                 break;
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
