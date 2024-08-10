@@ -16,7 +16,7 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.startMsg}")
     private String startMsg;
-    
+
     @Value("${telegram.bot.infoMsgAboutCatShelter}")
     private String infoMsgCatShelter;
 
@@ -85,6 +85,18 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.messageToVolunteerMsg2}")
     private String messageToVolunteerMsg2;
+
+    @Value("${telegram.bot.meetingAnimalsRulesCat}")
+    private String meetingRulesForCat;
+
+    @Value("${telegram.bot.documentForTakeAnimals}")
+    private String documentForTakeAnimals;
+
+    @Value("${telegram.bot.meetingAnimalsRulesDog}")
+    private String MeetingRulesForDog;
+
+    @Value("${telegram.bot.reasonRefusal}")
+    private String reasonRefusal;
 
     /**
      * Создание и настройка Telegram-бота.
