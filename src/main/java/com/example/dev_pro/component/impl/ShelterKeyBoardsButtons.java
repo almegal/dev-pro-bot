@@ -12,6 +12,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String TAKE_COM = "/take";
     public static final String REPORT_COM = "/report";
     public static final String CALL_COM = "/call";
+    public static final String MAIN_COME_BACK_COM = "/main_come_back";
 
     public static final String OVERVIEW_COM = "/overview";
     public static final String ADDRESS_COM = "/address";
@@ -26,7 +27,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String RECOMMENDATIONS_COM = "/recommendations";
     public static final String REASONS_REFUSAL_COM = "/reasons_refusal";
     public static final String TAKE_USER_CONTACT_COM = "/user_contact";
-    public static final String TAKE_COME_BACK_COM = "/come_back";
 
     public static final String RECOMM_FOR_TRANSPORTING_THE_ANIMAL = "/RecommForTransportingTheAnimal";
     public static final String TO_SET_UP_HOME_FOR_PUPPY = "/ToSetUpHomeForPuppy";
@@ -34,15 +34,15 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String PROVIDING_HOME_FOR_ANIMAL_DISABILITY = "/ProvidingHomeForAnimalDisability";
     public static final String ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL = "/AdviceHandlerInitialCommunAnimal";
     public static final String CONTACT_DETAILS_HANDLER = "/ContactDetailsHandler";
-    public static final String RECOMM_COME_BACK_COM = "/come_back";
+    public static final String RECOMM_COME_BACK_COM = "/recomm_come_back";
     @Override
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(
-                new KeyboardButton[]{
-                        new KeyboardButton(INFO_COM),
-                        new KeyboardButton(TAKE_COM),
-                        new KeyboardButton(REPORT_COM),
-                        new KeyboardButton(CALL_COM)
+                new KeyboardButton[][]{
+                        {new KeyboardButton(INFO_COM), new KeyboardButton(TAKE_COM),
+                        new KeyboardButton(REPORT_COM)},
+                        {new KeyboardButton(CALL_COM),
+                        new KeyboardButton(MAIN_COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }
@@ -67,7 +67,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
                         {new KeyboardButton(MEETING_ANIMALS_COM), new KeyboardButton(LIST_DOCUMENTS_COM),
                                 new KeyboardButton(RECOMMENDATIONS_COM)},
                         {new KeyboardButton(REASONS_REFUSAL_COM ), new KeyboardButton(TAKE_USER_CONTACT_COM),
-                                new KeyboardButton(TAKE_COME_BACK_COM)}
+                                new KeyboardButton(COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }

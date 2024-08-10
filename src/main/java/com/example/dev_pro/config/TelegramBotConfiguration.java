@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TelegramBotConfiguration {
 
-    @Value(("${telegram.bot.selectRecommMsg}"))
+    @Value("${telegram.bot.mainComeBackMsg}")
+    private String mainComeBackMsg;
+
+    @Value("${telegram.bot.selectRecommMsg}")
     private String selectRecommMsg;
 
     @Value("${telegram.bot.token}")
