@@ -39,6 +39,10 @@ public class Pet {
     private Boolean isFreeStatus;
 
     @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private TelegramUser owner;
+
+    @ManyToOne
     @JoinColumn(name = "shelter_id")
     @JsonBackReference
     private Shelter shelter;

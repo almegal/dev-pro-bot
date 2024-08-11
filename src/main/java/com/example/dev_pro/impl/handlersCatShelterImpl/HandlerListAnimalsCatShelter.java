@@ -1,7 +1,6 @@
 package com.example.dev_pro.impl.handlersCatShelterImpl;
 
 import com.example.dev_pro.botapi.BotStateCatShelter;
-import com.example.dev_pro.component.impl.ShelterKeyBoardsButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.model.AvatarPet;
 import com.example.dev_pro.model.Pet;
@@ -38,7 +37,7 @@ public class HandlerListAnimalsCatShelter implements InputMessageHandlerCatShelt
     /**
      * Метод по обработке сообщения от пользователя, соответствующего состоянию бота - LIST_ANIMALS_COM. В результате
      * нажатия пользователем на кнопку list_animals_com бот отправляет пользователю сообщение с фотографиями
-     * животных и прикрепленным к нему меню из кнопок для выбора понравившегося животного.
+     * животных.
      * @param message сообщение от пользователя
      * @return ответное сообщение пользователю от бота
      */
@@ -48,6 +47,7 @@ public class HandlerListAnimalsCatShelter implements InputMessageHandlerCatShelt
         Long chatId = message.chat().id();
         SendMessage replyMessage = new SendMessage(chatId, tBotConfig.getListAnimalsMsgCatShelter());
         telegramBot.execute(replyMessage);
+        sendPhotoByDataBase(chatId);
         return replyMessage;
     }
 
@@ -56,18 +56,23 @@ public class HandlerListAnimalsCatShelter implements InputMessageHandlerCatShelt
         return BotStateCatShelter.LIST_ANIMALS_COM;
     }
 
+    /**
+     * Метод по получению из базы данных фотографий всех свободных питомцев из приюта для кошек и отправлению их
+     * пользователю
+     * @param chatId идентификатор чата
+     */
+
     public void sendPhotoByDataBase(Long chatId) {
         List<Pet> freeCats = petService.findAllByShelterIdAndIsFreeStatus(CAT_SHELTER_ID, IS_FREE_STATUS);
-        // Получили из базы данных список свободных питомцев из приютов для котов / кошек
+        // Получили из базы данных список свободных питомцев из приюта для котов / кошек
 
         for (Pet cat : freeCats) {
             AvatarPet avatar = avatarService.findAvatarByPetId(cat.getId());
             if (avatar != null) {
                 try {
                     byte[] photo = Files.readAllBytes(Path.of(avatar.getFilePath()));
-                    String caption = cat.getPetType() + " " + cat.getName() + "\n " +
-                            "возраст " + cat.getAge() + " лет" + "\n " +
-                            "пол " + cat.getSex();
+                    String caption = String.format("%s %s, возраст %d лет, пол %s",
+                            cat.getPetType(), cat.getName(), cat.getAge(), cat.getSex());
                     SendPhoto sendPhoto = new SendPhoto(chatId, photo)
                             // создаем сообщение с файлом - фото
                             .caption(caption);
@@ -79,8 +84,5 @@ public class HandlerListAnimalsCatShelter implements InputMessageHandlerCatShelt
                 }
             }
         }
-
-
-
     }
 }

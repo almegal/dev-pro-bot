@@ -1,7 +1,6 @@
 package com.example.dev_pro.impl.handlersDogShelterImpl;
 
 import com.example.dev_pro.botapi.BotStateDogShelter;
-import com.example.dev_pro.component.impl.ShelterKeyBoardsButtons;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.model.AvatarPet;
 import com.example.dev_pro.model.Pet;
@@ -38,7 +37,7 @@ public class HandlerListAnimalsDogShelter implements InputMessageHandlerDogShelt
     /**
      * Метод по обработке сообщения от пользователя, соответствующего состоянию бота - LIST_ANIMALS_COM. В результате
      * нажатия пользователем на кнопку list_animals_com бот отправляет пользователю сообщение с фотографиями
-     * животных и прикрепленным к нему меню из кнопок для выбора понравившегося животного.
+     * животных.
      * @param message сообщение от пользователя
      * @return ответное сообщение пользователю от бота
      */
@@ -48,6 +47,7 @@ public class HandlerListAnimalsDogShelter implements InputMessageHandlerDogShelt
         Long chatId = message.chat().id();
         SendMessage replyMessage = new SendMessage(chatId, tBotConfig.getListAnimalsMsgDogShelter());
         telegramBot.execute(replyMessage);
+        sendPhotoByDataBase(chatId);
         return replyMessage;
     }
 
@@ -55,6 +55,12 @@ public class HandlerListAnimalsDogShelter implements InputMessageHandlerDogShelt
     public BotStateDogShelter getHandlerName() {
         return BotStateDogShelter.LIST_ANIMALS_COM;
     }
+
+    /**
+     * Метод по получению из базы данных фотографий всех свободных питомцев из приюта для собак и отправлению их
+     * пользователю
+     * @param chatId идентификатор чата
+     */
 
     public void sendPhotoByDataBase(Long chatId) {
         List<Pet> freeDogs = petService.findAllByShelterIdAndIsFreeStatus(DOG_SHELTER_ID, IS_FREE_STATUS);
@@ -65,9 +71,8 @@ public class HandlerListAnimalsDogShelter implements InputMessageHandlerDogShelt
             if (avatar != null) {
                 try {
                     byte[] photo = Files.readAllBytes(Path.of(avatar.getFilePath()));
-                    String caption = "\n " + dog.getPetType() + " " + dog.getName() + "\n " +
-                            "возраст " + dog.getAge() + " лет" + "\n " +
-                            "пол " + dog.getSex();
+                    String caption = String.format("%s %s, возраст %d лет, пол %s",
+                            dog.getPetType(), dog.getName(), dog.getAge(), dog.getSex());
                     SendPhoto sendPhoto = new SendPhoto(chatId, photo)
                             // создаем сообщение с файлом - фото
                             .caption(caption);
