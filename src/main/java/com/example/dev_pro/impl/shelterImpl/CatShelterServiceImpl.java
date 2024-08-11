@@ -2,6 +2,7 @@ package com.example.dev_pro.impl.shelterImpl;
 
 import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextCatShelter;
+import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.listener.TelegramBotListener;
@@ -31,9 +32,8 @@ public class CatShelterServiceImpl implements ShelterService {
         this.botStateContext = botStateContext;
     }
 
-
-   @Override
-   public void handleUpdate(Update update) {
+    @Override
+    public void handleUpdate(Update update) {
         Message message = update.message();
         Long chatId = update.message().chat().id();
         Long userId = message.from().id();
@@ -72,9 +72,56 @@ public class CatShelterServiceImpl implements ShelterService {
             case LIST_ANIMALS_COM:
                 botState = BotStateCatShelter.LIST_ANIMALS_COM;
                 break;
+            case RECOMMENDATIONS_COM:
+                botState = BotStateCatShelter.RECOMMENDATIONS_COM;
+                break;
+            case MAIN_COME_BACK_COM:
+                botState = BotStateCatShelter.MAIN_COME_BACK_COM;
+                break;
+            case RECOMM_FOR_TRANSPORTING_THE_ANIMAL:
+                botState = BotStateCatShelter.RECOMM_FOR_TRANSPORTING_THE_ANIMAL;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/RECOMM_FOR_TRANSPORTING_THE_ANIMAL.jpg");
+                break;
+            case TO_SET_UP_HOME_FOR_PUPPY:
+                botState = BotStateCatShelter.TO_SET_UP_HOME_FOR_PUPPY;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/cat1.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/cat2.png");
+                break;
+            case SETTING_UP_HOME_FOR_AN_ADULT_PET:
+                botState = BotStateCatShelter.SETTING_UP_HOME_FOR_AN_ADULT_PET;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat1.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat2.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat3.png");
+                break;
+            case PROVIDING_HOME_FOR_ANIMAL_DISABILITY:
+                botState = BotStateCatShelter.PROVIDING_HOME_FOR_ANIMAL_DISABILITY;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/DisCat.png");
+                break;
+            case ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL:
+                botState = BotStateCatShelter.ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/tipsSpecDogCat.png");
+                break;
+            case CONTACT_DETAILS_HANDLER:
+                botState = BotStateCatShelter.CONTACT_DETAILS_HANDLER;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/SpecCat.png");
+            case RECOMM_COME_BACK_COM:
+                botState = BotStateCatShelter.RECOMM_COME_BACK_COM;
+                break;
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
-                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case REPORT_COME_BACK_COM:
+                botState = BotStateCatShelter.REPORT_COME_BACK_COM;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;

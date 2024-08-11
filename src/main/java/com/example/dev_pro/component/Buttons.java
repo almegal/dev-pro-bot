@@ -8,20 +8,23 @@ public interface Buttons {
      * @return возвращает команды для взаимодействия с ботом.
      * Этот метод должен быть вызван для инициализации кнопок главного меню бота конкретного приюта.
      */
-    public Keyboard getKeyboardButtons();
+    Keyboard getKeyboardButtons();
 
     /**
      * @return возвращает команды для взаимодействия с ботом.
      * Этот метод должен быть вызван для инициализации кнопок меню info бота конкретного приюта.
      */
-    public Keyboard getInfoKeyboardButtons();
+    Keyboard getInfoKeyboardButtons();
 
     /**
      * @return возвращает команды для взаимодействия с ботом.
      * Этот метод должен быть вызван для инициализации кнопок меню take бота конкретного приюта.
      */
-    public Keyboard getTakeKeyboardButtons();
+    Keyboard getTakeKeyboardButtons();
 
-
-
+    /**
+     * @return возвращает команды для взаимодействия с ботом.
+     * Этот метод должен быть вызван для инициализации кнопок меню Recommendations бота конкретного приюта.
+     */
+    Keyboard getRecommendationsButtons();
 }

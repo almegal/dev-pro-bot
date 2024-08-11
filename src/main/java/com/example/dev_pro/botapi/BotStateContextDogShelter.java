@@ -40,7 +40,7 @@ public class BotStateContextDogShelter {
         if (isFillingProfileState(currentState)) {
             return messageHandlers.get(BotStateDogShelter.FILLING_PROFILE);
             // Если состояние бота соответствует любому состоянию из перечисленных ниже, то возвращается обработчик из
-            // класса FillingProfileHandlerDogShelter;
+            // класса HandlerFillingUserProfileDogShelter;
             // иначе возвращается обработчик из других классов
         }
 

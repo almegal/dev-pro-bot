@@ -1,5 +1,6 @@
 package com.example.dev_pro.impl.shelterImpl;
 
+import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextDogShelter;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheDogShelter;
@@ -30,7 +31,7 @@ public class DogShelterServiceImpl implements ShelterService {
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
     }
-
+    
     @Override
     public void handleUpdate(Update update) {
         Message message = update.message();
@@ -71,9 +72,61 @@ public class DogShelterServiceImpl implements ShelterService {
             case LIST_ANIMALS_COM:
                 botState = BotStateDogShelter.LIST_ANIMALS_COM;
                 break;
+            case RECOMMENDATIONS_COM:
+                botState = BotStateDogShelter.RECOMMENDATIONS_COM;
+                break;
+            case MAIN_COME_BACK_COM:
+                botState = BotStateDogShelter.MAIN_COME_BACK_COM;
+                break;
+            case RECOMM_FOR_TRANSPORTING_THE_ANIMAL:
+                botState = BotStateDogShelter.RECOMM_FOR_TRANSPORTING_THE_ANIMAL;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/RECOMM_FOR_TRANSPORTING_THE_ANIMAL.jpg");
+                break;
+            case TO_SET_UP_HOME_FOR_PUPPY:
+                botState = BotStateDogShelter.TO_SET_UP_HOME_FOR_PUPPY;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/dog1.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/dog2.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/dog3.png");
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/dog4.png");
+                break;
+            case SETTING_UP_HOME_FOR_AN_ADULT_PET:
+                botState = BotStateDogShelter.SETTING_UP_HOME_FOR_AN_ADULT_PET;
+                listener.sendPhoto(chatId,tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat1.png");
+                listener.sendPhoto(chatId,tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat2.png");
+                listener.sendPhoto(chatId,tBotConfig.getSelectRecommMsg(),
+                        "static/images/DogCat3.png");
+                break;
+            case PROVIDING_HOME_FOR_ANIMAL_DISABILITY:
+                botState = BotStateDogShelter.PROVIDING_HOME_FOR_ANIMAL_DISABILITY;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/DisDog.png");
+                break;
+            case ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL:
+                botState = BotStateDogShelter.ADVICE_HANDLER_INITIAL_COMMUN_ANIMAL;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/tipsSpecDogCat.png");
+                break;
+            case CONTACT_DETAILS_HANDLER:
+                botState = BotStateDogShelter.CONTACT_DETAILS_HANDLER;
+                listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
+                        "static/images/SpecDog.png");
+                break;
+            case RECOMM_COME_BACK_COM:
+                botState = BotStateDogShelter.RECOMM_COME_BACK_COM;
+                break;
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
-                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case REPORT_COME_BACK_COM:
+                botState = BotStateDogShelter.REPORT_COME_BACK_COM;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;

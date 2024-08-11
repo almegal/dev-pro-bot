@@ -42,7 +42,7 @@ public class BotStateContextCatShelter {
         if (isFillingProfileState(currentState)) {
             return messageHandlers.get(BotStateCatShelter.FILLING_PROFILE);
             // Если состояние бота соответствует любому состоянию из перечисленных ниже, то возвращается обработчик из
-            // класса FillingProfileHandlerCatShelter;
+            // класса HandlerFillingUserProfileCatShelter;
             // иначе возвращается обработчик из других классов
         }
 
