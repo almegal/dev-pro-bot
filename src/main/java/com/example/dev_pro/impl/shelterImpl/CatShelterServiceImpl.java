@@ -24,7 +24,8 @@ public class CatShelterServiceImpl implements ShelterService {
     private final BotStateContextCatShelter botStateContext;
 
     public CatShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext) {
+                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext
+                                 ) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
@@ -67,6 +68,9 @@ public class CatShelterServiceImpl implements ShelterService {
                 break;
             case TAKE_COM:
                 botState = BotStateCatShelter.TAKE_COM;
+                break;
+            case LIST_ANIMALS_COM:
+                botState = BotStateCatShelter.LIST_ANIMALS_COM;
                 break;
             case RECOMMENDATIONS_COM:
                 botState = BotStateCatShelter.RECOMMENDATIONS_COM;

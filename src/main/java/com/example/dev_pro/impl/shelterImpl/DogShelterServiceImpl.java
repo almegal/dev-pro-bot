@@ -24,7 +24,8 @@ public class DogShelterServiceImpl implements ShelterService {
     private final BotStateContextDogShelter botStateContext;
 
     public DogShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext) {
+                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext
+                                 ) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
@@ -67,6 +68,9 @@ public class DogShelterServiceImpl implements ShelterService {
                 break;
             case TAKE_COM:
                 botState = BotStateDogShelter.TAKE_COM;
+                break;
+            case LIST_ANIMALS_COM:
+                botState = BotStateDogShelter.LIST_ANIMALS_COM;
                 break;
             case RECOMMENDATIONS_COM:
                 botState = BotStateDogShelter.RECOMMENDATIONS_COM;
@@ -133,6 +137,5 @@ public class DogShelterServiceImpl implements ShelterService {
         replyMessage = botStateContext.processInputMessage(botState, message);
         // Создаем ответное сообщение бота, исходя из состояния бота
     }
-
 
 }

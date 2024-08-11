@@ -2,11 +2,14 @@ package com.example.dev_pro.component.impl;
 
 import com.example.dev_pro.component.Buttons;
 import com.pengrad.telegrambot.model.request.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@RequiredArgsConstructor
 public class ShelterKeyBoardsButtons implements Buttons {
+
 
     public static final String INFO_COM = "/info";
     public static final String TAKE_COM = "/take";
@@ -14,19 +17,19 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String CALL_COM = "/call";
     public static final String MAIN_COME_BACK_COM = "/main_come_back";
 
+    public static final String USER_CONTACT_COM = "/user_contact";
+    public static final String COME_BACK_COM = "/come_back";
+
     public static final String OVERVIEW_COM = "/overview";
     public static final String ADDRESS_COM = "/address";
     public static final String CAR_PASS_COM = "/car_pass";
     public static final String SAFETY_RULES_COM = "/safety_rules";
-    public static final String USER_CONTACT_COM = "/user_contact";
-    public static final String COME_BACK_COM = "/come_back";
 
     public static final String LIST_ANIMALS_COM = "/list_animals";
     public static final String MEETING_ANIMALS_COM = "/meeting_animals";
     public static final String LIST_DOCUMENTS_COM = "/list_documents";
     public static final String RECOMMENDATIONS_COM = "/recommendations";
     public static final String REASONS_REFUSAL_COM = "/reasons_refusal";
-    public static final String TAKE_USER_CONTACT_COM = "/user_contact";
 
     public static final String RECOMM_FOR_TRANSPORTING_THE_ANIMAL = "/RecommForTransportingTheAnimal";
     public static final String TO_SET_UP_HOME_FOR_PUPPY = "/ToSetUpHomeForPuppy";
@@ -72,7 +75,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
                         {new KeyboardButton(LIST_ANIMALS_COM)},
                         {new KeyboardButton(MEETING_ANIMALS_COM), new KeyboardButton(LIST_DOCUMENTS_COM),
                                 new KeyboardButton(RECOMMENDATIONS_COM)},
-                        {new KeyboardButton(REASONS_REFUSAL_COM), new KeyboardButton(TAKE_USER_CONTACT_COM),
+                        {new KeyboardButton(REASONS_REFUSAL_COM ), new KeyboardButton(USER_CONTACT_COM),
                                 new KeyboardButton(COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
