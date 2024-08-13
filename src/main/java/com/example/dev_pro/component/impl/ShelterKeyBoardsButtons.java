@@ -96,7 +96,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[][]{
                         {new KeyboardButton(HOW_TO_REPORT), new KeyboardButton(OFFSET_FORMAT)},
-                        {new KeyboardButton(FILE_A_REPORT), new KeyboardButton(REPORT_COME_BACK_COM)}
+                        {new KeyboardButton(FILE_A_REPORT), new KeyboardButton(REPORT_COME_BACK_COM)},
                         {new KeyboardButton(REASONS_REFUSAL_COM), new KeyboardButton(USER_CONTACT_COM),
                                 new KeyboardButton(TAKE_COME_BACK_COM)}
                 }
