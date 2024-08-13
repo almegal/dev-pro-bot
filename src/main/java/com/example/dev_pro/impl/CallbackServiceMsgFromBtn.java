@@ -27,13 +27,16 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
     public void handleCallback(Update update) {
         //Получаем идентификатор пользователя и сообщения
         Long userId = update.message().from().id();
-        String shelter = update.message().text();
         Long chatId = update.message().chat().id();
+        String nickName = update.message().chat().username();
+        String shelter = update.message().text();
 
         // создаем нового пользователя и устанавливаем ему значения полей
         TelegramUser telegramUser = new TelegramUser();
-        telegramUser.setTelegramId(userId);
         telegramUser.setId(0L);
+        telegramUser.setTelegramId(userId);
+        telegramUser.setChatId(chatId);
+        telegramUser.setNickName(nickName);
         telegramUser.setShelter(shelter);
 
         Keyboard keyboardToUser = null;
