@@ -3,6 +3,8 @@ package com.example.dev_pro.cache.impl;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.DataCacheDogShelter;
 import com.example.dev_pro.model.TelegramUser;
+import com.example.dev_pro.service.TelegramUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -15,8 +17,10 @@ import java.util.Map;
  */
 
 @Component
+@RequiredArgsConstructor
 public class UserDataCacheDogShelter implements DataCacheDogShelter {
 
+    private final TelegramUserService service;
     private Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
     private Map<Long, TelegramUser> telegramUsers = new HashMap<>();
 
@@ -35,7 +39,7 @@ public class UserDataCacheDogShelter implements DataCacheDogShelter {
     public TelegramUser getTelegramUser(Long userId) {
         TelegramUser telegramUser = telegramUsers.get(userId);
         if (telegramUser == null) {
-            telegramUser = new TelegramUser();
+            telegramUser = service.getById(userId);
         }
         return telegramUser;
     }

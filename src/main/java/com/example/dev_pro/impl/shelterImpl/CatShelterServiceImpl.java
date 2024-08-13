@@ -2,7 +2,6 @@ package com.example.dev_pro.impl.shelterImpl;
 
 import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextCatShelter;
-import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.listener.TelegramBotListener;
@@ -24,8 +23,7 @@ public class CatShelterServiceImpl implements ShelterService {
     private final BotStateContextCatShelter botStateContext;
 
     public CatShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext
-                                 ) {
+                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
@@ -118,6 +116,16 @@ public class CatShelterServiceImpl implements ShelterService {
                 break;
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
+                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case MEETING_ANIMALS_COM:
+                botState = BotStateCatShelter.RULES_FOR_ANIMAL;
+                break;
+            case LIST_DOCUMENTS_COM:
+                botState = BotStateCatShelter.DOCUMENT_FOR_TAKE_ANIMAL_COM;
+                break;
+            case REASONS_REFUSAL_COM:
+                botState = BotStateCatShelter.REASON_REFUSAL_COM;
                 break;
             case REPORT_COME_BACK_COM:
                 botState = BotStateCatShelter.REPORT_COME_BACK_COM;

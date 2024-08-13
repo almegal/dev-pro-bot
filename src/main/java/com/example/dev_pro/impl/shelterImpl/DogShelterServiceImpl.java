@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl.shelterImpl;
 
-import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextDogShelter;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheDogShelter;
@@ -24,8 +23,7 @@ public class DogShelterServiceImpl implements ShelterService {
     private final BotStateContextDogShelter botStateContext;
 
     public DogShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext
-                                 ) {
+                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
@@ -39,7 +37,7 @@ public class DogShelterServiceImpl implements ShelterService {
         Long userId = message.from().id();
         String text = update.message().text();
 
-        BotStateDogShelter botState = null;
+        BotStateDogShelter botState;
         SendMessage replyMessage;
 
         switch (text) {
@@ -123,6 +121,16 @@ public class DogShelterServiceImpl implements ShelterService {
                 break;
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
+                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case LIST_DOCUMENTS_COM:
+                botState = BotStateDogShelter.DOCUMENT_FOR_TAKE_ANIMAL_COM;
+                break;
+            case MEETING_ANIMALS_COM:
+                botState = BotStateDogShelter.RULES_FOR_ANIMAL;
+                break;
+            case REASONS_REFUSAL_COM:
+                botState = BotStateDogShelter.REASON_REFUSAL_COM;
                 break;
             case REPORT_COME_BACK_COM:
                 botState = BotStateDogShelter.REPORT_COME_BACK_COM;
@@ -137,5 +145,6 @@ public class DogShelterServiceImpl implements ShelterService {
         replyMessage = botStateContext.processInputMessage(botState, message);
         // Создаем ответное сообщение бота, исходя из состояния бота
     }
+
 
 }
