@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TelegramBotConfiguration {
 
+    @Value("${telegram.bot.ReportInstructionsMsg}")
+    private String reportInstructionsMsg;
+
     @Value("${telegram.bot.reportSelectMsg}")
     private String reportSelectMsg;
 

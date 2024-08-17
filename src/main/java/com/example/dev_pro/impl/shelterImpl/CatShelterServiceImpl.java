@@ -111,12 +111,21 @@ public class CatShelterServiceImpl implements ShelterService {
                 botState = BotStateCatShelter.CONTACT_DETAILS_HANDLER;
                 listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
                         "static/images/SpecCat.png");
+                break;
             case RECOMM_COME_BACK_COM:
                 botState = BotStateCatShelter.RECOMM_COME_BACK_COM;
                 break;
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
-                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case REPORT_FORMAT:
+                botState = BotStateCatShelter.REPORT_FORMAT;
+                break;
+            case SEND_TEXT_REPORT:
+                botState = BotStateCatShelter.SEND_TEXT_REPORT;
+                break;
+            case SEND_PHOTO_REPORT:
+                botState = BotStateCatShelter.SEND_PHOTO_REPORT;
                 break;
             case MEETING_ANIMALS_COM:
                 botState = BotStateCatShelter.RULES_FOR_ANIMAL;
