@@ -21,12 +21,12 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String ADDRESS_COM = "/address";
     public static final String CAR_PASS_COM = "/car_pass";
     public static final String SAFETY_RULES_COM = "/safety_rules";
+
     public static final String LIST_ANIMALS_COM = "/list_animals";
     public static final String MEETING_ANIMALS_COM = "/meeting_animals";
     public static final String LIST_DOCUMENTS_COM = "/list_documents";
     public static final String RECOMMENDATIONS_COM = "/recommendations";
     public static final String REASONS_REFUSAL_COM = "/reasons_refusal";
-    public static final String TAKE_USER_CONTACT_COM = "/user_contact";
     public static final String TAKE_COME_BACK_COM = "/come_back";
 
     public static final String RECOMM_FOR_TRANSPORTING_THE_ANIMAL = "/RecommForTransportingTheAnimal";
@@ -41,6 +41,7 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String OFFSET_FORMAT="/offset_format";
     public static final String FILE_A_REPORT = "/file_a_report";
     public static final String REPORT_COME_BACK_COM = "/report_come_back";
+
 
     @Override
     public Keyboard getKeyboardButtons() {

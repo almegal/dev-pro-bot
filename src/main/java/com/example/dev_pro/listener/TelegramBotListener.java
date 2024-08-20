@@ -1,9 +1,7 @@
 package com.example.dev_pro.listener;
 
-import com.example.dev_pro.service.AvatarPetService;
 import com.example.dev_pro.service.CallbackService;
 import com.example.dev_pro.service.CommandHandlerService;
-import com.example.dev_pro.service.PetService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
@@ -88,5 +86,6 @@ public class TelegramBotListener implements UpdatesListener {
         // по цепочке добавляем надпись над изображением
         telegramBot.execute(sendPhoto);
     }
+
 
 }
