@@ -25,7 +25,7 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
 
     @Override
     public void handleCallback(Update update) {
-        //Получаем идентификатор пользователя и сообщения
+        // Получаем идентификатор пользователя и сообщения
         Long userId = update.message().from().id();
         Long chatId = update.message().chat().id();
         String nickName = update.message().chat().username();
@@ -38,7 +38,7 @@ public class CallbackServiceMsgFromBtn implements CallbackService {
         telegramUser.setChatId(chatId);
         telegramUser.setNickName(nickName);
         telegramUser.setShelter(shelter);
-
+        
         Keyboard keyboardToUser = null;
         // если выбрали приют
         if (shelter.equalsIgnoreCase(CAT_BUTTON)) {
