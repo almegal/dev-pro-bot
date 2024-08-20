@@ -1,9 +1,6 @@
 package com.example.dev_pro.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,5 +21,9 @@ public class TelegramUser {
     private String phoneNumber;
     private String carNumber;
     private String shelter;
+
+    @OneToOne
+    @JoinColumn(name = "adopter_id")
+    private Adopter adopter;
 
 }

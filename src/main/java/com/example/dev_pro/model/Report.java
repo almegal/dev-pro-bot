@@ -1,83 +1,52 @@
 package com.example.dev_pro.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "report")
+@Table(name = "reports")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long report_id;
+    private Integer id;
 
-    @Column(name = "nameAnimal")
-    private String nameAnimal;
+    @Column(name = "date_report")
+    private LocalDate dateReport;
 
-    @Column(name = "mode")
-    private String mode;
+    @Column(name = "text_report")
+    private String textReport;
 
-    @Column(name = "ration")
-    private String ration;
+    @Column(name = "file_path")
+    private String filePath;
 
-    @Column(name = "weight")
-    private Long weight;
+    @Column(name = "file_size")
+    private long fileSize;
 
-    @Column(name = "wellBeing")
-    private String wellBeing;
+    @Column(name = "media_type")
+    private String mediaType;
 
-    @OneToMany(mappedBy = "report")
-    private List<PhotoReport> photoReport;
+    @Column(name = "is_viewed")
+    private Boolean isViewed;
 
-    public Long getReport_id() {
-        return report_id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "adopter_id")
+    @JsonBackReference
+    private Adopter adopter;
 
-    public void setReport_id(Long report_id) {
-        this.report_id = report_id;
-    }
-
-    public String getNameAnimal() {
-        return nameAnimal;
-    }
-
-    public void setNameAnimal(String nameAnimal) {
-        this.nameAnimal = nameAnimal;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    public String getRation() {
-        return ration;
-    }
-
-    public void setRation(String ration) {
-        this.ration = ration;
-    }
-
-    public Long getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Long weight) {
-        this.weight = weight;
-    }
-
-    public String getWellBeing() {
-        return wellBeing;
-    }
-
-    public void setWellBeing(String wellBeing) {
-        this.wellBeing = wellBeing;
-    }
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    @JsonBackReference
+    private Pet pet;
 
 
 }
