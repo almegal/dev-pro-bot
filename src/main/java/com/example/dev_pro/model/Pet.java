@@ -4,16 +4,21 @@ package com.example.dev_pro.model;
 import com.example.dev_pro.enums.PetType;
 import com.example.dev_pro.enums.Sex;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "pets")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(value = {"reports"})
 public class Pet {
 
     @Id
@@ -39,13 +44,18 @@ public class Pet {
     private Boolean isFreeStatus;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private TelegramUser owner;
+    @JoinColumn(name = "adopter_id")
+    @JsonBackReference
+    private Adopter adopter;
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     @JsonBackReference
     private Shelter shelter;
+
+    @OneToMany(mappedBy = "pet")
+    @JsonManagedReference
+    private List<Report> reports;
 
 
 }
