@@ -48,5 +48,4 @@ public class Report {
     @JsonBackReference
     private Pet pet;
 
-
 }
