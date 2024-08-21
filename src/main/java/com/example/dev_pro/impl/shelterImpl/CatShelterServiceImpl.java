@@ -121,11 +121,8 @@ public class CatShelterServiceImpl implements ShelterService {
             case REPORT_FORMAT:
                 botState = BotStateCatShelter.REPORT_FORMAT;
                 break;
-            case SEND_TEXT_REPORT:
-                botState = BotStateCatShelter.SEND_TEXT_REPORT;
-                break;
-            case SEND_PHOTO_REPORT:
-                botState = BotStateCatShelter.SEND_PHOTO_REPORT;
+            case SEND_REPORT:
+                botState = BotStateCatShelter.SEND_REPORT;
                 break;
             case MEETING_ANIMALS_COM:
                 botState = BotStateCatShelter.RULES_FOR_ANIMAL;
