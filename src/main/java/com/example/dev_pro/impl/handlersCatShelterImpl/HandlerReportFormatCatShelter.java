@@ -17,7 +17,6 @@ public class HandlerReportFormatCatShelter implements InputMessageHandlerCatShel
 
     private final TelegramBotConfiguration tBotConfig;
     private final TelegramBot telegramBot;
-
     private static final Logger logger = LoggerFactory.getLogger(HandlerReportFormatCatShelter.class);
 
     @Override

@@ -33,4 +33,5 @@ public class HandlerReportFormatDogShelter implements InputMessageHandlerDogShel
     public BotStateDogShelter getHandlerName() {
         return BotStateDogShelter.REPORT_FORMAT;
     }
+
 }

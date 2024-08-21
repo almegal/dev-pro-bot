@@ -51,4 +51,5 @@ public class HandlerSendReportDogShelter implements InputMessageHandlerDogShelte
     public BotStateDogShelter getHandlerName() {
         return BotStateDogShelter.SEND_REPORT;
     }
+
 }

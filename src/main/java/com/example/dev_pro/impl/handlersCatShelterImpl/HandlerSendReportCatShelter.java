@@ -50,4 +50,5 @@ public class HandlerSendReportCatShelter implements InputMessageHandlerCatShelte
     public BotStateCatShelter getHandlerName() {
         return BotStateCatShelter.SEND_REPORT;
     }
+
 }
