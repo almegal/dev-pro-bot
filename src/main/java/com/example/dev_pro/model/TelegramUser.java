@@ -25,5 +25,13 @@ public class TelegramUser {
     @OneToOne
     @JoinColumn(name = "adopter_id")
     private Adopter adopter;
+    private String photoFilePath;
 
+    public void setPhotoFilePath(String photoFilePath) {
+        this.photoFilePath = photoFilePath;
+    }
+
+    public String getPhotoFilePath() {
+        return photoFilePath;
+    }
 }

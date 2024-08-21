@@ -22,5 +22,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
      */
     List<Pet> findAllByShelterIdAndIsFreeStatus(Integer shelterId, boolean isFreeStatus);
 
+    List<Pet> findByAdopterId(Long id);
+
 
 }

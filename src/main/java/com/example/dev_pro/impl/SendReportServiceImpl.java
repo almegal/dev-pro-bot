@@ -1,10 +1,11 @@
 package com.example.dev_pro.impl;
 
+import com.example.dev_pro.model.Adopter;
+import com.example.dev_pro.model.Pet;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.repository.ReportRepository;
 import com.example.dev_pro.service.SendReportService;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.PhotoSize;
 import com.pengrad.telegrambot.request.GetFile;
 import lombok.RequiredArgsConstructor;
@@ -27,50 +28,29 @@ public class SendReportServiceImpl implements SendReportService {
 
     @Value("${path.to.photo.folder}")
     private String photoDir;
-    private Report report;
-    private ReportRepository reportRepository;
-    private TelegramBot telegramBot;
+    private final ReportRepository reportRepository;
+    private final TelegramBot telegramBot;
     private static final Logger logger = LoggerFactory.getLogger(SendReportServiceImpl.class);
 
     @Override
-    public Report handleReport(Message message) {
-        Report report = new Report();
-        String textReport = message.text();
-
-        PhotoSize[] photos = message.photo();
+    public String savePhoto(PhotoSize[] photos) {
         if (photos != null && photos.length > 0) {
             PhotoSize photo = photos[photos.length - 1];
             String fileId = photo.fileId();
             String filePath = telegramBot.execute(new GetFile(fileId)).file().filePath();
-            String localFilePath = savePhoto(filePath);
-            String mediaType = getMediaType(localFilePath);
-
-            report.setDateReport(LocalDate.now());
-            report.setTextReport(textReport);
-            report.setFilePath(localFilePath);
-            report.setFileSize(photo.fileSize());
-            report.setMediaType(mediaType);
-            report.setIsViewed(false);
-            reportRepository.save(report);
-
-        }
-
-        return report;
-    }
-
-    private byte[] downloadFile(String filePath) {
-        String url = "https://api.telegram.org/file/bot" + telegramBot.getToken() + "/" + filePath;
-        try {
-            return new URL(url).openStream().readAllBytes();
-        } catch (IOException e) {
-            logger.error("Ошибка при скачивании файла: {}", e.getMessage());
+            return savePhotoToLocal(filePath);
+        } else {
+            logger.error("Фото не найдено в сообщении");
             return null;
         }
     }
 
-    private String savePhoto(String filePath) {
+    private String savePhotoToLocal(String filePath) {
         try {
             byte[] fileBytes = downloadFile(filePath);
+            if (fileBytes == null) {
+                throw new IOException("Не удалось скачать файл");
+            }
             Path photoPath = Paths.get(photoDir, filePath);
             Files.createDirectories(photoPath.getParent());
             try (FileOutputStream fos = new FileOutputStream(photoPath.toFile())) {
@@ -78,22 +58,43 @@ public class SendReportServiceImpl implements SendReportService {
             }
             return photoPath.toString();
         } catch (IOException e) {
-            logger.error("Ошибка при сохранении фото: {}", e.getMessage());
+            logger.error("Ошибка при сохранении фото: ", e.getMessage());
             return null;
         }
     }
 
-    private String getMediaType(String localFilePath) {
+    private byte[] downloadFile(String filePath) {
+        String url = "https://api.telegram.org/file/bot" + telegramBot.getToken() + "/" + filePath;
         try {
-            Path path = Paths.get(localFilePath);
-            return Files.probeContentType(path);
+            return new URL(url).openStream().readAllBytes();
         } catch (IOException e) {
-            logger.error("Ошибка при определении типа медиа: {}", e.getMessage());
-            return "unknown";
+            logger.error("Ошибка при скачивании файла: ", e.getMessage());
+            return null;
         }
     }
 
+    @Override
+    public Report createReport(String photoFilePath, String textReport, Adopter adopter, Pet pet) {
+        try {
+            Path path = Paths.get(photoFilePath);
+            String mediaType = Files.probeContentType(path);
+            long fileSize = Files.size(path);
+
+            Report report = new Report();
+            report.setDateReport(LocalDate.now());
+            report.setTextReport(textReport);
+            report.setFilePath(photoFilePath);
+            report.setFileSize(fileSize);
+            report.setMediaType(mediaType);
+            report.setIsViewed(false);
+            report.setAdopter(adopter);
+            report.setPet(pet);
+            reportRepository.save(report);
+
+            return report;
+        } catch (IOException e) {
+            logger.error("Ошибка при создании отчета: ", e.getMessage());
+            return null;
+        }
+    }
 }
-
-
-

@@ -62,4 +62,9 @@ public class PetServiceImpl implements PetService {
         return repository.findAllByShelterIdAndIsFreeStatus(shelterId, isFreeStatus);
     }
 
+    @Override
+    public Pet findByAdopterId(Long id) {
+        return (Pet) repository.findByAdopterId(id);
+    }
+
 }
