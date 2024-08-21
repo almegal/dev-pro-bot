@@ -1,7 +1,6 @@
 package com.example.dev_pro.service;
 
 
-import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.AvatarPet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.multipart.MultipartFile;

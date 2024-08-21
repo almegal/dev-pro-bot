@@ -75,4 +75,5 @@ public interface PetService {
      */
     List<Pet> findAllByShelterIdAndIsFreeStatus(Integer shelterId, boolean isFreeStatus);
 
+    Pet findByAdopterId(Long id);
 }

@@ -39,24 +39,24 @@ public class BotStateContextCatShelter {
     }
 
     private InputMessageHandlerCatShelter findMessageHandler(BotStateCatShelter currentState) {
-        if (isFillingProfileState(currentState)) {
-            return messageHandlers.get(BotStateCatShelter.FILLING_PROFILE);
-            // Если состояние бота соответствует любому состоянию из перечисленных ниже, то возвращается обработчик из
-            // класса HandlerFillingUserProfileCatShelter;
-            // иначе возвращается обработчик из других классов
+
+        if (currentState.equals(BotStateCatShelter.SEND_REPORT) ||
+                currentState.equals(BotStateCatShelter.SEND_PHOTO) ||
+                currentState.equals(BotStateCatShelter.SEND_TEXT) ||
+                currentState.equals(BotStateCatShelter.PHOTO_TEXT_DOWNLOAD)
+        ) {
+            return messageHandlers.get(BotStateCatShelter.SEND_REPORT);
         }
 
+        if (currentState.equals(BotStateCatShelter.FILLING_PROFILE) ||
+                currentState.equals(BotStateCatShelter.ASK_PERSONAL_DATA) ||
+                currentState.equals(BotStateCatShelter.PROFILE_FILLED)
+        ) {
+            return messageHandlers.get(BotStateCatShelter.FILLING_PROFILE);
+        }
         return messageHandlers.get(currentState);
     }
 
-    private boolean isFillingProfileState(BotStateCatShelter currentState) {
-        switch (currentState) {
-            case ASK_PERSONAL_DATA:
-            case FILLING_PROFILE:
-            case PROFILE_FILLED:
-                return true;
-            default:
-                return false;
-        }
-    }
+
+
 }

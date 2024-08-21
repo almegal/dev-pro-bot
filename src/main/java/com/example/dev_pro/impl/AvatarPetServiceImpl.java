@@ -1,7 +1,9 @@
 package com.example.dev_pro.impl;
 
+import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.model.AvatarPet;
 import com.example.dev_pro.model.Pet;
+import com.example.dev_pro.repository.AdopterRepository;
 import com.example.dev_pro.repository.AvatarPetRepository;
 import com.example.dev_pro.service.AvatarPetService;
 import com.example.dev_pro.service.PetService;
@@ -38,6 +40,7 @@ public class AvatarPetServiceImpl implements AvatarPetService {
 
     private final PetService petService;
     private final AvatarPetRepository repository;
+    private final AdopterRepository adopterRepository;
 
 
     @Override

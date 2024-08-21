@@ -24,27 +24,7 @@ public class HandlerSendReportDogShelter implements InputMessageHandlerDogShelte
 
     @Override
     public SendMessage handle(Message message) {
-
-        logger.info("Вызван метод handle у класса HandlerSendReportDogShelter");
-        Report report = new Report();
-        Long chatId = message.chat().id();
-        report = sendReportService.handleReport(message);
-        if (report.getTextReport() == null) {
-            SendMessage errorMessage = new SendMessage(chatId, "Нет поля text! Заполните и отправьте повторно");
-            telegramBot.execute(errorMessage);
-            logger.info("Ошибка поля text пустое");
-            return errorMessage;
-        }
-        if (report.getFilePath() == null) {
-            SendMessage errorMessage = new SendMessage(chatId, "Нет поля Photo! Заполните и отправьте повторно");
-            telegramBot.execute(errorMessage);
-            logger.info("Ошибка поля photo пустое");
-            return errorMessage;
-        }
-        SendMessage replyMessage = new SendMessage(chatId, "Отчет успешно сохранен!");
-        telegramBot.execute(replyMessage);
-        logger.info("Отчет упешно сохранен!");
-        return replyMessage;
+        return null;
     }
 
     @Override
