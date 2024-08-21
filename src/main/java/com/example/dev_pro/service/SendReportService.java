@@ -6,4 +6,5 @@ import com.pengrad.telegrambot.model.Message;
 public interface SendReportService {
 
     Report handleReport(Message message);
+
 }

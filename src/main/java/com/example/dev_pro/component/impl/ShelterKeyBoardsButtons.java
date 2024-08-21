@@ -41,7 +41,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String SEND_REPORT="/send_report";
     public static final String REPORT_COME_BACK_COM = "/report_come_back";
 
-
     @Override
     public Keyboard getKeyboardButtons() {
         return new ReplyKeyboardMarkup(

@@ -52,6 +52,7 @@ public class SendReportServiceImpl implements SendReportService {
             report.setMediaType(mediaType);
             report.setIsViewed(false);
             reportRepository.save(report);
+
         }
 
         return report;

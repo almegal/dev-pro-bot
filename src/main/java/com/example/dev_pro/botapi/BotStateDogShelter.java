@@ -32,4 +32,5 @@ public enum BotStateDogShelter {
     REPORT_FORMAT,
     SEND_REPORT,
     REPORT_COME_BACK_COM;
+
 }
