@@ -101,9 +101,9 @@ public class ReportServiceImpl implements ReportService {
 
     // Загружаем файл с фото и сохраняем его в папку с именем photosDir
     @Override
-    public Report uploadReportPhoto(Report report, PhotoSize[] photoSizes) throws IOException {
+    public Path uploadReportPhoto(PhotoSize[] photoSizes) throws IOException {
 
-        log.info("Вызов метода uploadReportPhoto(Long adopterId, PhotoSize[] photoSizes) для загрузки фотографий");
+        log.info("Вызов метода uploadReportPhoto(PhotoSize[] photoSizes) для загрузки фотографий");
 
         if (photoSizes != null && photoSizes.length > 0) {
             int maxIndex = photoSizes.length - 1;
@@ -137,47 +137,20 @@ public class ReportServiceImpl implements ReportService {
                 Files.write(newFilePath, fileData);
 
             } catch (IOException e) {
-                log.error("Error uploading photo file for report with id: {}", report.getId(), e);
+                log.error("Error uploading photo file for report with fileId: {} ", photoSizes[maxIndex].fileId(), e);
             }
 
-            log.info("File has been uploaded!");
-
-            report.setFilePath(newFilePath.toString());
+            return newFilePath;
 
         } else {
             throw new IllegalArgumentException();
         }
-        return report;
-    }
-
-
-    private String getExtension(String fileName) {
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
-    }
-
-    private byte[] GenerateImagePreview(Path filePath) throws IOException {
-        try (
-                InputStream is = Files.newInputStream(filePath);
-                BufferedInputStream bis = new BufferedInputStream(is, 1024);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        ) {
-            BufferedImage image = ImageIO.read(bis);
-
-            int height = image.getHeight() / (image.getWidth() / 100);
-            BufferedImage preview = new BufferedImage(100, height, image.getType());
-            Graphics2D graphics = preview.createGraphics();
-            graphics.drawImage(image, 0, 0, 100, height, null);
-            graphics.dispose();
-
-            ImageIO.write(preview, getExtension(filePath.getFileName().toString()), baos);
-            return baos.toByteArray();
-        }
     }
 
     @Override
-    public Report savePhoto(Report report, PhotoSize[] photos) {
+    public Path savePhoto(PhotoSize[] photos) {
 
-        log.info("Вызов метода savePhoto(Long adopterId, PhotoSize[] photoSizes) для загрузки фотографий");
+        log.info("Вызов метода savePhoto(PhotoSize[] photoSizes) для загрузки фотографий");
 
         if (photos != null && photos.length > 0) {
             PhotoSize photo = photos[photos.length - 1];
@@ -186,13 +159,12 @@ public class ReportServiceImpl implements ReportService {
 
             Path photoPath = savePhotoToLocal(filePath);
             // новый путь у загружаемого файла
-            report.setFilePath(photoPath.toString());
-            // сохраняем в переменную report путь к файлу
+            return photoPath;
+
         } else {
             log.error("Фото не найдено в сообщении");
             return null;
         }
-        return report;
     }
 
     private Path savePhotoToLocal(String filePath) {
@@ -220,28 +192,6 @@ public class ReportServiceImpl implements ReportService {
             return new URL(url).openStream().readAllBytes();
         } catch (IOException e) {
             log.error("Ошибка при скачивании файла: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    public Report createReport(String photoFilePath, String textReport, Adopter adopter, Pet pet) {
-        try {
-            Path path = Path.of(photoFilePath);
-            String mediaType = Files.probeContentType(path);
-            long fileSize = Files.size(path);
-
-            Report report = new Report();
-            report.setDateReport(LocalDate.now());
-            report.setTextReport(textReport);
-            report.setFilePath(photoFilePath);
-            report.setAdopter(adopter);
-            report.setPet(pet);
-
-            // сохраняем отчет в базу данных
-
-            return report;
-        } catch (IOException e) {
-            log.error("Ошибка при создании отчета: {}", e.getMessage());
             return null;
         }
     }
