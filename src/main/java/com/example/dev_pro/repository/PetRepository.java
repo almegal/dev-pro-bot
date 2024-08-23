@@ -23,4 +23,12 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findAllByShelterIdAndIsFreeStatus(Integer shelterId, boolean isFreeStatus);
 
 
+    /**
+     * Метод по получению всех питомцев по идентификатору усыновителя
+     * @param adopterId идентификатор усыновителя
+     * @return список питомцев усыновителя
+     */
+    List<Pet> findAllByAdopterId(Long adopterId);
+
+
 }

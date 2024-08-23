@@ -21,8 +21,8 @@ import java.util.Map;
 public class UserDataCacheDogShelter implements DataCacheDogShelter {
 
     private final TelegramUserService service;
-    private Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
-    private Map<Long, TelegramUser> telegramUsers = new HashMap<>();
+    private final Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
+    private final Map<Long, TelegramUser> telegramUsers = new HashMap<>();
 
     @Override
     public void setUsersCurrentBotState(Long userId, BotStateDogShelter botState) {
