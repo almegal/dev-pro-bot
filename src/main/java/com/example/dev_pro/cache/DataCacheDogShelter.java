@@ -14,6 +14,7 @@ public interface DataCacheDogShelter extends DataCache {
 
     /**
      * Метод возвращает по идентификатору пользователя текущее состояния бота
+     *
      * @param userId идентификатор пользователя, извлеченный из сообщения
      * @return объект типа BotStateDogShelter - текущее состояние бота
      */

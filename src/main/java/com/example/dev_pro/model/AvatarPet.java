@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pets_avatars")
+@Table(name = "pet_avatar")
 @JsonIgnoreProperties(value = {"data"})
 public class AvatarPet {
 

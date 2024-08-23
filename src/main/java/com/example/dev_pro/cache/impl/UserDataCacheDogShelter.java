@@ -20,6 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserDataCacheDogShelter implements DataCacheDogShelter {
 
+    private final TelegramUser telegramUser;
     private final TelegramUserService service;
     private Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
     private Map<Long, TelegramUser> telegramUsers = new HashMap<>();
@@ -27,12 +28,20 @@ public class UserDataCacheDogShelter implements DataCacheDogShelter {
     @Override
     public void setUsersCurrentBotState(Long userId, BotStateDogShelter botState) {
         usersBotStates.put(userId, botState);
+        TelegramUser telegramUser = getTelegramUser(userId);
+        if (telegramUser != null) {
+            telegramUser.setBotStateDogShelter(botState);
+            service.update(telegramUser);
+        }
     }
 
     @Override
     public BotStateDogShelter getUsersCurrentBotState(Long userId) {
-        BotStateDogShelter botState = usersBotStates.get(userId);
-        return botState;
+        TelegramUser telegramUser = getTelegramUser(userId);
+        if (telegramUser != null) {
+            return telegramUser.getBotStateDogShelter();
+        }
+        return usersBotStates.get(userId);
     }
 
     @Override
@@ -40,6 +49,9 @@ public class UserDataCacheDogShelter implements DataCacheDogShelter {
         TelegramUser telegramUser = telegramUsers.get(userId);
         if (telegramUser == null) {
             telegramUser = service.getById(userId);
+            if (telegramUser != null) {
+                telegramUsers.put(userId, telegramUser);
+            }
         }
         return telegramUser;
     }
@@ -47,6 +59,6 @@ public class UserDataCacheDogShelter implements DataCacheDogShelter {
     @Override
     public void saveTelegramUser(Long userId, TelegramUser telegramUser) {
         telegramUsers.put(userId, telegramUser);
+        service.save(telegramUser);
     }
-
 }
