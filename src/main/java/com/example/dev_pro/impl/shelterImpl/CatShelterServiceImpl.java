@@ -6,8 +6,7 @@ import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
 import com.example.dev_pro.listener.TelegramBotListener;
 import com.example.dev_pro.service.shelter.ShelterService;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -116,7 +115,15 @@ public class CatShelterServiceImpl implements ShelterService {
                 break;
             case REPORT_COM:
                 botState = BotStateCatShelter.REPORT_COM;
-                final Object o = null; // Добавим в процессе создание база данных!
+                break;
+            case REPORT_FORMAT:
+                botState = BotStateCatShelter.REPORT_FORMAT;
+                break;
+            case SEND_TEXT_REPORT:
+                botState = BotStateCatShelter.SEND_TEXT_REPORT;
+                break;
+            case SEND_PHOTO_REPORT:
+                botState = BotStateCatShelter.SEND_PHOTO_REPORT;
                 break;
             case MEETING_ANIMALS_COM:
                 botState = BotStateCatShelter.RULES_FOR_ANIMAL;

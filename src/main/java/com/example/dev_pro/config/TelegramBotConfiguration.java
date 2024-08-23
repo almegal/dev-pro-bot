@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TelegramBotConfiguration {
 
+    @Value("${telegram.bot.token}")
+    private String TELEGRAM_BOT_TOKEN;
+
     @Value("${telegram.bot.reportSelectMsg}")
     private String reportSelectMsg;
 
@@ -19,9 +22,6 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.selectRecommMsg}")
     private String selectRecommMsg;
-
-    @Value("${telegram.bot.token}")
-    private String TELEGRAM_BOT_TOKEN;
 
     @Value("${telegram.bot.startMsg}")
     private String startMsg;
@@ -104,11 +104,11 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.meetingAnimalsRulesCat}")
     private String meetingRulesForCat;
 
-    @Value("${telegram.bot.documentForTakeAnimals}")
-    private String documentForTakeAnimals;
-
     @Value("${telegram.bot.meetingAnimalsRulesDog}")
     private String MeetingRulesForDog;
+
+    @Value("${telegram.bot.documentForTakeAnimals}")
+    private String documentForTakeAnimals;
 
     @Value("${telegram.bot.reasonRefusal}")
     private String reasonRefusal;

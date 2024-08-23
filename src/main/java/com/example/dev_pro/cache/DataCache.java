@@ -1,6 +1,5 @@
 package com.example.dev_pro.cache;
 
-import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.model.TelegramUser;
 
 

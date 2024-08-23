@@ -22,15 +22,21 @@ public class Adopter {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy="adopter")
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy="adopter")
+//    private TelegramUser telegramUser;
+
+    @OneToOne
+    @JoinColumn(name = "telegram_user_id")
     private TelegramUser telegramUser;
 
-    @OneToMany(mappedBy = "adopter")
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Pet> pets;
 
-    @OneToMany(mappedBy = "adopter")
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Report> reports;
+
+    private boolean passedTheProbationPeriod;
 
 }
