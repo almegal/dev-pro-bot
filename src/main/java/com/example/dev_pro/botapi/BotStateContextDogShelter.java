@@ -26,8 +26,9 @@ public class BotStateContextDogShelter {
     /**
      * Метод принимает в качестве параметров текущее состояние бота и сообщение от пользователя, находит обработчика
      * сообщения в зависимости от текущего состояния бота и возвращает ответное сообщение бота
+     *
      * @param currentState текущее состояние бота
-     * @param message сообщение от пользователя
+     * @param message      сообщение от пользователя
      * @return ответное сообщение от бота
      */
 
@@ -37,24 +38,21 @@ public class BotStateContextDogShelter {
     }
 
     private InputMessageHandlerDogShelter findMessageHandler(BotStateDogShelter currentState) {
-        if (isFillingProfileState(currentState)) {
+        if (currentState.equals(BotStateDogShelter.SEND_REPORT) ||
+                currentState.equals(BotStateDogShelter.SEND_PHOTO) ||
+                currentState.equals(BotStateDogShelter.SEND_TEXT) ||
+                currentState.equals(BotStateDogShelter.PHOTO_TEXT_DOWNLOAD)
+
+        ) {
             return messageHandlers.get(BotStateDogShelter.FILLING_PROFILE);
-            // Если состояние бота соответствует любому состоянию из перечисленных ниже, то возвращается обработчик из
-            // класса HandlerFillingUserProfileDogShelter;
-            // иначе возвращается обработчик из других классов
         }
 
+        if (currentState.equals(BotStateDogShelter.FILLING_PROFILE) ||
+                currentState.equals(BotStateDogShelter.ASK_PERSONAL_DATA) ||
+                currentState.equals(BotStateDogShelter.PROFILE_FILLED)
+        ) {
+            return messageHandlers.get(currentState);
+        }
         return messageHandlers.get(currentState);
-    }
-
-    private boolean isFillingProfileState(BotStateDogShelter currentState) {
-        switch (currentState) {
-            case ASK_PERSONAL_DATA:
-            case FILLING_PROFILE:
-            case PROFILE_FILLED:
-                return true;
-            default:
-                return false;
-        }
     }
 }

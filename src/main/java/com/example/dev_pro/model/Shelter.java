@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "shelters")
+@Table(name = "shelter")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"pets"})
+@JsonIgnoreProperties(value = {"pet"})
 public class Shelter {
 
     @Id

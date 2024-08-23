@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "adopters")
+@Table(name = "adopter")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"reports"})
+@JsonIgnoreProperties(value = {"report"})
 public class Adopter {
 
     @Id
@@ -27,10 +27,10 @@ public class Adopter {
 
     @OneToMany(mappedBy = "adopter")
     @JsonManagedReference
-    private List<Pet> pets;
+    private List<Pet> pet;
 
     @OneToMany(mappedBy = "adopter")
     @JsonManagedReference
-    private List<Report> reports;
+    private List<Report> report;
 
 }

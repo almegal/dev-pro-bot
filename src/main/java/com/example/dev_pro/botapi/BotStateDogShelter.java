@@ -31,6 +31,9 @@ public enum BotStateDogShelter {
     MAIN_COME_BACK_COM,
     REPORT_FORMAT,
     SEND_REPORT,
+    SEND_PHOTO,
+    SEND_TEXT,
+    PHOTO_TEXT_DOWNLOAD,
     REPORT_COME_BACK_COM;
 
 }
