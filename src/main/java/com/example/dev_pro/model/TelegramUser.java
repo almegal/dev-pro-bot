@@ -5,7 +5,7 @@ import com.example.dev_pro.botapi.BotStateDogShelter;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
 
 @Entity
 @NoArgsConstructor
@@ -46,7 +46,7 @@ public class TelegramUser {
     private String photoFilePath;
 
     @Enumerated(EnumType.STRING)
-    private BotStateCatShelter botState;
+    private BotStateCatShelter botStateCatShelter;
 
     @Enumerated(EnumType.STRING)
     private BotStateDogShelter botStateDogShelter;
