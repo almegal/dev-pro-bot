@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 
@@ -114,8 +115,9 @@ public class HandlerSendPhotoReportCatShelter implements InputMessageHandlerCatS
 
         if (botState.equals(BotStateCatShelter.PHOTO_UPLOADED)) {
             try {
-                report = reportService.uploadReportPhoto(report, photoSizes);
-                // загружаем фото в папку на диске photos и сохраняем путь к этому файлу в переменную report
+                Path path = reportService.uploadReportPhoto(photoSizes);
+                // загружаем фото в папку на диске photos и сохраняем путь к этому файлу в переменную path
+                report.setFilePath(path.toString());
                 log.info("Report has been initialized! file_path = {} ", report.getFilePath());
 
                 replyToUser = new SendMessage(chatId, "Спасибо, фотография загружена в отчет");

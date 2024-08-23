@@ -7,6 +7,7 @@ import com.pengrad.telegrambot.model.PhotoSize;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -92,14 +93,20 @@ public interface ReportService {
     void deleteAllByAdopterId(Adopter adopterId);
 
     /**
-     * Метод по загрузке файла с фотографией
-     * @param report идентификатор усыновителя
+     * Метод по загрузке файла с фотографией (первый вариант)
      * @param photoSizes массив байт, извлеченный из загружаемого фото
+     * @return объект типа Path (путь к файлу)
      */
 
-    Report uploadReportPhoto(Report report, PhotoSize[] photoSizes) throws IOException;
+    Path uploadReportPhoto(PhotoSize[] photoSizes) throws IOException;
 
-    Report savePhoto(Report report, PhotoSize[] photos);
+    /**
+     * Метод по загрузке файла с фотографией (второй вариант)
+     * @param photos массив байт, извлеченный из загружаемого фото
+     * @return объект типа Path (путь к файлу)
+     */
+
+    Path savePhoto(PhotoSize[] photos);
 
 
 }
