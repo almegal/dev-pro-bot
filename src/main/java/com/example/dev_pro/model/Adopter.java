@@ -1,5 +1,6 @@
 package com.example.dev_pro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -22,15 +23,20 @@ public class Adopter {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy="adopter")
+    @OneToOne
+    @JoinColumn(name = "telegram_user_id")
     private TelegramUser telegramUser;
 
-    @OneToMany(mappedBy = "adopter")
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
     @JsonManagedReference
+    @JsonIgnore
     private List<Pet> pets;
 
-    @OneToMany(mappedBy = "adopter")
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Report> reports;
 
+    private boolean passedTheProbationPeriod;
+
 }
+

@@ -4,6 +4,7 @@ package com.example.dev_pro.model;
 import com.example.dev_pro.enums.PetType;
 import com.example.dev_pro.enums.Sex;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -46,14 +47,16 @@ public class Pet {
     @ManyToOne
     @JoinColumn(name = "adopter_id")
     @JsonBackReference
+    @JsonIgnore
     private Adopter adopter;
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     @JsonBackReference
+    @JsonIgnore
     private Shelter shelter;
 
-    @OneToMany(mappedBy = "pet")
+    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Report> reports;
 

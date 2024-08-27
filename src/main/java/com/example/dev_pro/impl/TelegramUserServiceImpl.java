@@ -1,5 +1,7 @@
 package com.example.dev_pro.impl;
 
+import com.example.dev_pro.exception.EntityNotFoundException;
+import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.repository.TelegramUserRepository;
 import com.example.dev_pro.service.TelegramUserService;
@@ -28,4 +30,11 @@ public class TelegramUserServiceImpl implements TelegramUserService {
     public void update(TelegramUser user) {
         repository.save(user);
     }
+
+    @Override
+    public TelegramUser findTelegramUserByAdopter(Adopter adopter) {
+        return repository.findTelegramUserByAdopter(adopter).orElseThrow(EntityNotFoundException::new);
+    }
+
+
 }
