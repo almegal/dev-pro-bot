@@ -107,11 +107,11 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.meetingAnimalsRulesCat}")
     private String meetingRulesForCat;
 
-    @Value("${telegram.bot.documentForTakeAnimals}")
-    private String documentForTakeAnimals;
-
     @Value("${telegram.bot.meetingAnimalsRulesDog}")
     private String MeetingRulesForDog;
+
+    @Value("${telegram.bot.documentForTakeAnimals}")
+    private String documentForTakeAnimals;
 
     @Value("${telegram.bot.reasonRefusal}")
     private String reasonRefusal;

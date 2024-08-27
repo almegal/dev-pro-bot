@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
 public class HandlerReportFormatCatShelter implements InputMessageHandlerCatShelter {
@@ -21,7 +22,7 @@ public class HandlerReportFormatCatShelter implements InputMessageHandlerCatShel
 
     @Override
     public SendMessage handle(Message message) {
-        logger.info("Вызван метод handle у класса  HandlerReportFormatCatShelter ");
+        logger.info("Вызван метод handle у класса HandlerReportFormatCatShelter ");
         Long chatId = message.chat().id();
         SendMessage replyMessage = new SendMessage(chatId, tBotConfig.getReportInstructionsMsg());
         telegramBot.execute(replyMessage);

@@ -4,10 +4,10 @@ import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextCatShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
+import com.example.dev_pro.impl.handlersCatShelterImpl.HandlerSendReportCatShelter;
 import com.example.dev_pro.listener.TelegramBotListener;
 import com.example.dev_pro.service.shelter.ShelterService;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -21,24 +21,36 @@ public class CatShelterServiceImpl implements ShelterService {
     private final TelegramBotListener listener;
     private final UserDataCacheCatShelter userDataCache;
     private final BotStateContextCatShelter botStateContext;
+    private final HandlerSendReportCatShelter handlerSendReport;
 
     public CatShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext) {
+                                 UserDataCacheCatShelter userDataCache, BotStateContextCatShelter botStateContext,
+                                 HandlerSendReportCatShelter handlerSendReport) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
+        this.handlerSendReport = handlerSendReport;
     }
 
     @Override
     public void handleUpdate(Update update) {
         Message message = update.message();
-        Long chatId = update.message().chat().id();
-        Long userId = message.from().id();
-        String text = update.message().text();
 
+        if (message.photo() != null) {
+            handlerSendReport.processUsersInput(message);
+        }
+
+        if (update.message().text() == null) {
+            return;
+        }
+
+        String text = update.message().text();
+        Long userId = message.from().id();
+        Long chatId = message.chat().id();
+
+        SendMessage replyMessage = null;
         BotStateCatShelter botState;
-        SendMessage replyMessage;
 
         switch (text) {
             case INFO_COM:
@@ -111,7 +123,6 @@ public class CatShelterServiceImpl implements ShelterService {
                 botState = BotStateCatShelter.CONTACT_DETAILS_HANDLER;
                 listener.sendPhoto(chatId, tBotConfig.getSelectRecommMsg(),
                         "static/images/SpecCat.png");
-                break;
             case RECOMM_COME_BACK_COM:
                 botState = BotStateCatShelter.RECOMM_COME_BACK_COM;
                 break;
@@ -121,8 +132,8 @@ public class CatShelterServiceImpl implements ShelterService {
             case REPORT_FORMAT:
                 botState = BotStateCatShelter.REPORT_FORMAT;
                 break;
-            case SEND_REPORT:
-                botState = BotStateCatShelter.SEND_REPORT;
+            case SEND_PHOTO_REPORT:
+                botState = BotStateCatShelter.SEND_PHOTO_REPORT;
                 break;
             case MEETING_ANIMALS_COM:
                 botState = BotStateCatShelter.RULES_FOR_ANIMAL;
@@ -147,5 +158,8 @@ public class CatShelterServiceImpl implements ShelterService {
         replyMessage = botStateContext.processInputMessage(botState, message);
         // Создаем ответное сообщение бота, исходя из состояния бота
     }
+
+
+
 
 }

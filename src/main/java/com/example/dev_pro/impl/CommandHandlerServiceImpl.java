@@ -23,6 +23,7 @@ import java.util.List;
 public class CommandHandlerServiceImpl implements CommandHandlerService {
 
     private static final String CALL_VOLUNTEER = "/call";
+    private static Boolean IS_CAT;
 
     private final TelegramBot telegramBot;
     private final TelegramBotConfiguration tBotConfig;
@@ -58,6 +59,15 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
      */
     @Override
     public void commandProcessing(Update update) {
+
+        if (update.message().photo() != null) {
+            if (IS_CAT) {
+                catShelterService.handleUpdate(update);
+            } else {
+                dogShelterService.handleUpdate(update);
+            }
+        }
+
         Long chatId = update.message().chat().id();
         String userName = update.message().chat().username();
         String text = update.message().text();
@@ -73,7 +83,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             sendStartMessage(chatId);
             return;
         }
-        // Если отправлена команда вызава волонтера
+        // Если отправлена команда вызова волонтера
         if (text.equals(CALL_VOLUNTEER)) {
             List<String> listNickNamesVolunteers = volunteerService.getListNickNamesOfVolunteers();
             sendMsg(chatId, resultMsg + " " + listNickNamesVolunteers);
@@ -83,14 +93,16 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             return;
         }
 
-        // Если дошли до сюда значит пользователь уже обращался
-        // Получаем приют который выбрал пользователь
+        // Если дошли до сюда, значит пользователь уже обращался
+        // Получаем приют, который выбрал пользователь
         String shelter = telegramUser.getShelter();
         // в зависимости от приюта уже вызываем соответствующий сервис для обработки команд
         if (shelter.equalsIgnoreCase(ChoosingKeyboardButtons.CAT_BUTTON)) {
             catShelterService.handleUpdate(update);
+            IS_CAT = true;
         } else if (shelter.equalsIgnoreCase(ChoosingKeyboardButtons.DOG_BUTTON)) {
             dogShelterService.handleUpdate(update);
+            IS_CAT = false;
         }
     }
 
@@ -115,5 +127,4 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
         sendMessage.replyMarkup(buttons);
         telegramBot.execute(sendMessage);
     }
-
 }

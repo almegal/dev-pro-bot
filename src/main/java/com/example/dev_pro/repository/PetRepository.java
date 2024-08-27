@@ -25,4 +25,12 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findByAdopterId(Long id);
 
 
+    /**
+     * Метод по получению всех питомцев по идентификатору усыновителя
+     * @param adopterId идентификатор усыновителя
+     * @return список питомцев усыновителя
+     */
+    List<Pet> findAllByAdopterId(Long adopterId);
+
+
 }

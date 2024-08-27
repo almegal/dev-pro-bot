@@ -52,19 +52,22 @@ public class PetServiceImpl implements PetService {
         return repository.findAll();
     }
 
+
     @Override
     public List<Pet> findAllByShelterId(Integer shelterId) {
         return repository.findAllByShelterId(shelterId);
     }
+
 
     @Override
     public List<Pet> findAllByShelterIdAndIsFreeStatus(Integer shelterId, boolean isFreeStatus) {
         return repository.findAllByShelterIdAndIsFreeStatus(shelterId, isFreeStatus);
     }
 
+
     @Override
-    public Pet findByAdopterId(Long id) {
-        return (Pet) repository.findByAdopterId(id);
+    public List<Pet> findAllByAdopterId(Long adopterId) {
+        return repository.findAllByAdopterId(adopterId);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.dev_pro.service;
 
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.request.SendMessage;
 
 /**
  * Интерфейс CommandHandlerService предоставляет методы для обработки команд,

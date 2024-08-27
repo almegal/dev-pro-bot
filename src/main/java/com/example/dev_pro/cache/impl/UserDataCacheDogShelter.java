@@ -20,37 +20,26 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserDataCacheDogShelter implements DataCacheDogShelter {
 
-    private final TelegramUserService telegramUserService;
-    private Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
-    private Map<Long, TelegramUser> telegramUsers = new HashMap<>();
+    private final TelegramUserService service;
+    private final Map<Long, BotStateDogShelter> usersBotStates = new HashMap<>();
+    private final Map<Long, TelegramUser> telegramUsers = new HashMap<>();
 
     @Override
     public void setUsersCurrentBotState(Long userId, BotStateDogShelter botState) {
         usersBotStates.put(userId, botState);
-        TelegramUser telegramUser = getTelegramUser(userId);
-        if (telegramUser != null) {
-            telegramUser.setBotStateDogShelter(botState);
-            telegramUserService.save(telegramUser);
-        }
     }
 
     @Override
     public BotStateDogShelter getUsersCurrentBotState(Long userId) {
-        TelegramUser telegramUser = getTelegramUser(userId);
-        if (telegramUser != null) {
-            return telegramUser.getBotStateDogShelter();
-        }
-        return usersBotStates.get(userId);
+        BotStateDogShelter botState = usersBotStates.get(userId);
+        return botState;
     }
 
     @Override
     public TelegramUser getTelegramUser(Long userId) {
         TelegramUser telegramUser = telegramUsers.get(userId);
         if (telegramUser == null) {
-            telegramUser = telegramUserService.findById(userId).orElse(null);
-            if (telegramUser != null) {
-                telegramUsers.put(userId, telegramUser);
-            }
+            telegramUser = service.getById(userId);
         }
         return telegramUser;
     }
@@ -58,6 +47,6 @@ public class UserDataCacheDogShelter implements DataCacheDogShelter {
     @Override
     public void saveTelegramUser(Long userId, TelegramUser telegramUser) {
         telegramUsers.put(userId, telegramUser);
-        telegramUserService.save(telegramUser);
     }
+
 }

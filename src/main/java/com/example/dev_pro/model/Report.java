@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "report")
+@Table(name = "reports")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,5 +47,6 @@ public class Report {
     @JoinColumn(name = "pet_id")
     @JsonBackReference
     private Pet pet;
+
 
 }

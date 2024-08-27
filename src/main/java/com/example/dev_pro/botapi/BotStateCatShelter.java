@@ -33,10 +33,15 @@ public enum BotStateCatShelter {
     RECOMM_COME_BACK_COM,
     MAIN_COME_BACK_COM,
     REPORT_FORMAT,
-    SEND_REPORT,
-    SEND_PHOTO,
-    SEND_TEXT,
-    PHOTO_TEXT_DOWNLOAD,
+    SEND_PHOTO_REPORT,
+    ASK_PET_ID_REPORT,
+    // Запрос от бота о загрузке идентификатора питомца
+    ASK_TEXT_REPORT,
+    // Запрос от бота о загрузке текста
+    ASK_PHOTO_REPORT,
+    // Запрос от бота о загрузке файла с фотографией
+    PHOTO_UPLOADED,
+    // Когда усыновителем фото отправлено, бота можно переключить в состояние PHOTO_UPLOADED
     REPORT_COME_BACK_COM;
 
 }

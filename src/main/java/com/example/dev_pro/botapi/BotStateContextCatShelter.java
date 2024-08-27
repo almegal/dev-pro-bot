@@ -39,24 +39,21 @@ public class BotStateContextCatShelter {
     }
 
     private InputMessageHandlerCatShelter findMessageHandler(BotStateCatShelter currentState) {
-
-        if (currentState.equals(BotStateCatShelter.SEND_REPORT) ||
-                currentState.equals(BotStateCatShelter.SEND_PHOTO) ||
-                currentState.equals(BotStateCatShelter.SEND_TEXT) ||
-                currentState.equals(BotStateCatShelter.PHOTO_TEXT_DOWNLOAD)
-        ) {
-            return messageHandlers.get(BotStateCatShelter.SEND_REPORT);
-        }
-
         if (currentState.equals(BotStateCatShelter.FILLING_PROFILE) ||
                 currentState.equals(BotStateCatShelter.ASK_PERSONAL_DATA) ||
-                currentState.equals(BotStateCatShelter.PROFILE_FILLED)
-        ) {
+                currentState.equals(BotStateCatShelter.PROFILE_FILLED)) {
             return messageHandlers.get(BotStateCatShelter.FILLING_PROFILE);
         }
+        if (currentState.equals(BotStateCatShelter.SEND_PHOTO_REPORT) ||
+                currentState.equals(BotStateCatShelter.ASK_PET_ID_REPORT) ||
+                currentState.equals(BotStateCatShelter.ASK_TEXT_REPORT) ||
+                currentState.equals(BotStateCatShelter.ASK_PHOTO_REPORT) ||
+                currentState.equals(BotStateCatShelter.PHOTO_UPLOADED)) {
+            return messageHandlers.get(BotStateCatShelter.SEND_PHOTO_REPORT);
+        }
+
         return messageHandlers.get(currentState);
+        // Иначе возвращается обработчик из других классов
     }
-
-
 
 }
