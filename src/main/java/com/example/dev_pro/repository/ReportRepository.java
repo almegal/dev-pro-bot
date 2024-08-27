@@ -46,6 +46,6 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
      * @param adopterId идентификатор усыновителя, отчеты которого необходимо удалить
      */
 
-    void deleteAllByAdopterId(Adopter adopterId);
+    void deleteAllByAdopterId(Long adopterId);
 
 }

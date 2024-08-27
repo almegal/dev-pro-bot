@@ -33,7 +33,6 @@ public enum BotStateCatShelter {
     RECOMM_COME_BACK_COM,
     MAIN_COME_BACK_COM,
     REPORT_FORMAT,
-    SEND_TEXT_REPORT,
     SEND_PHOTO_REPORT,
     ASK_PET_ID_REPORT,
     // Запрос от бота о загрузке идентификатора питомца

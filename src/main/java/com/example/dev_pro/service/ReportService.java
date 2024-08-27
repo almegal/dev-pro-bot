@@ -87,10 +87,10 @@ public interface ReportService {
 
     /**
      * Метод по удалению всех отчетов конкретного усыновителя.
-     * @param adopterId усыновитель, отчеты которого необходимо удалить
+     * @param adopterId идентификатор усыновителя, отчеты которого необходимо удалить
      */
 
-    void deleteAllByAdopterId(Adopter adopterId);
+    void deleteAllByAdopterId(Long adopterId);
 
     /**
      * Метод по загрузке файла с фотографией (первый вариант)
@@ -98,7 +98,7 @@ public interface ReportService {
      * @return объект типа Path (путь к файлу)
      */
 
-    Path uploadReportPhoto(PhotoSize[] photoSizes) throws IOException;
+    Path uploadReportPhoto(PhotoSize[] photoSizes);
 
     /**
      * Метод по загрузке файла с фотографией (второй вариант)
@@ -107,6 +107,5 @@ public interface ReportService {
      */
 
     Path savePhoto(PhotoSize[] photos);
-
 
 }

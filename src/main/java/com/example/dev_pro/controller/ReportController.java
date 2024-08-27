@@ -2,6 +2,7 @@ package com.example.dev_pro.controller;
 
 
 import com.example.dev_pro.model.Adopter;
+import com.example.dev_pro.model.AvatarPet;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.AdopterService;
@@ -16,11 +17,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -222,7 +227,7 @@ public class ReportController {
                     )
             }
     )
-    public ResponseEntity<Void> deleteAllByAdopterId(@PathVariable("id") Adopter adopterId) {
+    public ResponseEntity<Void> deleteAllByAdopterId(@PathVariable("id") Long adopterId) {
         reportService.deleteAllByAdopterId(adopterId);
         return ResponseEntity.ok().build();
     }
@@ -269,4 +274,34 @@ public class ReportController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/get-photo-from-file-by-reportId/{id}")
+    @Operation(
+            summary = "Выгрузка файла с фотографией питомца с жесткого диска по пути, извлеченному из отчета усыновителя",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Найденная фотография",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = Report.class))
+                            )
+                    )
+            }
+    )
+    public void downloadPhoto(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        Report report = reportService.findReportById(id);
+        Path path = Path.of(report.getFilePath());
+
+        try (
+                InputStream is = Files.newInputStream(path);
+                OutputStream os = response.getOutputStream();
+                BufferedInputStream bis = new BufferedInputStream(is, 1024);
+                BufferedOutputStream bos = new BufferedOutputStream(os, 1024)
+        ) {
+            response.setStatus(200);
+            response.setContentType(report.getMediaType());
+            response.setContentLength((int) report.getFileSize());
+            bis.transferTo(bos);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.dev_pro.botapi;
 
+import com.example.dev_pro.service.handlers.InputMessageHandlerCatShelter;
 import com.example.dev_pro.service.handlers.InputMessageHandlerDogShelter;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
@@ -37,24 +38,20 @@ public class BotStateContextDogShelter {
     }
 
     private InputMessageHandlerDogShelter findMessageHandler(BotStateDogShelter currentState) {
-        if (isFillingProfileState(currentState)) {
+        if (currentState.equals(BotStateDogShelter.FILLING_PROFILE) ||
+                currentState.equals(BotStateDogShelter.ASK_PERSONAL_DATA) ||
+                currentState.equals(BotStateDogShelter.PROFILE_FILLED)) {
             return messageHandlers.get(BotStateDogShelter.FILLING_PROFILE);
-            // Если состояние бота соответствует любому состоянию из перечисленных ниже, то возвращается обработчик из
-            // класса HandlerFillingUserProfileDogShelter;
-            // иначе возвращается обработчик из других классов
+        }
+        if (currentState.equals(BotStateDogShelter.SEND_PHOTO_REPORT) ||
+                currentState.equals(BotStateDogShelter.ASK_PET_ID_REPORT) ||
+                currentState.equals(BotStateDogShelter.ASK_TEXT_REPORT) ||
+                currentState.equals(BotStateDogShelter.ASK_PHOTO_REPORT) ||
+                currentState.equals(BotStateDogShelter.PHOTO_UPLOADED)) {
+            return messageHandlers.get(BotStateDogShelter.SEND_PHOTO_REPORT);
         }
 
         return messageHandlers.get(currentState);
-    }
-
-    private boolean isFillingProfileState(BotStateDogShelter currentState) {
-        switch (currentState) {
-            case ASK_PERSONAL_DATA:
-            case FILLING_PROFILE:
-            case PROFILE_FILLED:
-                return true;
-            default:
-                return false;
-        }
+        // Иначе возвращается обработчик из других классов
     }
 }

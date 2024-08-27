@@ -18,4 +18,5 @@ public interface ReportDataCache {
      * @return отчет
      */
     Report getReport(Long adopterId);
+
 }

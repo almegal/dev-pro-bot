@@ -37,7 +37,6 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public static final String RECOMM_COME_BACK_COM = "/recomm_come_back";
 
     public static final String REPORT_FORMAT="/report_format";
-    public static final String SEND_TEXT_REPORT="/send_text_report";
     public static final String SEND_PHOTO_REPORT= "/send_photo_report";
     public static final String REPORT_COME_BACK_COM = "/report_come_back";
 
@@ -95,8 +94,8 @@ public class ShelterKeyBoardsButtons implements Buttons {
     public Keyboard getReportButtons() {
         return new ReplyKeyboardMarkup(
                 new KeyboardButton[][]{
-                        {new KeyboardButton(REPORT_FORMAT), new KeyboardButton(SEND_TEXT_REPORT)},
-                        {new KeyboardButton(SEND_PHOTO_REPORT), new KeyboardButton(REPORT_COME_BACK_COM)}
+                        {new KeyboardButton(REPORT_FORMAT), new KeyboardButton(SEND_PHOTO_REPORT)},
+                        {new KeyboardButton(REPORT_COME_BACK_COM)}
                 }
         ).resizeKeyboard(true);
     }

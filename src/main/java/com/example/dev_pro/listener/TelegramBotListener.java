@@ -47,21 +47,25 @@ public class TelegramBotListener implements UpdatesListener {
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
-    //обрабатываем в зависимости от того какой update пришел
+    // обрабатываем в зависимости от того, какой update пришел
     private void handleUpdate(Update update) {
-        // если  сообщение содержит одно из значений
-        if (update.message().text() == null) {
-            return;
+
+        // если сообщение содержит одно из значений
+        if (update.message().photo() != null) {
+            commandHandlerService.commandProcessing(update);
         }
-        String text = update.message().text();
-        switch (text) {
-            case "Cat":
-            case "Dog":
-                callbackService.handleCallback(update);
-                break;
-            default:
-                commandHandlerService.commandProcessing(update);
-                break;
+
+        if (update.message().text() != null) {
+            String text = update.message().text();
+            switch (text) {
+                case "Cat":
+                case "Dog":
+                    callbackService.handleCallback(update);
+                    break;
+                default:
+                    commandHandlerService.commandProcessing(update);
+                    break;
+            }
         }
     }
 
