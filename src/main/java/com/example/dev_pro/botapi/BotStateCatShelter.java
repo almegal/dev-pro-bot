@@ -32,9 +32,17 @@ public enum BotStateCatShelter {
     CONTACT_DETAILS_HANDLER,
     RECOMM_COME_BACK_COM,
     MAIN_COME_BACK_COM,
-    HOW_TO_REPORT,
-    OFFSET_FORMAT,
-    FILE_A_REPORT,
+    REPORT_FORMAT,
+    SEND_PHOTO_REPORT,
+    ASK_PET_ID_REPORT,
+    // Запрос от бота о загрузке идентификатора питомца
+    ASK_TEXT_REPORT,
+    // Запрос от бота о загрузке текста
+    ASK_PHOTO_REPORT,
+    // Запрос от бота о загрузке файла с фотографией
+    PHOTO_UPLOADED,
+    // Когда усыновителем фото отправлено, бота можно переключить в состояние PHOTO_UPLOADED
     REPORT_COME_BACK_COM;
+
 }
 

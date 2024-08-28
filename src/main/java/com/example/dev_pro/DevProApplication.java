@@ -10,8 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class DevProApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(DevProApplication.class, args);
     }
-
+  
 }

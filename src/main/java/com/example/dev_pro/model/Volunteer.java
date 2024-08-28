@@ -17,16 +17,19 @@ public class Volunteer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nickName;
-
-    private String lastName;
-
-    private String firstName;
-
-    private String middleName;
-
+    @Column(name = "chat_id")
     private Long chatId;
 
+    @Column(name = "nick_name")
+    private String nickName;
 
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "middle_name")
+    private String middleName;
 
 }

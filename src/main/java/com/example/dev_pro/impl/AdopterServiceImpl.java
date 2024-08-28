@@ -1,5 +1,7 @@
 package com.example.dev_pro.impl;
 
+
+import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.repository.AdopterRepository;
 import com.example.dev_pro.service.AdopterService;
@@ -27,7 +29,6 @@ public class AdopterServiceImpl implements AdopterService {
     @Override
     public Adopter create(Adopter adopter) {
         return repository.save(adopter);
-
     }
 
     @Override
@@ -47,5 +48,15 @@ public class AdopterServiceImpl implements AdopterService {
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Adopter findAdopterById(Long id) {
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public Adopter findAdopterByTelegramUserId(Long telegramUserId) {
+        return repository.findAdopterByTelegramUserId(telegramUserId).orElseThrow(EntityNotFoundException::new);
     }
 }

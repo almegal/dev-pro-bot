@@ -64,4 +64,10 @@ public class PetController {
         return ResponseEntity.ok(pets);
     }
 
+    @GetMapping("/all-pets-by-adopter/{adopterId}")
+    public ResponseEntity<List<Pet>> getAllByAdopterId(@PathVariable("adopterId") Long adopterId) {
+        List<Pet> pets = service.findAllByAdopterId(adopterId);
+        return ResponseEntity.ok(pets);
+    }
+
 }

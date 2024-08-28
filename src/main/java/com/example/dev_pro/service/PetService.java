@@ -65,6 +65,7 @@ public interface PetService {
      * @param shelterId идентификатор приюта
      * @return список питомцев приюта
      */
+
     List<Pet> findAllByShelterId(Integer shelterId);
 
     /**
@@ -74,5 +75,13 @@ public interface PetService {
      * @return список питомцев приюта
      */
     List<Pet> findAllByShelterIdAndIsFreeStatus(Integer shelterId, boolean isFreeStatus);
+
+    /**
+     * Метод по получению всех питомцев по идентификатору усыновителя
+     * @param adopterId идентификатор усыновителя
+     * @return список питомцев усыновителя
+     */
+
+    List<Pet> findAllByAdopterId(Long adopterId);
 
 }

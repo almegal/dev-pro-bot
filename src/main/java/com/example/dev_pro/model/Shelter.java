@@ -1,7 +1,6 @@
 package com.example.dev_pro.model;
 
 
-import com.example.dev_pro.enums.PetType;
 import com.example.dev_pro.enums.ShelterType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
