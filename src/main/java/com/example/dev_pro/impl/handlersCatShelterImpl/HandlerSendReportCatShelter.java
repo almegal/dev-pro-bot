@@ -4,7 +4,6 @@ import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.cache.ReportDataCache;
 import com.example.dev_pro.cache.impl.UserDataCacheCatShelter;
 import com.example.dev_pro.model.Adopter;
-import com.example.dev_pro.model.Pet;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.AdopterService;
