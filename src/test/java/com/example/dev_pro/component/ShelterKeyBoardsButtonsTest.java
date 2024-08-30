@@ -197,4 +197,5 @@ public class ShelterKeyBoardsButtonsTest {
         boolean resizeKeyboard = (boolean) resizeKeyboardField.get(replyKeyboardMarkup);
         assertTrue(resizeKeyboard);
     }
+
 }

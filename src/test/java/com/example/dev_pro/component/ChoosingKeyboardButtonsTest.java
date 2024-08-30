@@ -54,4 +54,5 @@ public class ChoosingKeyboardButtonsTest {
         boolean resizeKeyboard = (boolean) resizeKeyboardField.get(replyKeyboardMarkup);
         assertTrue(resizeKeyboard);
     }
+
 }
