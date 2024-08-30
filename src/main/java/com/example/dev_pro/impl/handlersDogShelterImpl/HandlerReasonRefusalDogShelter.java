@@ -1,9 +1,7 @@
 package com.example.dev_pro.impl.handlersDogShelterImpl;
 
-import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
-import com.example.dev_pro.service.handlers.InputMessageHandlerCatShelter;
 import com.example.dev_pro.service.handlers.InputMessageHandlerDogShelter;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;

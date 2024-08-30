@@ -1,6 +1,5 @@
 package com.example.dev_pro.controller;
 
-
 import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.service.VolunteerService;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 
 import java.util.List;
 
@@ -33,10 +31,8 @@ public class VolunteerControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-
     @Test
     public void shouldCreateVolunteer() throws Exception {
-
         ResponseEntity<Volunteer> newVolunteerRs = restTemplate.postForEntity(
                 "http://localhost:" + port + "/volunteer",
                 MOCK_VOLUNTEER_1,
@@ -55,7 +51,6 @@ public class VolunteerControllerTest {
 
     @Test
     public void shouldReturnVolunteerById() throws Exception {
-
         Volunteer createdVolunteer = createMockVolunteer();
 
         ResponseEntity<Volunteer> getVolunteerRs = restTemplate.getForEntity(
@@ -75,7 +70,6 @@ public class VolunteerControllerTest {
 
     @Test
     public void shouldDeleteVolunteer() throws Exception {
-
         Volunteer createdVolunteer = createMockVolunteer();
 
         restTemplate.delete(
@@ -93,7 +87,6 @@ public class VolunteerControllerTest {
 
     @Test
     public void shouldUpdateVolunteer() throws Exception {
-
         Volunteer createdVolunteer = createMockVolunteer();
         createdVolunteer.setLastName(MOCK_VOLUNTEER_NEW_LAST_NAME);
 
@@ -115,14 +108,13 @@ public class VolunteerControllerTest {
 
     @Test
     public void shouldReturnAllVolunteers() throws Exception {
-
-        createMockVolunteer(1l, MOCK_VOLUNTEER_NICK_NAME_1, MOCK_VOLUNTEER_LAST_NAME_1,
+        createMockVolunteer(1L, MOCK_VOLUNTEER_NICK_NAME_1, MOCK_VOLUNTEER_LAST_NAME_1,
                 MOCK_VOLUNTEER_FIRST_NAME_1, MOCK_VOLUNTEER_MIDDL_NAME_1, MOCK_VOLUNTEER_CHAT_ID_1);
-        createMockVolunteer(2l, MOCK_VOLUNTEER_NICK_NAME_2, MOCK_VOLUNTEER_LAST_NAME_2,
+        createMockVolunteer(2L, MOCK_VOLUNTEER_NICK_NAME_2, MOCK_VOLUNTEER_LAST_NAME_2,
                 MOCK_VOLUNTEER_FIRST_NAME_2, MOCK_VOLUNTEER_MIDDL_NAME_2, MOCK_VOLUNTEER_CHAT_ID_2);
-        createMockVolunteer(3l, MOCK_VOLUNTEER_NICK_NAME_3, MOCK_VOLUNTEER_LAST_NAME_3,
+        createMockVolunteer(3L, MOCK_VOLUNTEER_NICK_NAME_3, MOCK_VOLUNTEER_LAST_NAME_3,
                 MOCK_VOLUNTEER_FIRST_NAME_3, MOCK_VOLUNTEER_MIDDL_NAME_3, MOCK_VOLUNTEER_CHAT_ID_3);
-        createMockVolunteer(4l, MOCK_VOLUNTEER_NICK_NAME_4, MOCK_VOLUNTEER_LAST_NAME_4,
+        createMockVolunteer(4L, MOCK_VOLUNTEER_NICK_NAME_4, MOCK_VOLUNTEER_LAST_NAME_4,
                 MOCK_VOLUNTEER_FIRST_NAME_4, MOCK_VOLUNTEER_MIDDL_NAME_4, MOCK_VOLUNTEER_CHAT_ID_4);
 
         List<Volunteer> volunteers = restTemplate.exchange(
@@ -139,17 +131,16 @@ public class VolunteerControllerTest {
 
     @Test
     public void shouldReturnListNickNamesOfVolunteers() throws Exception {
-
-        createMockVolunteer(1l, MOCK_VOLUNTEER_NICK_NAME_1, MOCK_VOLUNTEER_LAST_NAME_1,
+        createMockVolunteer(1L, MOCK_VOLUNTEER_NICK_NAME_1, MOCK_VOLUNTEER_LAST_NAME_1,
                 MOCK_VOLUNTEER_FIRST_NAME_1, MOCK_VOLUNTEER_MIDDL_NAME_1, MOCK_VOLUNTEER_CHAT_ID_1);
-        createMockVolunteer(2l, MOCK_VOLUNTEER_NICK_NAME_2, MOCK_VOLUNTEER_LAST_NAME_2,
+        createMockVolunteer(2L, MOCK_VOLUNTEER_NICK_NAME_2, MOCK_VOLUNTEER_LAST_NAME_2,
                 MOCK_VOLUNTEER_FIRST_NAME_2, MOCK_VOLUNTEER_MIDDL_NAME_2, MOCK_VOLUNTEER_CHAT_ID_2);
-        createMockVolunteer(3l, MOCK_VOLUNTEER_NICK_NAME_3, MOCK_VOLUNTEER_LAST_NAME_3,
+        createMockVolunteer(3L, MOCK_VOLUNTEER_NICK_NAME_3, MOCK_VOLUNTEER_LAST_NAME_3,
                 MOCK_VOLUNTEER_FIRST_NAME_3, MOCK_VOLUNTEER_MIDDL_NAME_3, MOCK_VOLUNTEER_CHAT_ID_3);
-        createMockVolunteer(4l, MOCK_VOLUNTEER_NICK_NAME_4, MOCK_VOLUNTEER_LAST_NAME_4,
+        createMockVolunteer(4L, MOCK_VOLUNTEER_NICK_NAME_4, MOCK_VOLUNTEER_LAST_NAME_4,
                 MOCK_VOLUNTEER_FIRST_NAME_4, MOCK_VOLUNTEER_MIDDL_NAME_4, MOCK_VOLUNTEER_CHAT_ID_4);
 
-        List <String> nickNames = restTemplate.exchange(
+        List<String> nickNames = restTemplate.exchange(
                 "http://localhost:" + port + "/volunteer/nicknames",
                 HttpMethod.GET,
                 null,
@@ -160,15 +151,12 @@ public class VolunteerControllerTest {
         assertThat(nickNames).isEqualTo(MOCK_VOLUNTEER_NICK_NAMES);
     }
 
-
-
     public Volunteer createMockVolunteer() {
         return volunteerService.createVolunteer(MOCK_VOLUNTEER_1);
     }
 
     public Volunteer createMockVolunteer(Long id, String nickName, String lastName, String firstName,
                                          String middleName, Long chatId) {
-        return volunteerService.createVolunteer(new Volunteer(id, nickName, lastName, firstName, middleName, chatId));
+        return volunteerService.createVolunteer(new Volunteer(id, chatId, nickName, lastName, firstName, middleName));
     }
-
 }
