@@ -116,6 +116,12 @@ public class TelegramBotConfiguration {
     @Value("${telegram.bot.reasonRefusal}")
     private String reasonRefusal;
 
+    @Value("${telegram.bot.oneDayReportMissing}")
+    private String oneDayReportMissing;
+
+    @Value("${telegram.bot.notificationAboutAdditionalProbationTime}")
+    private String notificationAboutAdditionalProbationTime;
+
     /**
      * Создание и настройка Telegram-бота.
      *
