@@ -16,10 +16,9 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class ReportDataCacheCatShelter implements ReportDataCache {
+public class ReportDataCacheImpl implements ReportDataCache {
 
     private final Map<Long, Report> reports = new HashMap<>();
-
 
     @Override
     public Report getReport(Long adopterId) {
@@ -34,4 +33,5 @@ public class ReportDataCacheCatShelter implements ReportDataCache {
     public void saveReport(Long adopterId, Report report) {
         reports.put(adopterId, report);
     }
+
 }

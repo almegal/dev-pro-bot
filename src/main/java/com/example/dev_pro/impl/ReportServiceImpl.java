@@ -4,7 +4,6 @@ package com.example.dev_pro.impl;
 import com.example.dev_pro.cache.ReportDataCache;
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Adopter;
-import com.example.dev_pro.model.Pet;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.repository.ReportRepository;
 import com.example.dev_pro.service.ReportService;
@@ -19,9 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
@@ -46,7 +42,6 @@ public class ReportServiceImpl implements ReportService {
 
     private final ReportRepository repository;
     private final TelegramBot telegramBot;
-    private final ReportDataCache reportDataCache;
 
 
     @Override
@@ -94,14 +89,17 @@ public class ReportServiceImpl implements ReportService {
 
     @Transactional
     @Override
-    public void deleteAllByAdopterId(Adopter adopterId) {
+    public void deleteAllByAdopterId(Long adopterId) {
         repository.deleteAllByAdopterId(adopterId);
     }
 
+    /**
+     * Метод по загрузке фотографии на диск и возвращению пути к этому файлу
+     * Первый вариант
+     */
 
-    // Загружаем файл с фото и сохраняем его в папку с именем photosDir
     @Override
-    public Path uploadReportPhoto(PhotoSize[] photoSizes) throws IOException {
+    public Path uploadReportPhoto(PhotoSize[] photoSizes) {
 
         log.info("Вызов метода uploadReportPhoto(PhotoSize[] photoSizes) для загрузки фотографий");
 
@@ -138,6 +136,7 @@ public class ReportServiceImpl implements ReportService {
 
             } catch (IOException e) {
                 log.error("Error uploading photo file for report with fileId: {} ", photoSizes[maxIndex].fileId(), e);
+                return null;
             }
 
             return newFilePath;
@@ -146,6 +145,11 @@ public class ReportServiceImpl implements ReportService {
             throw new IllegalArgumentException();
         }
     }
+
+    /**
+     * Метод по загрузке фотографии на диск и возвращению пути к этому файлу
+     * Второй вариант
+     */
 
     @Override
     public Path savePhoto(PhotoSize[] photos) {
@@ -163,7 +167,7 @@ public class ReportServiceImpl implements ReportService {
 
         } else {
             log.error("Фото не найдено в сообщении");
-            return null;
+            throw new IllegalArgumentException();
         }
     }
 

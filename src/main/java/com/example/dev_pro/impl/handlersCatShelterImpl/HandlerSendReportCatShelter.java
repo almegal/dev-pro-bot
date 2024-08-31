@@ -19,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class HandlerSendPhotoReportCatShelter implements InputMessageHandlerCatShelter {
-
+public class HandlerSendReportCatShelter implements InputMessageHandlerCatShelter {
 
     private final UserDataCacheCatShelter userDataCache;
     private final ReportDataCache reportDataCache;
@@ -52,7 +52,7 @@ public class HandlerSendPhotoReportCatShelter implements InputMessageHandlerCatS
         return BotStateCatShelter.SEND_PHOTO_REPORT;
     }
 
-    private SendMessage processUsersInput(Message inputMsg) {
+    public SendMessage processUsersInput(Message inputMsg) {
         Long userId = inputMsg.from().id();
         Long chatId = inputMsg.chat().id();
         String text = inputMsg.text();
@@ -80,18 +80,20 @@ public class HandlerSendPhotoReportCatShelter implements InputMessageHandlerCatS
 
         if (botState.equals(BotStateCatShelter.ASK_TEXT_REPORT)) {
             try {
+
                 report.setDateReport(LocalDate.now());
                 report.setAdopter(adopter);
                 report.setPet(petService.findPetById(Long.parseLong(text)));
                 log.info("Report has been initialized! date_report = {}, adopter_id = {}, pet_id = {}",
                         report.getDateReport(), report.getAdopter(), report.getPet());
+                reportDataCache.saveReport(report.getPet().getId(), report);
 
                 replyToUser = new SendMessage(chatId, "Спасибо, идентификатор питомца загружен в отчет");
                 replyToUser2 = new SendMessage(chatId, "Загрузите текст с описанием питомца");
 
-            } catch (IllegalArgumentException e) {
-                replyToUser = new SendMessage(chatId, "Сообщение должно содержать текст! " + e);
-                userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.REPORT_COM);
+            } catch (NumberFormatException e) {
+                replyToUser = new SendMessage(chatId, "Сообщение должно содержать цифры! Кликните на кнопку " +
+                        "\"send_photo_report\" и введите идентификатор питомца еще раз " + e);
             }
             userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.ASK_PHOTO_REPORT);
         }
@@ -105,28 +107,30 @@ public class HandlerSendPhotoReportCatShelter implements InputMessageHandlerCatS
                 replyToUser2 = new SendMessage(chatId, "Загрузите файл с фотографией питомца");
 
             } catch (IllegalArgumentException e) {
-                replyToUser = new SendMessage(chatId, "Сообщение должно содержать текст! " + e);
-                userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.REPORT_COM);
+                replyToUser = new SendMessage(chatId, "Сообщение должно содержать текст! Кликните на кнопку " +
+                        "\"send_photo_report\" и введите все данные еще раз " + e);
             }
-
             userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.PHOTO_UPLOADED);
         }
 
         if (botState.equals(BotStateCatShelter.PHOTO_UPLOADED)) {
             try {
-                Path path = reportService.uploadReportPhoto(photoSizes);
+                Path path = reportService.savePhoto(photoSizes);
                 // загружаем фото в папку на диске photos и сохраняем путь к этому файлу в переменную path
                 report.setFilePath(path.toString());
+                report.setMediaType(Files.probeContentType(path));
+                report.setFileSize(photoSizes[photoSizes.length - 1].fileSize());
                 log.info("Report has been initialized! file_path = {} ", report.getFilePath());
 
                 replyToUser = new SendMessage(chatId, "Спасибо, фотография загружена в отчет");
 
             } catch (IllegalArgumentException e) {
-                replyToUser = new SendMessage(chatId, "Сообщение должно содержать фотографию! " + e);
-                userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.REPORT_COM);
+                replyToUser = new SendMessage(chatId, "Сообщение должно содержать файл с фотографией! Кликните на кнопку " +
+                        "\"send_photo_report\" и введите все данные еще раз " + e);
             } catch (IOException e) {
-                replyToUser = new SendMessage(chatId, "Ошибка при загрузке фотографии! " + e);
-                userDataCache.setUsersCurrentBotState(userId, BotStateCatShelter.REPORT_COM);
+                replyToUser = new SendMessage(chatId, "Не удалось загрузить файл!");
+                log.error("Error uploading photo file for report with fileId: {} ",
+                        photoSizes[photoSizes.length - 1].fileId(), e);
             }
 
             reportService.createReport(report);

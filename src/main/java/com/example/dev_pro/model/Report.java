@@ -1,7 +1,6 @@
 package com.example.dev_pro.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +28,12 @@ public class Report {
 
     @Column(name = "file_path")
     private String filePath;
+
+    @Column(name = "file_size")
+    private long fileSize;
+
+    @Column(name = "media_type")
+    private String mediaType;
 
     @Column(name = "is_viewed")
     private Boolean isViewed;
