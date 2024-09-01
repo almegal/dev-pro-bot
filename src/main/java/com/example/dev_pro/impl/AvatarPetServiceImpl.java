@@ -20,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 
-
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 /**
@@ -39,19 +38,16 @@ public class AvatarPetServiceImpl implements AvatarPetService {
     private final PetService petService;
     private final AvatarPetRepository repository;
 
-
     @Override
     public Collection<AvatarPet> findAllAvatars() {
         return repository.findAll();
     }
-
 
     @Override
     public AvatarPet findAvatarByPetId(Long petId) {
         log.debug("Was invoked method for find avatar or create avatar");
         return repository.findAvatarByPetId(petId).orElse(new AvatarPet());
     }
-
 
     @Override
     public void uploadAvatar(Long petId, MultipartFile avatarFile) throws IOException {
@@ -106,5 +102,7 @@ public class AvatarPetServiceImpl implements AvatarPetService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-
+    public void setAvatarsDir(String avatarsDir) {
+        this.avatarsDir = avatarsDir;
+    }
 }

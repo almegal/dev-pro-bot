@@ -88,8 +88,9 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
             List<String> listNickNamesVolunteers = volunteerService.getListNickNamesOfVolunteers();
             sendMsg(chatId, resultMsg + " " + listNickNamesVolunteers);
             List<Volunteer> volunteers = (List<Volunteer>) volunteerService.findAllVolunteers();
+            String msg = tBotConfig.getCallVolunteerMsg();
             volunteers.forEach(volunteer -> sendMsg(volunteer.getChatId(),
-                    String.format(tBotConfig.getMessageToVolunteerMsg(), userName, chatId)));
+                    String.format(msg, userName, chatId)));
             return;
         }
 
