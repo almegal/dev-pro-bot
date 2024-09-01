@@ -27,7 +27,6 @@ public class TelegramBotListener implements UpdatesListener {
     private final CallbackService callbackService;
 
 
-
     @PostConstruct
     public void init() {
         telegramBot.setUpdatesListener(this);
@@ -72,9 +71,9 @@ public class TelegramBotListener implements UpdatesListener {
     /**
      * Метод по отправке файлов с изображениями из папки resources
      *
-     * @param chatId идентификатор пользователя
+     * @param chatId       идентификатор пользователя
      * @param imageCaption надпись на изображении
-     * @param imagePath путь к файлу
+     * @param imagePath    путь к файлу
      */
     public void sendPhoto(Long chatId, String imageCaption, String imagePath) {
         // caption - надпись над изображением

@@ -9,5 +9,6 @@ public class DefaultProps {
         MOCK_USER.setId(0L);
         MOCK_USER.setShelter("Cat");
         MOCK_USER.setTelegramId(12345L);
+        MOCK_USER.setChatId(0L);
     }
 }

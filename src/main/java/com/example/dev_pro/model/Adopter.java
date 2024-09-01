@@ -36,7 +36,7 @@ public class Adopter {
     @JsonManagedReference
     private List<Report> reports;
 
-    private boolean passedTheProbationPeriod;
+    private boolean probationPeriod;
 
 }
 
