@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "adopters")
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @JsonIgnoreProperties(value = {"reports"})
 public class Adopter {
 
@@ -27,7 +28,7 @@ public class Adopter {
     @JoinColumn(name = "telegram_user_id")
     private TelegramUser telegramUser;
 
-    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "adopter", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JsonManagedReference
     @JsonIgnore
     private List<Pet> pets;
@@ -38,5 +39,11 @@ public class Adopter {
 
     private boolean probationPeriod;
 
+
+
+    public Adopter(Long id, boolean probationPeriod) {
+        this.id = id;
+        this.probationPeriod = probationPeriod;
+    }
 }
 
