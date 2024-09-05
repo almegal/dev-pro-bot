@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/telegram_user")
 @Tag(name = "API для работы с пользователями телеграм")
@@ -57,6 +59,32 @@ public class TelegramUserController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
+                            description = "Найденный пользователь",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = TelegramUser.class))
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Если пользователь не найден"
+                    )
+            }
+    )
+    public ResponseEntity<TelegramUser> getByUserId(
+            @Parameter(description = "Идентификатор пользователя", example = "1")
+            @PathVariable Long id) {
+        TelegramUser tu = service.getByUserId(id);
+        return ResponseEntity.ok(tu);
+    }
+
+
+    @GetMapping("/get-by-telegram-id")
+    @Operation(
+            summary = "Поиск пользователя по идентификатору пользователя в мессенджере телеграм",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
                             description = "Найденный пользователь телеграм",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -69,13 +97,37 @@ public class TelegramUserController {
                     )
             }
     )
-    public ResponseEntity<TelegramUser> getUserById(
-            @Parameter(description = "Идентификатор пользователя", example = "2")
-            @PathVariable Long id) {
-        TelegramUser tu = service.getById(id);
+    public ResponseEntity<TelegramUser> getByTelegramUserId(@RequestParam Long telegramId) {
+        TelegramUser tu = service.getById(telegramId);
         if (tu == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(tu);
     }
 
+
+    @GetMapping
+    @Operation(
+            summary = "Получение всех пользователей",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Список всех пользователей телеграм",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(schema = @Schema(implementation = TelegramUser.class))
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Если пользователи не найдены"
+                    )
+            }
+    )
+    public ResponseEntity<List<TelegramUser>> getAll() {
+        List<TelegramUser> telegramUserList = service.getAll();
+        if (telegramUserList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(telegramUserList);
+    }
 
 }

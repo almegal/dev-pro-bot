@@ -8,6 +8,7 @@ import com.example.dev_pro.service.TelegramUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,21 @@ import java.util.Optional;
 public class TelegramUserServiceImpl implements TelegramUserService {
     private final TelegramUserRepository repository;
 
+    /**
+     * Метод по поиску пользователя по его идентификатору
+     * @param id идентификатор пользователя
+     * @return пользователя телеграм
+     */
+    @Override
+    public TelegramUser getByUserId(Long id) {
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
+     * Метод по поиску пользователя по его идентификатору в мессенджере телеграм
+     * @param id идентификатор пользователя в телеграм
+     * @return пользователя телеграм
+     */
     @Override
     public TelegramUser getById(Long id) {
         Optional<TelegramUser> userOptional = repository.findByTelegramId(id);
@@ -34,6 +50,11 @@ public class TelegramUserServiceImpl implements TelegramUserService {
     @Override
     public TelegramUser findTelegramUserByAdopter(Adopter adopter) {
         return repository.findTelegramUserByAdopter(adopter).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public List<TelegramUser> getAll() {
+        return repository.findAll();
     }
 
 
