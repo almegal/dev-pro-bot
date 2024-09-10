@@ -76,7 +76,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
         // Получаем идентификатор пользователя
         Long userId = update.message().from().id();
         // Получаем пользователя телеграмм, если он не найден вернется новый
-        TelegramUser telegramUser = telegramUserService.getById(userId);
+        TelegramUser telegramUser = telegramUserService.getTelegramById(userId);
         // Если такого пользователя нет, значит он ранее не обращался
         if (telegramUser.getTelegramId() == null) {
             // отправляем стартовое сообщение

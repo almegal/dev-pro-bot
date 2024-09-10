@@ -21,6 +21,8 @@ public interface TelegramUserService {
      */
     TelegramUser getById(Long id);
 
+    TelegramUser getTelegramById(Long id);
+
     void save(TelegramUser user);
 
     void update(TelegramUser user);
@@ -28,5 +30,5 @@ public interface TelegramUserService {
     TelegramUser findTelegramUserByAdopter(Adopter adopter);
 
     List<TelegramUser> getAll();
-
+  
 }
