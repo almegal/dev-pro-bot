@@ -1,5 +1,6 @@
 package com.example.dev_pro.controller;
 
+import com.example.dev_pro.dto.AdopterDTO;
 import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.service.AdopterService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +33,7 @@ public class AdopterController {
                             "следующий за идентификатором последнего усыновителя в базе данных"
             )
     )
-    public ResponseEntity<Adopter> createAdopter(@RequestBody Adopter adopter) {
+    public ResponseEntity<Adopter> createAdopter(@RequestBody AdopterDTO adopter) {
         Adopter adop = adopterService.create(adopter);
         return ResponseEntity.ok(adop);
     }

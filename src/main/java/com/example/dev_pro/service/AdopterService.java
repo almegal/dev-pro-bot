@@ -1,5 +1,6 @@
 package com.example.dev_pro.service;
 
+import com.example.dev_pro.dto.AdopterDTO;
 import com.example.dev_pro.model.Adopter;
 
 import java.time.LocalDate;
@@ -11,7 +12,13 @@ public interface AdopterService {
 
     List<Adopter> findAllWhoPasserProbationPeriod();
 
-    Adopter create(Adopter adopter);
+    /**
+     * Метод по созданию усыновителя
+     * @param adopter усыновитель
+     * @return сохраненного в базу данных усыновителя
+     */
+
+    Adopter create(AdopterDTO adopter);
 
     Adopter update(Adopter adopter);
 

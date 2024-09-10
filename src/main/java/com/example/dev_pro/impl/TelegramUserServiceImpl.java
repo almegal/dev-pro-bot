@@ -16,6 +16,21 @@ import java.util.Optional;
 public class TelegramUserServiceImpl implements TelegramUserService {
     private final TelegramUserRepository repository;
 
+    /**
+     * Метод по поиску пользователя по его идентификатору
+     * @param id идентификатор пользователя
+     * @return пользователя телеграм
+     */
+    @Override
+    public TelegramUser getByUserId(Long id) {
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
+     * Метод по поиску пользователя по его идентификатору в мессенджере телеграм
+     * @param id идентификатор пользователя в телеграм
+     * @return пользователя телеграм
+     */
     @Override
     public TelegramUser getTelegramById(Long id) {
         Optional<TelegramUser> userOptional = repository.findByTelegramId(id);
