@@ -94,7 +94,7 @@ class CommandHandlerServiceImplTest {
         TelegramUser telegramUser = new TelegramUser();
         telegramUser.setTelegramId(456L);
         telegramUser.setShelter("Cat");
-        when(telegramUserService.getById(456L)).thenReturn(telegramUser);
+        when(telegramUserService.getTelegramById(456L)).thenReturn(telegramUser);
 
         String expectedMessage = "Call Volunteer";
         when(tBotConfig.getCallVolunteerMsg()).thenReturn(expectedMessage);
@@ -104,7 +104,7 @@ class CommandHandlerServiceImplTest {
 
         commandHandlerService.commandProcessing(update);
 
-        verify(telegramUserService, times(1)).getById(456L);
+        verify(telegramUserService, times(1)).getTelegramById(456L);
         verify(volunteerService, times(1)).getListNickNamesOfVolunteers();
         verify(volunteerService, times(1)).findAllVolunteers();
         verify(telegramBot, times(2)).execute(any(SendMessage.class));
@@ -138,14 +138,14 @@ class CommandHandlerServiceImplTest {
         when(message.text()).thenReturn("/start");
 
         TelegramUser telegramUser = new TelegramUser();  // Новый пользователь
-        when(telegramUserService.getById(456L)).thenReturn(telegramUser);
+        when(telegramUserService.getTelegramById(456L)).thenReturn(telegramUser);
 
         when(tBotConfig.getStartMsg()).thenReturn("Welcome!");
 //        when(choosingKeyboardButtons.getKeyboardButtons()).thenReturn(null);
 
         commandHandlerService.commandProcessing(update);
 
-        verify(telegramUserService, times(1)).getById(456L);
+        verify(telegramUserService, times(1)).getTelegramById(456L);
         verify(telegramBot, times(1)).execute(any(SendMessage.class));
     }
 }

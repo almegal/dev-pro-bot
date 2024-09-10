@@ -17,6 +17,12 @@ public class TelegramUserServiceImpl implements TelegramUserService {
     private final TelegramUserRepository repository;
 
     @Override
+    public TelegramUser getTelegramById(Long id) {
+        Optional<TelegramUser> userOptional = repository.findByTelegramId(id);
+        return userOptional.orElseGet(TelegramUser::new);
+    }
+
+    @Override
     public TelegramUser getById(Long id) {
         Optional<TelegramUser> userOptional = repository.findById(id);
         return userOptional.orElseGet(TelegramUser::new);
