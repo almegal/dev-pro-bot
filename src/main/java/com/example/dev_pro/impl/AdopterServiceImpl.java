@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-
 import com.example.dev_pro.dto.AdopterDTO;
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Adopter;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor
@@ -38,12 +36,13 @@ public class AdopterServiceImpl implements AdopterService {
     @Override
     public Adopter create(AdopterDTO adopter) {
         TelegramUser telegramUser = telegramUserRepository.findById(adopter.getTelegramUserId())
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new EntityNotFoundException("TelegramUser with id " + adopter.getTelegramUserId() + " not found"));
         Adopter ad = new Adopter();
         ad.setTelegramUser(telegramUser);
         List<Pet> pets = new ArrayList<>();
         for (Long petId : adopter.getPetIds()) {
-            Pet pet = petRepository.findById(petId).orElseThrow(EntityNotFoundException::new);
+            Pet pet = petRepository.findById(petId)
+                    .orElseThrow(() -> new EntityNotFoundException("Pet with id " + petId + " not found"));
             pets.add(pet);
         }
         ad.setPets(pets);
@@ -69,7 +68,8 @@ public class AdopterServiceImpl implements AdopterService {
 
     @Override
     public Adopter getById(Long id) {
-        return adopterRepository.findById(id).orElseThrow();
+        return adopterRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Adopter with id " + id + " not found"));
     }
 
     @Override
@@ -79,11 +79,13 @@ public class AdopterServiceImpl implements AdopterService {
 
     @Override
     public Adopter findAdopterById(Long id) {
-        return adopterRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return adopterRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Adopter with id " + id + " not found"));
     }
 
     @Override
     public Adopter findAdopterByTelegramUserId(Long telegramUserId) {
-        return adopterRepository.findAdopterByTelegramUserId(telegramUserId).orElseThrow(EntityNotFoundException::new);
+        return adopterRepository.findAdopterByTelegramUserId(telegramUserId)
+                .orElseThrow(() -> new EntityNotFoundException("Adopter with TelegramUserId " + telegramUserId + " not found"));
     }
 }

@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.repository.VolunteerRepository;
@@ -18,28 +17,25 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class VolunteerServiceImpl  implements VolunteerService {
+public class VolunteerServiceImpl implements VolunteerService {
 
     private final VolunteerRepository volunteerRepository;
-
 
     @Override
     public Volunteer createVolunteer(Volunteer volunteer) {
         return volunteerRepository.save(volunteer);
     }
 
-
     @Override
     public Volunteer updateVolunteer(Volunteer volunteer) {
         return volunteerRepository.save(volunteer);
     }
 
-
     @Override
     public Volunteer findVolunteerById(Long id) {
-        return volunteerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return volunteerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Volunteer with id " + id + " not found"));
     }
-
 
     @Override
     public Volunteer deleteVolunteerById(Long id) {
@@ -48,20 +44,16 @@ public class VolunteerServiceImpl  implements VolunteerService {
         return volunteer;
     }
 
-
     @Override
     public Collection<Volunteer> findAllVolunteers() {
         return volunteerRepository.findAll();
     }
 
-
     @Override
     public List<String> getListNickNamesOfVolunteers() {
         List<Volunteer> volunteers = volunteerRepository.findAll();
-        List<String> nickNames = volunteers.stream()
+        return volunteers.stream()
                 .map(Volunteer::getNickName)
                 .collect(Collectors.toList());
-        return  nickNames;
     }
-
 }

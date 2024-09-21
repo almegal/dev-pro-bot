@@ -3,6 +3,8 @@ package com.example.dev_pro.botapi;
 import com.example.dev_pro.service.handlers.InputMessageHandlerCatShelter;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -15,6 +17,8 @@ import java.util.Map;
 
 @Component
 public class BotStateContextCatShelter {
+
+    private static final Logger logger = LoggerFactory.getLogger(BotStateContextCatShelter.class);
 
     private Map<BotStateCatShelter, InputMessageHandlerCatShelter> messageHandlers = new HashMap<>();
     // ключ - текущее состояние бота, значение - обработчик для данного состояния
@@ -34,6 +38,10 @@ public class BotStateContextCatShelter {
     public SendMessage processInputMessage(BotStateCatShelter currentState, Message message) {
         InputMessageHandlerCatShelter currentMessageHandler = findMessageHandler(currentState);
         // поиск обработчика
+        if (currentMessageHandler == null) {
+            logger.error("No handler found for state: {}", currentState);
+            return new SendMessage(message.chat().id(), "An error occurred. Please try again later.");
+        }
         return currentMessageHandler.handle(message);
         // возвращение ботом ответного сообщения пользователю (вызывается метод из соответствующего класса - обработчика)
     }

@@ -129,31 +129,4 @@ public class TelegramUserController {
         return ResponseEntity.ok(telegramUserList);
     }
 
-
-    @GetMapping
-    @Operation(
-            summary = "Получение всех пользователей",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Список всех пользователей телеграм",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    array = @ArraySchema(schema = @Schema(implementation = TelegramUser.class))
-                            )
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Если пользователи не найдены"
-                    )
-            }
-    )
-    public ResponseEntity<List<TelegramUser>> getAll() {
-        List<TelegramUser> telegramUserList = service.getAll();
-        if (telegramUserList.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(telegramUserList);
-    }
-
 }

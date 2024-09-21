@@ -70,14 +70,14 @@ public class UserDataCacheCatShelterTest {
     @Test
     public void testGetTelegramUserWhenUserNotInCache() {
         // Arrange
-        when(telegramUserService.getById(userId)).thenReturn(mockTelegramUser);
+        when(telegramUserService.getTelegramById(userId)).thenReturn(mockTelegramUser);
 
         // Act
         TelegramUser retrievedUser = userDataCacheCatShelter.getTelegramUser(userId);
 
         // Assert
         assertEquals(mockTelegramUser, retrievedUser);
-        verify(telegramUserService, times(1)).getById(userId);
+        verify(telegramUserService, times(1)).getTelegramById(userId);
     }
 
     @Test

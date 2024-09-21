@@ -23,7 +23,8 @@ public class TelegramUserServiceImpl implements TelegramUserService {
      */
     @Override
     public TelegramUser getByUserId(Long id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("TelegramUser with id " + id + " not found"));
     }
 
     /**
@@ -55,7 +56,8 @@ public class TelegramUserServiceImpl implements TelegramUserService {
 
     @Override
     public TelegramUser findTelegramUserByAdopter(Adopter adopter) {
-        return repository.findTelegramUserByAdopter(adopter).orElseThrow(EntityNotFoundException::new);
+        return repository.findTelegramUserByAdopter(adopter)
+                .orElseThrow(() -> new EntityNotFoundException("TelegramUser for adopter " + adopter.getId() + " not found"));
     }
 
     @Override

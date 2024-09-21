@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-
 import com.example.dev_pro.cache.ReportDataCache;
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Adopter;
@@ -25,7 +24,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 
-
 /**
  * Класс, создающий логику по работе с отчетами в базе данных
  */
@@ -43,7 +41,6 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository repository;
     private final TelegramBot telegramBot;
 
-
     @Override
     public Report createReport(Report report) {
         return repository.save(report);
@@ -56,12 +53,13 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report findReportById(Integer id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Report with id " + id + " not found"));
     }
 
     @Override
     public Report findReportByPetIdAndDateReport(Long petId, LocalDate dateReport) {
-        return repository.findReportByPetIdAndDateReport(petId, dateReport).orElseThrow(EntityNotFoundException::new);
+        return repository.findReportByPetIdAndDateReport(petId, dateReport)
+                .orElseThrow(() -> new EntityNotFoundException("Report for pet with id " + petId + " and date " + dateReport + " not found"));
     }
 
     @Override
