@@ -119,7 +119,7 @@ public class CommandHandlerServiceImpl implements CommandHandlerService {
         telegramBot.execute(sendMessage);
     }
 
-    // Приветственное сообщение для  новых пользователей
+    // Приветственное сообщение для новых пользователей
     private void sendStartMessage(Long chatId) {
         SendMessage sendMessage = new SendMessage(chatId, tBotConfig.getStartMsg());
         // Установим кнопки для пользователя чтобы мог выбрать приют

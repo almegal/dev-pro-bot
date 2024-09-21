@@ -1,6 +1,6 @@
 package com.example.dev_pro.service;
 
-
+import com.example.dev_pro.dto.PetDto;
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Pet;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,26 +11,24 @@ import java.util.List;
 /**
  * Сервис по созданию логики по работе с питомцами из базы данных
  */
-
 public interface PetService {
 
     /**
      * Метод по созданию питомца в базе данных.
      * Используется метод репозитория {@link JpaRepository#save(Object)}
-     * @param - объект класса Pet, не может быть null
+     * @param petDto объект класса PetDto, не может быть null
      * @return объект класса Pet, сохраненный в базу данных
      */
-
-    Pet createPet(Pet pet);
+    Pet createPet(PetDto petDto);
 
     /**
      * Метод по обновлению питомца в базе данных.
      * Используется метод репозитория {@link JpaRepository#save(Object)}
-     * @param - объект класса Pet, не может быть null
+     * @param id идентификатор объекта класса Pet, не может быть null
+     * @param petDto объект класса PetDto, не может быть null
      * @return объект класса Pet, обновленный в базе данных
      */
-
-    Pet updatePet(Pet pet);
+    Pet updatePet(Long id, PetDto petDto);
 
     /**
      * Метод по поиску питомца в базе данных по идентификатору.
@@ -39,7 +37,6 @@ public interface PetService {
      * @throws EntityNotFoundException если объект класса Pet с указанным id не был найден в БД
      * @return объект класса Pet
      */
-
     Pet findPetById(Long id);
 
     /**
@@ -49,7 +46,6 @@ public interface PetService {
      * @throws EntityNotFoundException если объект класса Pet с указанным id не был найден в БД
      * @return удаленный из базы данных объект класса Pet
      */
-
     Pet deletePetById(Long id);
 
     /**
@@ -57,7 +53,6 @@ public interface PetService {
      * Используется метод репозитория {@link JpaRepository#findAll()}
      * @return коллекцию объектов класса Pet
      */
-
     Collection<Pet> findAllPets();
 
     /**
@@ -65,7 +60,6 @@ public interface PetService {
      * @param shelterId идентификатор приюта
      * @return список питомцев приюта
      */
-
     List<Pet> findAllByShelterId(Integer shelterId);
 
     /**
@@ -78,10 +72,9 @@ public interface PetService {
 
     /**
      * Метод по получению всех питомцев по идентификатору усыновителя
+     * Используется метод репозитория {@link JpaRepository#findAllByAdopterId(Long)}
      * @param adopterId идентификатор усыновителя
      * @return список питомцев усыновителя
      */
-
     List<Pet> findAllByAdopterId(Long adopterId);
-
 }

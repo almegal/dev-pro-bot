@@ -25,18 +25,15 @@ public class ShelterServiceImpl implements ShelterService {
         return repository.save(shelter);
     }
 
-
     @Override
     public Shelter updateShelter(Shelter shelter) {
         return repository.save(shelter);
     }
 
-
     @Override
     public Shelter findShelterById(Integer id) {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Shelter with id " + id + " not found"));
     }
-
 
     @Override
     public Shelter deleteShelterById(Integer id) {
@@ -44,7 +41,6 @@ public class ShelterServiceImpl implements ShelterService {
         repository.deleteById(id);
         return shelter;
     }
-
 
     @Override
     public Collection<Shelter> findAllShelters() {
@@ -55,5 +51,4 @@ public class ShelterServiceImpl implements ShelterService {
     public Collection<Pet> findPetsByShelterId(Integer shelterId) {
         return findShelterById(shelterId).getPets();
     }
-
 }

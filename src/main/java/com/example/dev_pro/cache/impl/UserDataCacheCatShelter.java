@@ -39,7 +39,7 @@ public class UserDataCacheCatShelter implements DataCacheCatShelter {
     public TelegramUser getTelegramUser(Long userId) {
         TelegramUser telegramUser = telegramUsers.get(userId);
         if (telegramUser == null) {
-            telegramUser = service.getById(userId);
+            telegramUser = service.getTelegramById(userId);
         }
         return telegramUser;
     }
