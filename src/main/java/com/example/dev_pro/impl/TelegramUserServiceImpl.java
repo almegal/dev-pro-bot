@@ -32,7 +32,7 @@ public class TelegramUserServiceImpl implements TelegramUserService {
      */
     @Override
     public TelegramUser getById(Long id) {
-        Optional<TelegramUser> userOptional = repository.findById(id);
+        Optional<TelegramUser> userOptional = repository.findByTelegramId(id);
         return userOptional.orElseGet(TelegramUser::new);
     }
 
