@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -38,8 +36,6 @@ public class Adopter {
     private List<Report> reports;
 
     private boolean probationPeriod;
-
-
 
     public Adopter(Long id, boolean probationPeriod) {
         this.id = id;
