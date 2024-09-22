@@ -1,6 +1,5 @@
 package com.example.dev_pro.impl;
 
-
 import com.example.dev_pro.dto.AdopterDTO;
 import com.example.dev_pro.exception.EntityNotFoundException;
 import com.example.dev_pro.model.Adopter;
@@ -12,11 +11,9 @@ import com.example.dev_pro.repository.TelegramUserRepository;
 import com.example.dev_pro.service.AdopterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor

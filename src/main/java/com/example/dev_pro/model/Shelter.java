@@ -1,20 +1,16 @@
 package com.example.dev_pro.model;
 
-
 import com.example.dev_pro.enums.ShelterType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Entity
 @Table(name = "shelters")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"pets"})
 public class Shelter {
@@ -46,4 +42,15 @@ public class Shelter {
     @OneToMany(mappedBy = "shelter")
     @JsonManagedReference
     private List<Pet> pets;
+
+    public Shelter(Integer id, String name, ShelterType shelterType, String address, String timeWork,
+                   String phoneShelter, String phoneSecurity) {
+        this.id = id;
+        this.name = name;
+        this.shelterType = shelterType;
+        this.address = address;
+        this.timeWork = timeWork;
+        this.phoneShelter = phoneShelter;
+        this.phoneSecurity = phoneSecurity;
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.dev_pro.impl;
 
-
-import com.example.dev_pro.cache.ReportDataCache;
 import com.example.dev_pro.exception.EntityNotFoundException;
-import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.repository.ReportRepository;
 import com.example.dev_pro.service.ReportService;
@@ -17,14 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
-
 
 /**
  * Класс, создающий логику по работе с отчетами в базе данных

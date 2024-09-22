@@ -1,6 +1,5 @@
 package com.example.dev_pro.controller;
 
-
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.TelegramUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

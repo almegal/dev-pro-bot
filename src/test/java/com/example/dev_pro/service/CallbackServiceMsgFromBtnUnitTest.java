@@ -1,8 +1,7 @@
 package com.example.dev_pro.service;
 
-import com.example.dev_pro.component.impl.ShelterKeyBoardsButtons;
+import com.example.dev_pro.component.Buttons;
 import com.example.dev_pro.impl.CallbackServiceMsgFromBtn;
-import com.example.dev_pro.impl.TelegramUserServiceImpl;
 import com.example.dev_pro.impl.shelterImpl.CatShelterServiceImpl;
 import com.example.dev_pro.impl.shelterImpl.DogShelterServiceImpl;
 import com.pengrad.telegrambot.TelegramBot;
@@ -19,9 +18,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.example.dev_pro.service.DefaultProps.MOCK_USER;
@@ -38,7 +37,7 @@ public class CallbackServiceMsgFromBtnUnitTest {
     @Mock
     private TelegramBot bot;
     @Mock
-    private TelegramUserServiceImpl service;
+    private TelegramUserService service;
     @Mock
     private Update update;
     @Mock
@@ -47,16 +46,14 @@ public class CallbackServiceMsgFromBtnUnitTest {
     private User user;
     @Mock
     private Chat chat;
-    @Spy
-    private ShelterKeyBoardsButtons boardsButtons;
 
     @InjectMocks
     private CallbackServiceMsgFromBtn callback;
 
     public static Stream<Arguments> argsProvider() {
         return Stream.of(
-                Arguments.of("Cat"),
-                Arguments.of("Dog")
+                Arguments.of("Cat", (Supplier<Buttons>) () -> (Buttons) catShelterService),
+                Arguments.of("Dog", (Supplier<Buttons>) () -> (Buttons) dogShelterService)
         );
     }
 
@@ -65,28 +62,25 @@ public class CallbackServiceMsgFromBtnUnitTest {
         when(update.message()).thenReturn(message);
         when(message.from()).thenReturn(user);
         when(message.chat()).thenReturn(chat);
-        when(chat.id()).thenReturn(0L);
         when(user.id()).thenReturn(MOCK_USER.getTelegramId());
     }
 
     @ParameterizedTest
     @DisplayName("Проверяет корректное извлечения методов")
     @MethodSource("argsProvider")
-    public void ShouldInvokeCorrectServiceImplementation(String shelter) {
+    public void ShouldInvokeCorrectServiceImplementation(String shelter, Supplier<Buttons> shelterGetter) {
         // Устанавливаем значение
         MOCK_USER.setShelter(shelter);
         // Настройка поведения
-//        when(boardsButtons.getKeyboardButtons()).thenReturn(any());
         when(message.text()).thenReturn(shelter);
-//        when(bot.execute(any(SendMessage.class))).thenReturn(any(SendResponse.class));
         doNothing().when(service).save(MOCK_USER);
-
         // Вызов тестируемого метода
         callback.handleCallback(update);
-
+        // Получаем объект из метода
+        Buttons shelterService = shelterGetter.get();
         // Проверка
         verify(bot, times(1)).execute(any(SendMessage.class));
-        verify(boardsButtons, times(1)).getKeyboardButtons();
+        verify(shelterService, times(1)).getKeyboardButtons();
         verify(service, times(1)).save(MOCK_USER);
     }
 

@@ -1,6 +1,7 @@
 package com.example.dev_pro.controller;
 
 
+import com.example.dev_pro.model.Adopter;
 import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.service.VolunteerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -145,6 +146,5 @@ public class VolunteerController {
         List<String> nickNames = volunteerService.getListNickNamesOfVolunteers();
         return ResponseEntity.ok(nickNames);
     }
-
 
 }

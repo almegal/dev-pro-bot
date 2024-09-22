@@ -1,8 +1,6 @@
 package com.example.dev_pro.controller;
 
-
 import com.example.dev_pro.model.Adopter;
-import com.example.dev_pro.model.AvatarPet;
 import com.example.dev_pro.model.Report;
 import com.example.dev_pro.model.TelegramUser;
 import com.example.dev_pro.service.AdopterService;
@@ -22,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,7 +40,6 @@ public class ReportController {
     private final AdopterService adopterService;
     private final TelegramUserService telegramUserService;
     private final TelegramBot telegramBot;
-
 
 
     @PostMapping
@@ -273,6 +269,7 @@ public class ReportController {
         }
         return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("/get-photo-from-file-by-reportId/{id}")
     @Operation(

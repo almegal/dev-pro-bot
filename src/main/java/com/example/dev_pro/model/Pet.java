@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "pets")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"reports"})
 public class Pet {
@@ -61,4 +59,12 @@ public class Pet {
     private List<Report> reports;
 
 
+    public Pet(Long id, PetType petType, String name, Sex sex, Integer age, Boolean isFreeStatus) {
+        this.id = id;
+        this.petType = petType;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.isFreeStatus = isFreeStatus;
+    }
 }

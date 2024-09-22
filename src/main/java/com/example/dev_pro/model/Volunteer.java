@@ -1,14 +1,12 @@
 package com.example.dev_pro.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "volunteers")
 public class Volunteer {
@@ -32,4 +30,12 @@ public class Volunteer {
     @Column(name = "middle_name")
     private String middleName;
 
+    public Volunteer(Long id, Long chatId, String nickName, String lastName, String firstName, String middleName) {
+        this.id = id;
+        this.chatId = chatId;
+        this.nickName = nickName;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+    }
 }

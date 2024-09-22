@@ -1,9 +1,7 @@
 package com.example.dev_pro.controller;
 
-
 import com.example.dev_pro.model.Pet;
 import com.example.dev_pro.model.Shelter;
-import com.example.dev_pro.model.Volunteer;
 import com.example.dev_pro.service.ShelterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -15,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 
 @RestController

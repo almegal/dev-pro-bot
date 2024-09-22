@@ -1,8 +1,6 @@
 package com.example.dev_pro.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +9,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "reports")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Report {
 
@@ -40,13 +37,23 @@ public class Report {
 
     @ManyToOne
     @JoinColumn(name = "adopter_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Adopter adopter;
 
     @ManyToOne
     @JoinColumn(name = "pet_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Pet pet;
 
 
+    public Report(Integer id, LocalDate dateReport, String textReport, String filePath, long fileSize, String mediaType,
+                  Boolean isViewed) {
+        this.id = id;
+        this.dateReport = dateReport;
+        this.textReport = textReport;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+        this.mediaType = mediaType;
+        this.isViewed = isViewed;
+    }
 }

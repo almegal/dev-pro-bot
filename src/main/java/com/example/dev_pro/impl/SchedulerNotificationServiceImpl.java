@@ -100,7 +100,7 @@ public class SchedulerNotificationServiceImpl implements SchedulerNotificationSe
         );
     }
 
-    // Использовать этот метод для оповещение после того как волонтер установить дополнительное время
+    // Использовать этот метод для оповещения после того, как волонтер установит дополнительное время
     @Override
     public void notifyAboutAdditionalProbationTime(Long chatId, int days) {
         //
