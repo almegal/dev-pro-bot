@@ -1,10 +1,10 @@
 package com.example.dev_pro.impl.shelterImpl;
 
-import com.example.dev_pro.botapi.BotStateCatShelter;
 import com.example.dev_pro.botapi.BotStateContextDogShelter;
 import com.example.dev_pro.botapi.BotStateDogShelter;
 import com.example.dev_pro.cache.impl.UserDataCacheDogShelter;
 import com.example.dev_pro.config.TelegramBotConfiguration;
+import com.example.dev_pro.impl.handlersDogShelterImpl.HandlerSendReportDogShelter;
 import com.example.dev_pro.listener.TelegramBotListener;
 import com.example.dev_pro.service.shelter.ShelterService;
 import com.pengrad.telegrambot.model.Message;
@@ -22,24 +22,35 @@ public class DogShelterServiceImpl implements ShelterService {
     private final TelegramBotListener listener;
     private final UserDataCacheDogShelter userDataCache;
     private final BotStateContextDogShelter botStateContext;
+    private final HandlerSendReportDogShelter handlerSendReport;
 
     public DogShelterServiceImpl(TelegramBotConfiguration tBotConfig, @Lazy TelegramBotListener listener,
-                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext
-                                 ) {
+                                 UserDataCacheDogShelter userDataCache, BotStateContextDogShelter botStateContext,
+                                 HandlerSendReportDogShelter handlerSendReport) {
         this.tBotConfig = tBotConfig;
         this.listener = listener;
         this.userDataCache = userDataCache;
         this.botStateContext = botStateContext;
+        this.handlerSendReport = handlerSendReport;
     }
     
     @Override
     public void handleUpdate(Update update) {
         Message message = update.message();
+
+        if (message.photo() != null) {
+            handlerSendReport.processUsersInput(message);
+        }
+
+        if (update.message().text() == null) {
+            return;
+        }
+
+        String text = update.message().text();
         Long chatId = update.message().chat().id();
         Long userId = message.from().id();
-        String text = update.message().text();
 
-        BotStateDogShelter botState = null;
+        BotStateDogShelter botState;
         SendMessage replyMessage;
 
         switch (text) {
@@ -124,6 +135,21 @@ public class DogShelterServiceImpl implements ShelterService {
             case REPORT_COM:
                 botState = BotStateDogShelter.REPORT_COM;
                 break;
+            case REPORT_FORMAT:
+                botState = BotStateDogShelter.REPORT_FORMAT;
+                break;
+            case SEND_PHOTO_REPORT:
+                botState = BotStateDogShelter.SEND_PHOTO_REPORT;
+                break;
+            case LIST_DOCUMENTS_COM:
+                botState = BotStateDogShelter.DOCUMENT_FOR_TAKE_ANIMAL_COM;
+                break;
+            case MEETING_ANIMALS_COM:
+                botState = BotStateDogShelter.RULES_FOR_ANIMAL;
+                break;
+            case REASONS_REFUSAL_COM:
+                botState = BotStateDogShelter.REASON_REFUSAL_COM;
+                break;
             case REPORT_COME_BACK_COM:
                 botState = BotStateDogShelter.REPORT_COME_BACK_COM;
                 break;
@@ -134,8 +160,10 @@ public class DogShelterServiceImpl implements ShelterService {
 
         userDataCache.setUsersCurrentBotState(userId, botState);
         // Устанавливаем для пользователя по его id, извлеченного из update, соответствующее состояние бота
+
         replyMessage = botStateContext.processInputMessage(botState, message);
         // Создаем ответное сообщение бота, исходя из состояния бота
     }
+
 
 }

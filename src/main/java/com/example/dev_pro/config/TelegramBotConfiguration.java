@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TelegramBotConfiguration {
 
+    @Value("${telegram.bot.ReportInstructionsMsg}")
+    private String reportInstructionsMsg;
+
     @Value("${telegram.bot.reportSelectMsg}")
     private String reportSelectMsg;
 
@@ -25,7 +28,7 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.startMsg}")
     private String startMsg;
-    
+
     @Value("${telegram.bot.infoMsgAboutCatShelter}")
     private String infoMsgCatShelter;
 
@@ -100,6 +103,24 @@ public class TelegramBotConfiguration {
 
     @Value("${telegram.bot.messageToVolunteerMsg2}")
     private String messageToVolunteerMsg2;
+
+    @Value("${telegram.bot.meetingAnimalsRulesCat}")
+    private String meetingRulesForCat;
+
+    @Value("${telegram.bot.meetingAnimalsRulesDog}")
+    private String MeetingRulesForDog;
+
+    @Value("${telegram.bot.documentForTakeAnimals}")
+    private String documentForTakeAnimals;
+
+    @Value("${telegram.bot.reasonRefusal}")
+    private String reasonRefusal;
+
+    @Value("${telegram.bot.oneDayReportMissing}")
+    private String oneDayReportMissing;
+
+    @Value("${telegram.bot.notificationAboutAdditionalProbationTime}")
+    private String notificationAboutAdditionalProbationTime;
 
     /**
      * Создание и настройка Telegram-бота.

@@ -18,9 +18,11 @@ public enum BotStateCatShelter {
     // Когда пользователем введены данные, бота можно переключить в состояние PROFILE_FILLED
     COME_BACK_COM,
     TAKE_COM,
-    LIST_ANIMALS_COM,
-    REPORT_COM;
     REPORT_COM,
+    RULES_FOR_ANIMAL,
+    DOCUMENT_FOR_TAKE_ANIMAL_COM,
+    REASON_REFUSAL_COM,
+    LIST_ANIMALS_COM,
     RECOMMENDATIONS_COM,
     RECOMM_FOR_TRANSPORTING_THE_ANIMAL,
     TO_SET_UP_HOME_FOR_PUPPY,
@@ -30,11 +32,17 @@ public enum BotStateCatShelter {
     CONTACT_DETAILS_HANDLER,
     RECOMM_COME_BACK_COM,
     MAIN_COME_BACK_COM,
-    HOW_TO_REPORT,
-    OFFSET_FORMAT,
-    FILE_A_REPORT,
+    REPORT_FORMAT,
+    SEND_PHOTO_REPORT,
+    ASK_PET_ID_REPORT,
+    // Запрос от бота о загрузке идентификатора питомца
+    ASK_TEXT_REPORT,
+    // Запрос от бота о загрузке текста
+    ASK_PHOTO_REPORT,
+    // Запрос от бота о загрузке файла с фотографией
+    PHOTO_UPLOADED,
+    // Когда усыновителем фото отправлено, бота можно переключить в состояние PHOTO_UPLOADED
     REPORT_COME_BACK_COM;
-
 
 }
 

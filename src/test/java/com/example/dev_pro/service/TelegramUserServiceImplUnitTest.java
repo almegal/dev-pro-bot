@@ -29,19 +29,19 @@ public class TelegramUserServiceImplUnitTest {
     public void shouldReturnUserWhenGetById() {
         Long id = 12345L;
         // настройка поведения
-        when(repository.findByTelegramId(id)).thenReturn(Optional.of(MOCK_USER));
+        when(repository.findById(id)).thenReturn(Optional.of(MOCK_USER));
         // подготовка актуального результата
         TelegramUser actual = service.getById(id);
         // выполнение теста
         assertEquals(MOCK_USER, actual);
-        verify(repository, times(1)).findByTelegramId(id);
+        verify(repository, times(1)).findById(id);
     }
 
     @Test
     @DisplayName("Возращает нового пользователя если по id пользователь не найден")
     public void shouldReturnEmptyUserObjectIfUserNotFound() {
         // настройка поведения
-        when(repository.findByTelegramId(1L)).thenReturn(Optional.empty());
+        when(repository.findById(1L)).thenReturn(Optional.empty());
         // подготовка актуального значения
         TelegramUser actual = service.getById(1L);
         // подготовка ожидаемого результата

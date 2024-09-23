@@ -1,0 +1,27 @@
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: newdatabase
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    environment:
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      BOT_TOKEN: "7266191092:AAF-3moczE-K1A9QR15MQoynAb11u42gx0I"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

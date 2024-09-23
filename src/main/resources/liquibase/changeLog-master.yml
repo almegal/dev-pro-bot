@@ -1,0 +1,271 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: adopter
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: telegram_user_id
+                  type: BIGINT
+              - column:
+                  name: report_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 2
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: telegram_user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: telegram_id
+                  type: BIGINT
+              - column:
+                  name: chat_id
+                  type: BIGINT
+              - column:
+                  name: nick_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: middle_name
+                  type: VARCHAR(255)
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+              - column:
+                  name: car_number
+                  type: VARCHAR(255)
+              - column:
+                  name: shelter
+                  type: VARCHAR(255)
+              - column:
+                  name: photo_file_path
+                  type: VARCHAR(255)
+              - column:
+                  name: bot_state_cat_shelter
+                  type: VARCHAR(255)
+              - column:
+                  name: bot_state_dog_shelter
+                  type: VARCHAR(255)
+              - column:
+                  name: adopter_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 3
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: pet
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: pet_type
+                  type: VARCHAR(255)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: sex
+                  type: VARCHAR(255)
+              - column:
+                  name: age
+                  type: INT
+              - column:
+                  name: free_status
+                  type: BOOLEAN
+              - column:
+                  name: adopter_id
+                  type: BIGINT
+              - column:
+                  name: shelter_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 4
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: report
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: date_report
+                  type: DATE
+              - column:
+                  name: text_report
+                  type: TEXT
+              - column:
+                  name: file_path
+                  type: VARCHAR(255)
+              - column:
+                  name: file_size
+                  type: BIGINT
+              - column:
+                  name: media_type
+                  type: VARCHAR(255)
+              - column:
+                  name: is_viewed
+                  type: BOOLEAN
+              - column:
+                  name: adopter_id
+                  type: BIGINT
+              - column:
+                  name: pet_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 5
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: shelter
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: shelter_type
+                  type: VARCHAR(255)
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  name: time_work
+                  type: VARCHAR(255)
+              - column:
+                  name: phone_shelter
+                  type: VARCHAR(255)
+              - column:
+                  name: phone_security
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 6
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: pet_avatar
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: file_path
+                  type: VARCHAR(255)
+              - column:
+                  name: file_size
+                  type: BIGINT
+              - column:
+                  name: media_type
+                  type: VARCHAR(255)
+              - column:
+                  name: data
+                  type: BYTEA
+              - column:
+                  name: pet_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 7
+      author: koshbakov
+      changes:
+        - createTable:
+            tableName: volunteer
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: nick_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: middle_name
+                  type: VARCHAR(255)
+              - column:
+                  name: chat_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 8
+      author: koshbakov
+      changes:
+        - addColumn:
+            tableName: pet_avatar
+            columns:
+              - column:
+                  name: data_temp
+                  type: oid
+
+  - changeSet:
+      id: 9
+      author: koshbakov
+      changes:
+        - sql:
+            sql: "UPDATE pet_avatar SET data_temp = lo_from_bytea(0, data)"
+
+  - changeSet:
+      id: 10
+      author: koshbakov
+      changes:
+        - dropColumn:
+            columnName: data
+            tableName: pet_avatar
+
+  - changeSet:
+      id: 11
+      author: koshbakov
+      changes:
+        - renameColumn:
+            tableName: pet_avatar
+            oldColumnName: data_temp
+            newColumnName: data

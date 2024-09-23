@@ -60,7 +60,7 @@ public class HandlerFillingUserProfileDogShelter implements InputMessageHandlerD
 
         if (botState.equals(BotStateDogShelter.ASK_PERSONAL_DATA)) {
             // Если для пользователя текущее состояние бота равно ASK_PERSONAL_DATA
-            replyToUser = new SendMessage(chatId,tBotConfig.getUserContactMsgDogShelter());
+            replyToUser = new SendMessage(chatId, tBotConfig.getUserContactMsgDogShelter());
             // то создаем ответное сообщение от бота к пользователю о введении своих личных данных в определенном формате
             userDataCache.setUsersCurrentBotState(userId, BotStateDogShelter.PROFILE_FILLED);
             // устанавливаем для пользователя состояние бота "Данные введены"
@@ -70,7 +70,7 @@ public class HandlerFillingUserProfileDogShelter implements InputMessageHandlerD
 
             try {
                 // Распарсиваем строку - ответ пользователя о своих данных
-                telegramUser = MessageUtil.parseCreateCommand(chatId, userName, usersAnswer);
+                MessageUtil.parseCreateCommand(telegramUser, usersAnswer);
                 // Сохраняем новые данные пользователя в базу данных
                 telegramUserService.update(telegramUser);
 
@@ -100,6 +100,7 @@ public class HandlerFillingUserProfileDogShelter implements InputMessageHandlerD
      * Метод по отправлению всем волонтерам сообщений о том, что пользователь оставил свои данные и ожидает обратной
      * связи от волонтеров. В сообщениях также содержится идентификатор пользователя, по которому волонтер может
      * отыскать этого пользователя в базе данных
+     *
      * @param telegramUser пользователь телеграм, оставивший свои данные для связи и внесенный в базу данных
      */
     private void messageToVolunteers(TelegramUser telegramUser) {

@@ -1,9 +1,7 @@
 package com.example.dev_pro.listener;
 
-import com.example.dev_pro.service.AvatarPetService;
 import com.example.dev_pro.service.CallbackService;
 import com.example.dev_pro.service.CommandHandlerService;
-import com.example.dev_pro.service.PetService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
@@ -29,7 +27,6 @@ public class TelegramBotListener implements UpdatesListener {
     private final CallbackService callbackService;
 
 
-
     @PostConstruct
     public void init() {
         telegramBot.setUpdatesListener(this);
@@ -49,30 +46,34 @@ public class TelegramBotListener implements UpdatesListener {
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
-    //обрабатываем в зависимости от того какой update пришел
+    // обрабатываем в зависимости от того, какой update пришел
     private void handleUpdate(Update update) {
-        // если  сообщение содержит одно из значений
-        if (update.message().text() == null) {
-            return;
+
+        // если сообщение содержит одно из значений
+        if (update.message().photo() != null) {
+            commandHandlerService.commandProcessing(update);
         }
-        String text = update.message().text();
-        switch (text) {
-            case "Cat":
-            case "Dog":
-                callbackService.handleCallback(update);
-                break;
-            default:
-                commandHandlerService.commandProcessing(update);
-                break;
+
+        if (update.message().text() != null) {
+            String text = update.message().text();
+            switch (text) {
+                case "Cat":
+                case "Dog":
+                    callbackService.handleCallback(update);
+                    break;
+                default:
+                    commandHandlerService.commandProcessing(update);
+                    break;
+            }
         }
     }
 
     /**
      * Метод по отправке файлов с изображениями из папки resources
      *
-     * @param chatId идентификатор пользователя
+     * @param chatId       идентификатор пользователя
      * @param imageCaption надпись на изображении
-     * @param imagePath путь к файлу
+     * @param imagePath    путь к файлу
      */
     public void sendPhoto(Long chatId, String imageCaption, String imagePath) {
         // caption - надпись над изображением
@@ -88,5 +89,6 @@ public class TelegramBotListener implements UpdatesListener {
         // по цепочке добавляем надпись над изображением
         telegramBot.execute(sendPhoto);
     }
+
 
 }
